@@ -1,0 +1,27 @@
+{
+  "dashboard": "Dashboard",
+  "manage": {
+    "title": "Manage",
+    "orders": "Orders",
+    "products": "Products",
+    "products_list": "Products list",
+    "refused_products": "Refused products",
+    "archived_products": "Archived products",
+    "new_orders": "New orders",
+    "orders_transfered": "Transfered orders",
+    "orders_in_shipping": "Orders in shipping",
+    "delivered_orders": "Delivered orders",
+    "cancelled_orders": "Cancelled orders"
+  },
+  "accounting": {
+    "title": "Accounting",
+    "sellers_accounting": "My accounting"
+  },
+  "authentication": {
+    "loginFailed": "Email address or password incorrect"
+  },
+  "data": {
+    "title": "Data",
+    "statistics": "Statistics"
+  }
+}

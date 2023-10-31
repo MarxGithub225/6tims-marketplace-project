@@ -1,0 +1,27 @@
+{
+    "dashboard": "Dashboard",
+    "manage": {
+        "title": "Gestion",
+        "orders": "Commandes",
+        "products": "Produits",
+        "products_list": "Liste de produits",
+        "refused_products": "Produits réfusés",
+        "archived_products": "Produits archivés",
+        "new_orders": "Nouvelles commandes",
+        "orders_transfered": "Commandes tranférées",
+        "orders_in_shipping": "Commandes en livraison",
+        "delivered_orders": "Commandes livrées",
+        "cancelled_orders": "Commandes annulées"
+    },
+    "accounting": {
+        "title": "Comptabilité",
+        "sellers_accounting": "Ma comptabilité"
+    },
+    "authentication": {
+        "login-failed": "Adresse E-mail ou mot de passe incorrect"
+    },
+    "data": {
+      "title": "Data",
+      "statistics": "Statistics"
+    }
+}

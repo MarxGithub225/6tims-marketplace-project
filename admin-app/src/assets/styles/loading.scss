@@ -1,0 +1,47 @@
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+  
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spinner {
+    0% {
+      transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
+    100% {
+      transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
+  }
+  
+  .loading-section {
+    display: flex;
+    /*width: 50px;*/
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loading-icon::before {
+    animation: 1.5s linear infinite spinner;
+    animation-play-state: inherit;
+    border: solid 3px #cfd0d1;
+    border-bottom-color: var(--primary);
+    border-radius: 50%;
+    content: "";
+    margin-left: 15px;
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform;
+  }
+  
+  .loading-logo {
+    height: 2.2rem;
+    /*width: 2rem;*/
+    margin-right: 0.5rem;
+  }

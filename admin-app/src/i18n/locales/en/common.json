@@ -1,0 +1,35 @@
+{
+  "dashboard": "Dashboard",
+  "general": {
+    "title": "General",
+    "users": "Users",
+    "partners": "Partners",
+    "sellers": "Sellers"
+  },
+  "manage": {
+    "title": "Manage",
+    "settings": "Configurations",
+    "icons": "Icons",
+    "blogs": "Blogs",
+    "brands": "Brands",
+    "banners": "Banners",
+    "cartegories": "Categories",
+    "colors": "Colors",
+    "orders": "Orders",
+    "products": "Products",
+    "product_cancelling": "Products cancelling",
+    "returns": "Products Returns"
+  },
+  "accounting": {
+    "title": "Accounting",
+    "clients_refunds": "Clients refunds",
+    "sellers_accounting": "Clients Accounting"
+  },
+  "authentication": {
+    "loginFailed": "Email address or password incorrect"
+  },
+  "data": {
+    "title": "Data",
+    "statistics": "Statistics"
+  }
+}

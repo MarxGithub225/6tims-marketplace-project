@@ -1,0 +1,35 @@
+{
+    "dashboard": "Dashboard",
+    "general": {
+        "title": "Génerale",
+        "users": "Utilisateurs",
+        "partners": "Partenaires",
+        "sellers": "Vendeurs"
+    },
+    "manage": {
+        "title": "Gestion",
+        "settings": "Configurations",
+        "icons": "Icones",
+        "blogs": "Blogs",
+        "brands": "Marques",
+        "banners": "Bannières",
+        "cartegories": "Categories",
+        "colors": "Couleurs",
+        "orders": "Commandes",
+        "products": "Produits",
+        "product_cancelling": "Refus de produits",
+        "returns": "Retours de produits"
+    },
+    "accounting": {
+        "title": "Comptabilité",
+        "clients_refunds": "Remboursements clients",
+        "sellers_accounting": "Comptabilité vendeurs"
+    },
+    "authentication": {
+        "login-failed": "Adresse E-mail ou mot de passe incorrect"
+    },
+    "data": {
+      "title": "Data",
+      "statistics": "Statistics"
+    }
+}

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const loadModels = require('../app/models')
 
-// const {DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME} = process.env
-// const DB_URL = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin`
-const DB_URL = process.env.MONGO_URI
+const {DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME} = process.env
+const DB_URL = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin`
+// const DB_URL = process.env.MONGO_URI
 module.exports = () => {
   const connect = () => {
     mongoose.Promise = global.Promise

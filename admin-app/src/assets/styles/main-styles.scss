@@ -6826,11 +6826,6 @@ input:focus {
   margin-bottom: 70px;
 }
 
-.side-bar-collapsed .menu-items .menu .m-title {
-  display: none;
-
-}
-
 .page-center {
   width: 1115px;
 }
@@ -6972,8 +6967,32 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   padding: 17px 0px;
   cursor: pointer;
+}
+
+.side-bar-collapsed .menu-items .menu-compose {
+  flex-direction: row;
+}
+
+.side-bar-collapsed .menu-items .menu .m-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 21px;
+  /* identical to box height, or 150% */
+
+  letter-spacing: -0.1px;
+
+  color: var(--gray);
+  margin-bottom: 10px;
+  text-align: center;
+
+}
+
+[data-theme='dark'] .side-bar-collapsed .menu-items .menu .m-title {
+  color: var(--white);
 }
 
 .user-cars .search-car-item {

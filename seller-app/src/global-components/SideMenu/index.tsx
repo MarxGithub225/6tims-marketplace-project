@@ -191,7 +191,7 @@ function Sidebar() {
                                             <div className="m-icon flex items-center"> {m.icon} </div>
                                             <div className="m-title"> {m.title} </div>
                                         </Link> : <div ref={menuRef} className="w-full">
-                                            <div className={`menu gap-x-3 justify-between ${menuSelected?.title === m.title ? 'active-menu' : ''}`} key={index}
+                                            <div className={`menu menu-compose gap-x-3 justify-between ${menuSelected?.title === m.title ? 'active-menu' : ''}`} key={index}
                                                 onClick={() => {
                                                     if (menuSelected) {
                                                         setMenuSelected(undefined)
@@ -200,11 +200,11 @@ function Sidebar() {
                                                     }
                                                 }}
                                             >
-                                                <div className="flex items-center">
+                                                <div className="flex flex-col size1400:flex-row items-center">
                                                     <div className="m-icon flex items-center"> {m.icon} </div>
                                                     <div className="m-title"> {m.title} </div>
                                                 </div>
-                                                <Arrow  className={`menu-arrow-multiple w-2 h-auto transform ${menuSelected?.title === m.title ? 'rotate-90': 'rotate-0'}`} />
+                                                <Arrow  className={`hidden size1400:block menu-arrow-multiple w-2 h-auto transform ${menuSelected?.title === m.title ? 'rotate-90': 'rotate-0'}`} />
                                             </div>
                                             {menuSelected?.title === m.title && <div className="mt-3 sub-menu-items">
                                                 {

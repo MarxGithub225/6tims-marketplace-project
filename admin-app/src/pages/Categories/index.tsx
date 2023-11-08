@@ -55,9 +55,9 @@ const defaultSetting3: any = {
     category2Id: ""
 }
 const settingOptions: Array<OptionInterface> = [
-    { label: "catégorie", value: "1" },
-    { label: "sous catégorie 1", value: "2" },
-    { label: "sous catégorie 2", value: "3" }
+    { label: "catégories", value: "1" },
+    { label: "sous catégories", value: "2" },
+    { label: "Types de catégories", value: "3" }
 ]
 
 const settingOptionsStatus: Array<OptionInterface> = [
@@ -254,8 +254,8 @@ export default function CategoryPage() {
                                 <div className="flex flex-col justify-between pb-10 table-border">
 
                                     <div className="w-full">
-                                        <div className="flex flex-col bigTablet:flex-row bigTablet:justify-between bigTablet:items-center mt-8 otherWidth:mt-10 mb-14 otherWidth:mx-6 gap-y-3 bigTablet:gap-y-0">
-                                        <SearchInput width={400} handleChange={handleChange} />
+                                        <div className="flex flex-col bigTablet:flex-row bigTablet:justify-between bigTablet:items-center mt-8 otherWidth:mt-10 mb-14 otherWidth:mx-6 gap-y-3 bigTablet:gap-y-0 gap-x-3">
+                                        <SearchInput width={380} handleChange={handleChange} />
 
                                         <FilterSelect
                                                 classname='status-filter-2'
@@ -279,7 +279,7 @@ export default function CategoryPage() {
                                             <div className="hidden bigTablet:inline-flex">
                                                 <CustomButton
                                                     classname='custom-button-40-font-16-600 font-poppins font-16-60'
-                                                    label={`Add ${selectedOption?.label}`}
+                                                    label={`+ ${selectedOption?.label}`}
                                                     background={'#E73A5D'}
                                                     color={'#FFFFFF'}
                                                     onClick={() => {
@@ -290,7 +290,7 @@ export default function CategoryPage() {
 
                                             <CustomButton
                                                 classname='bigTablet:hidden custom-button-40-font-16-600 font-poppins font-16-60'
-                                                label={`Add ${selectedOption?.label}`}
+                                                label={`+ ${selectedOption?.label}`}
                                                 background={'#E73A5D'}
                                                 color={'#FFFFFF'}
                                                 onClick={() => {

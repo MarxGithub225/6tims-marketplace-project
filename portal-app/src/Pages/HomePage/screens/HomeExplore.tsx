@@ -1,12 +1,36 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import { useState } from "react";
+import { useQuery } from '@tanstack/react-query'
+import { PaginationOptionProduct } from "../../../sdks/product-v1/utils/DataSchemas";
+import { Pagination } from "../../../sdks/GlobalDataSchemas";
+import { API_FILE_URL, calculatePrice } from "../../../utilities/constants";
+import HotProductCarousel from "../../../Components/HotProductCarousel/HotProductCarousel";
+import useProduct from "../../../hooks/useProduct";
+import { Product } from "../../../sdks/product-v1/utils/DataSchemas";
+import { File } from "../../../sdks/image-v1/utils/DataSchemas";
+import Countdown from 'react-countdown';
 import Filter from "../../../GlobalScreens/Filter";
 
 function HomeExplore() {
+  const [allCount, setCount] = useState<number>(0)
+  const [page, setPage] = useState<number>(1)
+  const [limit, setLimit] = useState<number>(8)
+  const { client } = useProduct()
+
+  const { data, isLoading, isFetching, isError }: any =
+    useQuery({
+        queryKey: ['allBestProductsData', page, limit],
+        queryFn: async () => {
+            let filter: PaginationOptionProduct = {page, limit, published_only: 'true', approved: 'true', new: 'false', cancelled: 'false', archived: 'false', sort: 'viewsCount', order: -1}
+            let result: Pagination<any> = await client.getPublishedProducts(filter)
+            setCount(result.totalDocs)
+            return result?.docs
+        }
+    })
   return <section className="tf-section live-auctions style3 home5 mobie-pb-70 bg-style3">
   <div className="themesflat-container">
-    <div className="row">
+  {(data && data?.length) ?  <div className="row">
       <div className="col-md-12">
         <div className="heading-live-auctions mg-bt-24">
           <h2 className="tf-title">
@@ -16,500 +40,42 @@ function HomeExplore() {
       <div className="col-md-12">
         <Filter/>
       </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
+      {data.map((product: Product, key: number) => {
+                return <div key={key} className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
         <div className="sc-card-product">
           <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item-3.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
+            <a href="item-details.html"><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></a>
+            {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
           </div>
           <div className="card-title">
-            <h5 className="style2"><a href="item-details.html">"The RenaiXance Rising the sun  "</a></h5>
-            <div className="tags">bsc</div>
+            <h5 className="style2 line-clamp-1 w-fit"><a href="item-details.html">{product.title}</a></h5>
+            {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
           </div>
           <div className="meta-info">
             <div className="author">
               <div className="avatar">
-                <img src="assets/images/avatar/avt-1.jpg" alt="Image" />
+              <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${product.slug}`} />
               </div>
               <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">SalvadorDali</a> </h6>
+                <span>Vendeur</span>
+                <h6> <a href="author02.html">{product.seller.companyInfo.companyName}</a> </h6>
               </div>
             </div>
             <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
+              {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
+              <h5> {calculatePrice(product).price} DH</h5>
             </div>
           </div>
           <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
+            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Panier</span></a>
+            <a href="activity1.html" className="view-history reload">Voir historique</a>
           </div>
         </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item-4.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-            <div className="coming-soon">coming soon</div>
-          </div>
-          <div className="card-title">
-            <h5 className="style2"><a href="item-details.html">"Space babe - Night 2/25”</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-2.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">SalvadorDali</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item-2.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5><a href="item-details.html">"CyberPrimal 042 LAN”</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-4.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">SalvadorDali</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item-7.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5><a href="item-details.html">"Crypto Egg Stamp #5”</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-3.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">SalvadorDali</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item8.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5 className="style2"><a href="item-details.html">"Travel Monkey Club #45”</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-12.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">Ralph Garraway</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item-9.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5><a href="item-details.html">"Sir. Lion Swag #371"</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-1.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">Mason Woodward</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/image-box-6.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5 className="style2"><a href="item-details.html">"Cyber Doberman #766"</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-4.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">Freddie Carpenter</a></h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/image-box-11.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5 className="style2"><a href="item-details.html">"Living Vase 01 by Lanz...</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-3.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">Tyler Covington</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item-3.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5 className="style2"><a href="item-details.html">"The RenaiXance Rising the sun  "</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-1.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">SalvadorDali</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item-4.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-            <div className="coming-soon">coming soon</div>
-          </div>
-          <div className="card-title">
-            <h5 className="style2"><a href="item-details.html">"Space babe - Night 2/25”</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-2.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">SalvadorDali</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item-2.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5><a href="item-details.html">"CyberPrimal 042 LAN”</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-4.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">SalvadorDali</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item-7.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5><a href="item-details.html">"Crypto Egg Stamp #5”</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-3.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">SalvadorDali</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item8.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5 className="style2"><a href="item-details.html">"Travel Monkey Club #45”</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-12.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">Ralph Garraway</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/card-item-9.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5><a href="item-details.html">"Sir. Lion Swag #371"</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-1.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">Mason Woodward</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/image-box-6.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5 className="style2"><a href="item-details.html">"Cyber Doberman #766"</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-4.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">Freddie Carpenter</a></h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <a href="item-details.html"><img src="assets/images/box-item/image-box-11.jpg" alt="Image" /></a>
-            <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-          </div>
-          <div className="card-title">
-            <h5 className="style2"><a href="item-details.html">"Living Vase 01 by Lanz...</a></h5>
-            <div className="tags">bsc</div>
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-                <img src="assets/images/avatar/avt-3.jpg" alt="Image" />
-              </div>
-              <div className="info">
-                <span>Owned By</span>
-                <h6> <a href="author02.html">Tyler Covington</a> </h6>
-              </div>
-            </div>
-            <div className="price">
-              <span>Current Bid</span>
-              <h5> 4.89 ETH</h5>
-            </div>
-          </div>
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
-            <a href="activity1.html" className="view-history reload">View History</a>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-12 wrap-inner load-more text-center">
+      </div>})}
+      {allCount > 8 && <div className="col-md-12 wrap-inner load-more text-center">
         <a href="#" id="loadmore" className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
-      </div>
-    </div>
+      </div>}
+    </div>: <></>}
   </div>
 </section>;
 }

@@ -39,6 +39,7 @@ export interface Blog {
   suspended: boolean
   createdBy: string
   updatedBy: string
+  createdAt: Date
   updatedUser: FullUserProfile
   createdUser: FullUserProfile
   image: File

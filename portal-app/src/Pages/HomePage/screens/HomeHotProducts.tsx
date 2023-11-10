@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import { useState } from "react";
 import { useQuery } from '@tanstack/react-query'
-import { PaginationOptionBanner } from "../../../sdks/banner-v1/utils/DataSchemas";
+import { PaginationOptionProduct } from "../../../sdks/product-v1/utils/DataSchemas";
 import { Pagination } from "../../../sdks/GlobalDataSchemas";
 import { API_FILE_URL, calculatePrice } from "../../../utilities/constants";
 import HotProductCarousel from "../../../Components/HotProductCarousel/HotProductCarousel";
@@ -11,6 +11,7 @@ import { Product } from "../../../sdks/product-v1/utils/DataSchemas";
 import { File } from "../../../sdks/image-v1/utils/DataSchemas";
 import Countdown from 'react-countdown';
 function HomeHotProducts () {
+  const [allCount, setCount] = useState<number>(0)
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(30)
   const { client } = useProduct()
@@ -19,8 +20,9 @@ function HomeHotProducts () {
     useQuery({
         queryKey: ['bestProductsData', page, limit],
         queryFn: async () => {
-            let filter: PaginationOptionBanner = {page, limit, published_only: 'true'}
+            let filter: PaginationOptionProduct = {page, limit, published_only: 'true'}
             let result: Pagination<any> = await client.getBestProducts(filter)
+            setCount(result.totalDocs)
             return result?.docs
         }
     })
@@ -31,7 +33,7 @@ function HomeHotProducts () {
           <div className="heading-live-auctions">
             <h2 className="tf-title pb-23">
               Les produits chauds du moment</h2>
-            <a href="/hot-exploration" className="exp style2">DECOUVRIR PUS</a>
+              {allCount > 5 && <a href="/hot-exploration" className="exp style2">DECOUVRIR PUS</a>}
           </div>
         </div>
         <div className="col-md-12">

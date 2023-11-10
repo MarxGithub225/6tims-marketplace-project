@@ -36,37 +36,37 @@
 }
 
 .category-carousel-content.show-9 > * {
-  flex: 1 0 calc(11.11% - 30px);
+  flex: 0 0 calc(11.11% - 30px);
   --gap: 15px !important;
   margin: var(--gap) 15px 0 var(--gap);
 }
 
 .category-carousel-content.show-7 > * {
-  flex: 1 0 calc(14.28% - 30px);
+  flex: 0 0 calc(14.28% - 30px);
   --gap: 15px !important;
   margin: var(--gap) 15px 0 var(--gap);
 }
 
 .category-carousel-content.show-5 > * {
-  flex: 1 0 calc(20% - 30px);
+  flex: 0 0 calc(20% - 30px);
   --gap: 15px !important;
   margin: var(--gap) 15px 0 var(--gap);
 }
 
 .category-carousel-content.show-4 > * {
-  flex: 1 0 calc(25% - 30px);
+  flex: 0 0 calc(25% - 30px);
   --gap: 15px !important;
   margin: var(--gap) 15px 0 var(--gap);
 }
 
 .category-carousel-content.show-3 > * {
-  flex: 1 0 calc(33.33% - 30px);
+  flex: 0 0 calc(33.33% - 30px);
   --gap: 15px !important;
   margin: var(--gap) 15px 0 var(--gap);
 }
 
 .category-carousel-content.show-2 > * {
-  flex: 1 0 calc(50% - 30px);
+  flex: 0 0 calc(50% - 30px);
   --gap: 15px !important;
   margin: var(--gap) 15px 0 var(--gap);
 }

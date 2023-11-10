@@ -3,7 +3,7 @@ export interface PaginationOption {
     limit?: number
     filter?: string
     fields?: string
-    order?: string
+    order?: number
     sort?: string
 }
 

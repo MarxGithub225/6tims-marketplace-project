@@ -1,9 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
-import CategoryCarousel from "../../Components/CategoryCarousel/CategoryCarousel";
+import { useState } from "react";
+import { useQuery } from '@tanstack/react-query'
+import { PaginationOptionPartner, Partner } from "../../sdks/partner-v1/utils/DataSchemas";
+import { Pagination } from "../../sdks/GlobalDataSchemas";
+import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
 import FeaturesCarousel from "../../Components/FeaturesCarousel/FeaturesCarousel";
+import usePartner from "../../hooks/usePartner";
 
 function Brands() {
+  const [page, setPage] = useState<number>(1)
+  const [limit, setLimit] = useState<number>(30)
+  const { client } = usePartner()
+
+  const { data, isLoading, isFetching, isError }: any =
+    useQuery({
+        queryKey: ['bestPartnersData', page, limit],
+        queryFn: async () => {
+            let filter: PaginationOptionPartner = {page, limit, published_only: 'true'}
+            let result: Pagination<any> = await client.getPublishedPartners(filter)
+            return result?.docs
+        }
+    })
   return <div className="tf-connect-wallet tf-section feature-style">
   <div className="themesflat-container">
     <div className="row">
@@ -15,110 +32,31 @@ function Brands() {
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.
         </h5>
       </div>
-      <div className="col-md-12">
+      {(data && data?.length) ?  <div className="col-md-12">
         <div className="sc-box-icon-inner style-2 hidden bigTablet:flex">
-          <div className="sc-box-icon">
+          {data.map((partner: Partner, key: number) => {
+            return <div key={key} className="sc-box-icon">
             <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-1.png" alt="Image" />
+            <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
-            <h4 className="heading"><a href="login.html">Meta Mask</a> </h4>
+            <h4 className="heading"><a href="login.html"> {partner.seller.companyInfo.companyName}</a></h4>
           </div>
-          <div className="sc-box-icon">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-6.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html"> Bitski</a></h4>
-          </div>
-          <div className="sc-box-icon">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/Vector.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Fortmatic</a> </h4>
-          </div>
-          <div className="sc-box-icon">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/WalletConnect.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Wallet Connect</a> </h4>
-          </div>
-          <div className="sc-box-icon">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-2.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Coinbase Wallet</a> </h4>
-          </div>
-          <div className="sc-box-icon">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-3.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Authereum</a> </h4>
-          </div>
-          <div className="sc-box-icon">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-4.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Kaikas</a> </h4>
-          </div>
-          <div className="sc-box-icon">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-5.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Torus</a> </h4>
-          </div>
+          })}
+          
         </div> 
         <div className="sc-box-icon-inner style-2 block bigTablet:hidden">
         <FeaturesCarousel>
-          <div className="sc-box-icon">
+        {data.map((partner: Partner, key: number) => {
+            return <div key={key} className="sc-box-icon">
             <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-1.png" alt="Image" />
+            <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
-            <h4 className="heading"><a href="login.html">Meta Mask</a> </h4>
+            <h4 className="heading"><a href="login.html"> {partner.seller.companyInfo.companyName}</a></h4>
           </div>
-          <div className="sc-box-icon">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-6.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html"> Bitski</a></h4>
-          </div>
-          <div className="sc-box-icon">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/Vector.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Fortmatic</a> </h4>
-          </div>
-          <div className="sc-box-icon">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/WalletConnect.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Wallet Connect</a> </h4>
-          </div>
-          <div className="sc-box-icon mgbt-0 mgbt-30">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-2.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Coinbase Wallet</a> </h4>
-          </div>
-          <div className="sc-box-icon mgbt-0 mgbt-30">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-3.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Authereum</a> </h4>
-          </div>
-          <div className="sc-box-icon mgbt-0">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-4.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Kaikas</a> </h4>
-          </div>
-          <div className="sc-box-icon">
-            <div className="img flex justify-center">
-              <img src="assets/images/icon/icon-5.png" alt="Image" />
-            </div>
-            <h4 className="heading"><a href="login.html">Torus</a> </h4>
-          </div>
+          })}
           </FeaturesCarousel>
         </div>  
-      </div>    
+      </div> : <></>}
     </div>              
   </div>
 </div>

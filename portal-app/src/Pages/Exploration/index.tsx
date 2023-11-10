@@ -17,7 +17,7 @@ function Exploration() {
           </div>
         </div>
         <div className="col-md-12">
-          <Filter/>
+          <Filter categories={[]} />
         </div>
         <div className="fl-item col-xl-3 col-lg-6 col-md-6 col-12">
           <div className="sc-card-product">

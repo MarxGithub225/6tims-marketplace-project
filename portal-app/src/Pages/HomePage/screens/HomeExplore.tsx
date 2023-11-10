@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { useQuery } from '@tanstack/react-query'
 import { PaginationOptionProduct } from "../../../sdks/product-v1/utils/DataSchemas";
+import { PaginationOptionCategory } from "../../../sdks/category-v1/utils/DataSchemas";
 import { Pagination } from "../../../sdks/GlobalDataSchemas";
 import { API_FILE_URL, calculatePrice } from "../../../utilities/constants";
-import HotProductCarousel from "../../../Components/HotProductCarousel/HotProductCarousel";
 import useProduct from "../../../hooks/useProduct";
 import { Product } from "../../../sdks/product-v1/utils/DataSchemas";
+import { Category1 } from "../../../sdks/category-v1/utils/DataSchemas";
 import { File } from "../../../sdks/image-v1/utils/DataSchemas";
-import Countdown from 'react-countdown';
 import Filter from "../../../GlobalScreens/Filter";
 
 function HomeExplore() {
@@ -28,6 +28,16 @@ function HomeExplore() {
             return result?.docs
         }
     })
+
+    const { data: categoryData, isLoading: categoryLoading, isFetching: categoryFetching, isError: categoryError }: any =
+    useQuery({
+        queryKey: ['allCategoryDataList', page, limit],
+        queryFn: async () => {
+            let filter: PaginationOptionCategory = {page, limit, published_only: 'true'}
+            let result: Pagination<any> = await client.getAllProductsGroupByCategories(filter)
+            return result?.docs
+        }
+    })
   return <section className="tf-section live-auctions style3 home5 mobie-pb-70 bg-style3">
   <div className="themesflat-container">
   {(data && data?.length) ?  <div className="row">
@@ -38,7 +48,9 @@ function HomeExplore() {
         </div>
       </div>
       <div className="col-md-12">
-        <Filter/>
+        <Filter 
+        categories = {categoryData ?? []}
+        />
       </div>
       {data.map((product: Product, key: number) => {
                 return <div key={key} className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">

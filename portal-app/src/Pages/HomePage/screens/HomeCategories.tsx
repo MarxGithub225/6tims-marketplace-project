@@ -55,8 +55,8 @@ function HomeCategories() {
             <div className="sc-author-box style-2">
               <div className="author-avatar">
                 {data?.icon?.length ?
-                <img src={`${API_FILE_URL}/categories/${data?.icon[0]?.path}`} alt='' className="avatar" />:
-                <img src="assets/images/avatar/avt-1.jpg" alt='' className="avatar" />
+                <img src={`${API_FILE_URL}/categories/${data?.icon[0]?.path}`} alt={`6tim - tims group | ${data?.category[0]?.label}`} className="avatar" />:
+                <img src="assets/images/avatar/avt-1.jpg" alt={`6tim - tims group | ${data?.category[0]?.label}`} className="avatar" />
                 }
               </div>
               <div className="author-infor">

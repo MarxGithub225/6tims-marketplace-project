@@ -56,6 +56,22 @@ const getItemsGroupByCategories = async (model = {}, query = {}) => {
             foreignField: '_id',
             as: 'category'
           }
+        },
+        {
+          $lookup: {
+            from: 'images',
+            localField: 'category.imageId',
+            foreignField: '_id',
+            as: 'image'
+          }
+        },
+        {
+          $lookup: {
+            from: 'images',
+            localField: 'category.iconId',
+            foreignField: '_id',
+            as: 'icon'
+          }
         }
       ],
       (err, items) => {

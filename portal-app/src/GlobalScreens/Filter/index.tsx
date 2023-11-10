@@ -1,7 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-
-function Filter() {
+import { Category1 } from "../../sdks/category-v1/utils/DataSchemas";
+import { API_FILE_URL } from "../../utilities/constants";
+interface FilterProps {
+  categories: Array<Category1>
+}
+function Filter({categories}: FilterProps) {
   return <div className="tf-soft">
   <div className="soft-left">
     <div className="dropdown">
@@ -21,24 +25,15 @@ function Filter() {
             <i className="fal fa-check" />
           </div>
         </a>
-        <a className="dropdown-item" href="#">
+        {categories.map((data: any, key: number) => {
+          return <a key={key} className="dropdown-item" href="#">
           <div className="sort-filter">
-            <span className="flex items-center"><img src="assets/images/icon/rainbow.png" alt='' className="mr-2"/> Art</span>
+            <span className="flex items-center"><img src={`${API_FILE_URL}/categories/${data?.image[0]?.path}`} alt={`6tim - tims group | ${data?.category[0]?.label}`} className="mr-2 rounded-lg"/> {data?.category[0]?.label}</span>
             <i className="fal fa-check" />
           </div>
         </a>
-        <a className="dropdown-item" href="#">
-          <div className="sort-filter">
-            <span className="flex items-center"><img src="assets/images/icon/photo.png" alt='' className="mr-2"/> Photography</span>
-            <i className="fal fa-check" />
-          </div>
-        </a>
-        <a className="dropdown-item" href="#">
-          <div className="sort-filter">
-          <span className="flex items-center"><img src="assets/images/icon/itunes.png" alt='' className="mr-2"/> Music</span>
-            <i className="fal fa-check" />
-          </div>
-        </a>
+        })}
+        
       </div>
     </div>
     <div className="dropdown">

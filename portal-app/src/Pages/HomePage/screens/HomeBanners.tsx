@@ -1,12 +1,24 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import { useState } from "react";
-import CardCarousel from '../../../Components/ProductCarousel/ProductCarousel';
 import { useQuery } from '@tanstack/react-query'
 import { PaginationOptionBanner } from "../../../sdks/banner-v1/utils/DataSchemas";
 import { Pagination } from "../../../sdks/GlobalDataSchemas";
 import { API_FILE_URL } from "../../../utilities/constants";
 import useBanner from "../../../hooks/useBanner";
+import Carousel from "react-multi-carousel";
 function HomeBanners() {
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 4000, min: 992 },
+      items: 3
+    },
+    mobile: {
+      breakpoint: { max: 991, min: 0 },
+      items: 1
+    }
+  };
+
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(10)
   const { client } = useBanner()
@@ -21,8 +33,22 @@ function HomeBanners() {
         }
     })
   return <div className="col-md-12">
-  <div className="swiper-container carousel8 pt-4 auctions">
-    <CardCarousel>
+{(data && data?.length) ?  <Carousel
+  swipeable={true}
+  draggable={true}
+  showDots={false}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={false}
+  autoPlaySpeed={1000}
+  keyBoardControl={true}
+  customTransition="transform 300ms ease-in-out"
+  transitionDuration={500}
+  containerClass="swiper-container carousel8 pt-4 auctions"
+  removeArrowOnDeviceType={["tablet", "mobile"]}
+  dotListClass="custom-dot-list-style"
+  itemClass="px-[15px]"
+>
     {data?.map((data: any, key: number) => {
         return <div className="slider-item" key={key}>	
               <div className="wrap-cart">
@@ -39,8 +65,7 @@ function HomeBanners() {
               </div> 	
             </div>
       })}
-    </CardCarousel>
-  </div>
+    </Carousel>: <></>}
 </div>;
 }
 

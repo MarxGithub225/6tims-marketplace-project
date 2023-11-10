@@ -83,19 +83,19 @@ export interface Product {
   principalFeatures: string
   viewsCount: number
   purchaseCount: number
-  ratings: {
+  ratings: Array <{
     star: number
     comment: string
     postedBy: string
     postedAt: Date
     owner: FullUserProfile
-  }
+  }>
   historical: Array<Historical>
-  likes: {
+  likes: Array <{
     likedBy: string
     likedAt: Date
     owner: FullUserProfile
-  }
+  }>
   totalrating: number
   suspended: boolean
   new: boolean

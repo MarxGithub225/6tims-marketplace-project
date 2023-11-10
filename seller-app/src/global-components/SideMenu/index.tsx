@@ -201,7 +201,11 @@ function Sidebar() {
                                                 }}
                                             >
                                                 <div className="flex flex-col size1400:flex-row items-center">
-                                                    <div className="m-icon flex items-center"> {m.icon} </div>
+                                                <div className="m-icon flex items-center gap-[2px]"> 
+                                                    {m.icon} 
+                                                    <Arrow  className={`block size1400:hidden menu-arrow-multiple w-2 h-auto transform ${menuSelected?.title === m.title ? 'rotate-90': 'rotate-0'}`} />
+                                                    
+                                                    </div>
                                                     <div className="m-title"> {m.title} </div>
                                                 </div>
                                                 <Arrow  className={`hidden size1400:block menu-arrow-multiple w-2 h-auto transform ${menuSelected?.title === m.title ? 'rotate-90': 'rotate-0'}`} />

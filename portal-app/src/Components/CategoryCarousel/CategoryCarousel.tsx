@@ -117,10 +117,10 @@ const CategoryCarousel = ({
 
       </div>
     </div>
-    <div className="flex justify-center items-center absolute right-4 gap-x-4 top-0 z-50 category-slide-swipper">
+    {children?.length > show && <div className="flex justify-center items-center absolute right-4 gap-x-4 top-0 z-50 category-slide-swipper">
         <div className={`flex cursor-pointer items-center justify-center custom-button-prev ${((children?.length > show) && (currentIndex > 0)) ? 'opacity-100 pointer-events-auto': 'opacity-60 pointer-events-none'}`} onClick={prev}/>
         <div className={`flex cursor-pointer items-center justify-center custom-button-next ${((children?.length > show) && (currentIndex < children?.length - show)) ? 'opacity-100 pointer-events-auto': 'opacity-60 pointer-events-none'}`} onClick={next}/>
-      </div>
+      </div>}
     </>
   )
 }

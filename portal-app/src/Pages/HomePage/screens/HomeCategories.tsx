@@ -45,7 +45,7 @@ function HomeCategories() {
       })
       : <></>}
     </ul>
-    {(selectedCategory?.data && selectedCategory?.data?.length) && <div className="content-tab mg-t-24">
+    {(selectedCategory?.data && selectedCategory?.data?.length) ? <div className="content-tab mg-t-24">
       
       <div className="content-inner">
         <div className="swiper-container seller">
@@ -76,7 +76,7 @@ function HomeCategories() {
           </CategoryCarousel>
         </div>
       </div>
-    </div>}
+    </div>: <></>}
   </div> 
 </div>;
 }

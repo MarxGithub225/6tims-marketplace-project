@@ -1,4 +1,5 @@
 import moment from "moment";
+import { Product } from "../sdks/product-v1/utils/DataSchemas";
 interface yearOptionsInterface {
     value: string
     name: string
@@ -117,4 +118,38 @@ export const randomChar= (length: number) => {
       charactersLength));
      }
      return result;
-  }
+}
+
+export const calculatePrice = (product: Product): {promo: boolean, isBonus: boolean, price: number, oldPrice: number, percentage: number, countdown:number} =>  {
+    if(product.isPromoted && ((new Date(product.promostartDate).getTime() <= new Date().getTime()) && (new Date(product.promoendDate).getTime() >= new Date().getTime()))) {
+        if(product.promoType === 'bonus') {
+            return {
+                promo: true,
+                isBonus: true,
+                price: product.cost,
+                oldPrice: product.cost,
+                percentage: 0,
+                countdown: 0
+            }
+        }else {
+            const endDate: any = new Date(product.promoendDate).getTime()
+            return {
+                promo: true,
+                isBonus: false,
+                price: product.promoCost,
+                oldPrice: product.cost,
+                percentage: Math.ceil(100 - ((product.promoCost * 100) / product.cost)),
+                countdown: endDate
+            }
+        }
+    }else {
+        return {
+            promo: false,
+            isBonus: false,
+            price: product.cost,
+            oldPrice: product.cost,
+            percentage: 0,
+            countdown: 0
+        }
+    }
+}

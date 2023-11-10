@@ -28,7 +28,12 @@ const populateProduct = [
     ]
   },
   {
-    path: 'seller'
+    path: 'seller',
+    populate: [
+      {
+        path: 'personnalInfo.image'
+      }
+    ]
   },
   {
     path: 'brand'

@@ -57,7 +57,7 @@ const defaultSetting3: any = {
 const settingOptions: Array<OptionInterface> = [
     { label: "catégories", value: "1" },
     { label: "sous catégories", value: "2" },
-    { label: "Types de catégories", value: "3" }
+    { label: "Types de produit", value: "3" }
 ]
 
 const settingOptionsStatus: Array<OptionInterface> = [

@@ -51,7 +51,7 @@ function HomeCategories() {
         <div className="swiper-container seller">
           <CategoryCarousel>
           {selectedCategory?.data?.map((data: any, key: number) => {
-            return <div className="slider-item" key={key}>										
+            return <a href={`/category?category2Id=${data?.category[0]?._id}`} className="slider-item" key={key}>										
             <div className="sc-author-box style-2">
               <div className="author-avatar">
                 {data?.icon?.length ?
@@ -60,11 +60,11 @@ function HomeCategories() {
                 }
               </div>
               <div className="author-infor">
-                <h5 className="ellips-txt"><a href="author02.html">{data?.category[0]?.label}</a></h5>
+                <h5 className="ellips-txt"><a href={`/category?category2Id=${data?.category[0]?._id}`}>{data?.category[0]?.label}</a></h5>
                 <span className="price">{data?.count} QTé(s)</span>
               </div>
             </div>    	
-          </div>
+          </a>
           })}
           {selectedCategory?.data?.length < 9 ? 
           <>

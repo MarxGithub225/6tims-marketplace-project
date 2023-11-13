@@ -33,7 +33,7 @@ function App() {
         <Header/>
         <Routes>
           < Route path={'/*'} element={ <HomePage /> } />
-          < Route path={'/:id'} element={ <DetailsPage /> } />
+          < Route path={'/:slug'} element={ <DetailsPage /> } />
           < Route path={'/hot-exploration'} element={ <Exploration /> } />
           < Route path={'/search/*'} element={ <SearchPage /> } />
           {/* GET CATEGORYS WITH QUERIES PARAMS */}

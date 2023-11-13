@@ -42,7 +42,7 @@ function TopSellers({hideMoreButton=false} : TopSellersProps) {
                                 <div className="badge" />
                             </div>
                             <div className="author-infor">
-                                <h5><a href="author02.html">{seller.companyInfo.companyName}</a></h5>
+                                <h5><a href={`seller/${seller._id}`}>{seller.companyInfo.companyName}</a></h5>
                                 {seller.soldNumber > 0 && <span className="price">{seller.soldNumber} PDTS</span>}
                             </div>
                             </div>    	

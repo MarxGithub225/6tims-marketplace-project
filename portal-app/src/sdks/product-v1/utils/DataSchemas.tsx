@@ -56,6 +56,7 @@ export interface Variable {
 }
 
 export interface Product {
+  _id: string
   categoryId: string
   category2Id: string
   category3Id: string

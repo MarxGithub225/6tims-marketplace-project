@@ -4,8 +4,30 @@ import { Category1 } from "../../sdks/category-v1/utils/DataSchemas";
 import { API_FILE_URL } from "../../utilities/constants";
 interface FilterProps {
   categories: Array<Category1>
+
+  setSelectedCategory: Function
+  selectedCategory: string | null
+
+  filterPrice: string | null
+  setFilterPrice: Function
+
+  sortBy: string | null
+  setSortBy: Function
+
+  sortLabel: string | null
+  setSortLabel: Function
 }
-function Filter({categories}: FilterProps) {
+function Filter({
+  categories, 
+  setSelectedCategory, 
+  selectedCategory,
+  filterPrice,
+  setFilterPrice,
+  sortBy,
+  setSortBy,
+  sortLabel,
+  setSortLabel
+}: FilterProps) {
   return <div className="tf-soft">
   <div className="soft-left">
     <div className="dropdown">
@@ -19,17 +41,27 @@ function Filter({categories}: FilterProps) {
         <span className="inner">Categorie</span>
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a className="dropdown-item" href="#">
-          <div className="sort-filter active">
+        <a className="dropdown-item" href="#"
+        onClick={(e: any) => {
+          e.preventDefault()
+          setSelectedCategory(null)
+        }}
+        >
+          <div className={`sort-filter ${!selectedCategory ? 'active': ''} `}>
             <span className="flex items-center"><img src="assets/images/icon/menu.png" alt='' className="mr-2"/> All</span>
-            <i className="fal fa-check" />
+            {!selectedCategory && <i className="fal fa-check" />}
           </div>
         </a>
         {categories.map((data: any, key: number) => {
-          return <a key={key} className="dropdown-item" href="#">
-          <div className="sort-filter">
+          return <a key={key} 
+          onClick={(e: any) => {
+            e.preventDefault()
+            setSelectedCategory(data?.category[0]._id)
+          }}
+          className="dropdown-item" href="#">
+          <div className={`sort-filter ${selectedCategory === data?.category[0]._id ? 'active': ''} `}>
             <span className="flex items-center"><img src={`${API_FILE_URL}/categories/${data?.image[0]?.path}`} alt={`6tim - tims group | ${data?.category[0]?.label}`} className="mr-2 rounded-lg"/> {data?.category[0]?.label}</span>
-            <i className="fal fa-check" />
+            {selectedCategory === data?.category[0]._id && <i className="fal fa-check" />}
           </div>
         </a>
         })}
@@ -46,16 +78,26 @@ function Filter({categories}: FilterProps) {
         <span className="inner">Fourchette de prix</span>
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a className="dropdown-item" href="#">
-          <div className="sort-filter active">
+        <a className="dropdown-item" href="#"
+        onClick={(e: any) => {
+          e.preventDefault()
+          setFilterPrice('asc')
+        }}
+        >
+          <div className={`sort-filter ${filterPrice === 'asc' ? 'active': ''}`}>
             <span> Prix: Croissant</span>
-            <i className="fal fa-check" />
+            {filterPrice === 'asc' && <i className="fal fa-check" />}
           </div>
         </a>
-        <a className="dropdown-item" href="#">
-          <div className="sort-filter">
+        <a className="dropdown-item" href="#"
+        onClick={(e: any) => {
+          e.preventDefault()
+          setFilterPrice('desc')
+        }}
+        >
+        <div className={`sort-filter ${filterPrice === 'desc' ? 'active': ''}`}>
             <span> Prix: Décroissant</span>
-            <i className="fal fa-check" />
+            {filterPrice === 'desc' && <i className="fal fa-check" />}
           </div>
         </a>
       </div>
@@ -69,36 +111,60 @@ function Filter({categories}: FilterProps) {
           <path d="M6 12H18" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
           <path d="M10 17H14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
-        <span>Filtrer par: Plus récents</span>
+        <span>Filtrer {sortLabel ? `par: ${sortLabel}`: ''}</span>
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <h6>Filtrer par</h6>
-        <a href="#" className="dropdown-item">
-          <div className="sort-filer" >
+        <a href="#" className="dropdown-item"
+        onClick={(e: any) => {
+          e.preventDefault()
+          setSortBy('new')
+          setSortLabel('Plus récents')
+        }}
+        >
+          <div className={`sort-filer ${sortBy === 'new' ? 'active': ''} `} >
             <span>Plus récents</span>
-            <i className="fal fa-check" />
+            {sortBy === 'new' && <i className="fal fa-check" />}
           </div>
         </a>
         
-        <a href="#" className="dropdown-item">
-          <div className="sort-filer" >
+        <a href="#" className="dropdown-item"
+        onClick={(e: any) => {
+          e.preventDefault()
+          setSortBy('purchaseCount')
+          setSortLabel('Plus vendus')
+        }}
+        >
+        <div className={`sort-filer ${sortBy === 'purchaseCount' ? 'active': ''} `} >
             <span>Plus vendus</span>
-            <i className="fal fa-check" />
+            {sortBy === 'purchaseCount' && <i className="fal fa-check" />}
           </div>
         </a>
 
-        <a href="#" className="dropdown-item">
-          <div className="sort-filer active" >
+        <a href="#" className="dropdown-item"
+        onClick={(e: any) => {
+          e.preventDefault()
+          setSortBy('rating')
+          setSortLabel('Note supérieur à 3')
+        }}
+        >
+          <div className={`sort-filer ${sortBy === 'rating' ? 'active': ''} `} >
             <span>Note supérieur à 3</span>
-            <i className="fal fa-check" />
+            {sortBy === 'rating' && <i className="fal fa-check" />}
           </div>
         </a>
         
         <h6>Options</h6>
-        <a href="#" className="dropdown-item">
+        <a href="#" className="dropdown-item"
+        onClick={(e: any) => {
+          e.preventDefault()
+          setSortBy('isPromoted')
+          setSortLabel('En promotion')
+        }}
+        >
           <div className="sort-filer" >
-            <span>Meilleures vendeurs</span>
-            <input className="check" type="checkbox" defaultValue="checkbox" name="check" defaultChecked />
+            <span>En promotion</span>
+            <input className="check" type="checkbox" defaultValue="checkbox" name="check" checked={sortBy === 'isPromoted'} />
           </div>
         </a>
       </div>

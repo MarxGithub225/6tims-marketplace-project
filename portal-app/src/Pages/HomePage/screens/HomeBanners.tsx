@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import { useState } from "react";
 import { useQuery } from '@tanstack/react-query'
-import { PaginationOptionBanner } from "../../../sdks/banner-v1/utils/DataSchemas";
+import { Banner, PaginationOptionBanner } from "../../../sdks/banner-v1/utils/DataSchemas";
 import { Pagination } from "../../../sdks/GlobalDataSchemas";
 import { API_FILE_URL } from "../../../utilities/constants";
 import useBanner from "../../../hooks/useBanner";
@@ -49,8 +49,8 @@ function HomeBanners() {
   dotListClass="custom-dot-list-style"
   itemClass="px-[15px]"
 >
-    {data?.map((data: any, key: number) => {
-        return <div className="slider-item" key={key}>	
+    {data?.map((data: Banner, key: number) => {
+        return <a href={`${data.link}`} className="slider-item" key={key}>	
               <div className="wrap-cart">
                 <div className="cart_item style2 style3">
                   <div className="inner-cart">
@@ -63,7 +63,7 @@ function HomeBanners() {
                   </div>
                 </div>
               </div> 	
-            </div>
+            </a>
       })}
     </Carousel>: <></>}
 </div>;

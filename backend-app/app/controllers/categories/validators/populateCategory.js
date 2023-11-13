@@ -34,7 +34,15 @@ const populateCategory2 = [
     path: 'image'
   },
   {
-    path: 'category'
+    path: 'category',
+    populate: [
+      {
+        path: 'subCategory2Ids'
+      },
+      {
+        path: 'subCategory3Ids'
+      }
+    ]
   },
   {
     path: 'subCategories3'
@@ -55,10 +63,23 @@ const populateCategory3 = [
     path: 'image'
   },
   {
-    path: 'category'
+    path: 'category',
+    populate: [
+      {
+        path: 'subCategory2Ids'
+      },
+      {
+        path: 'subCategory3Ids'
+      }
+    ]
   },
   {
-    path: 'category2'
+    path: 'category2',
+    populate: [
+      {
+        path: 'subCategory3Ids'
+      }
+    ]
   }
 ]
 module.exports = {populateCategory1, populateCategory2, populateCategory3}

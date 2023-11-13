@@ -92,14 +92,14 @@ const getAllProducts = async (req, res) => {
     if (req.query.category2Id) {
       query = {
         ...query,
-        categoryId: req.query.category2Id
+        category2Id: req.query.category2Id
       }
     }
 
     if (req.query.category3Id) {
       query = {
         ...query,
-        categoryId: req.query.category3Id
+        category3Id: req.query.category3Id
       }
     }
 

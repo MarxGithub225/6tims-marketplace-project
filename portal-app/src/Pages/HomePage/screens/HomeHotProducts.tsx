@@ -43,7 +43,7 @@ function HomeHotProducts () {
                 return <div className="slider-item" key={key}>										
                 <div className="sc-card-product menu_card style2">
                 <div className="card-media style2">
-                    <a href="item-details.html"><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></a>
+                    <a href={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}-${product?._id}`} /></a>
                     {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
                     {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <div className="featured-countdown style2">
                     <span className="slogan" />
@@ -55,17 +55,17 @@ function HomeHotProducts () {
                     </div>
                 </div>
                 <div className="card-title">
-                    <h3 className="line-clamp-1 w-fit"><a href="item-details.html">{product.title}</a></h3>
+                    <h3 className="line-clamp-1 w-fit"><a href={`/${product.slug}-${product?._id}.html`}>{product.title}</a></h3>
                     {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
                 </div>
                 <div className="meta-info style2">
                     <div className="author">
                     <div className="avatar">
-                        <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${product.slug}`} />
+                        <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${product.slug}-${product?._id}`} />
                     </div>
                     <div className="info">
                         <span>Vendeur</span>
-                        <h4> <a href="author02.html">{product.seller.companyInfo.companyName}
+                        <h4> <a href={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}
                         </a> </h4>
                     </div>
                     </div>

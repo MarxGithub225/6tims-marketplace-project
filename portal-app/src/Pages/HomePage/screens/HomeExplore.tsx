@@ -13,16 +13,41 @@ import { File } from "../../../sdks/image-v1/utils/DataSchemas";
 import Filter from "../../../GlobalScreens/Filter";
 
 function HomeExplore() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [allCount, setCount] = useState<number>(0)
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(8)
+  const [filterPrice, setFilterPrice] = useState<string | null>(null)
+  const [sortBy, setSortBy] = useState<any | null>(null)
+  const [sortLabel, setSortLabel] = useState<string | null>(null)
   const { client } = useProduct()
 
   const { data, isLoading, isFetching, isError }: any =
     useQuery({
-        queryKey: ['allBestProductsData', page, limit],
+        queryKey: ['allBestProductsData', page, limit, selectedCategory, filterPrice, sortBy],
         queryFn: async () => {
             let filter: PaginationOptionProduct = {page, limit, published_only: 'true', approved: 'true', new: 'false', cancelled: 'false', archived: 'false', sort: 'viewsCount', order: -1}
+            if(selectedCategory) {
+              filter.categoryId = selectedCategory
+            }else {
+              filter.categoryId = ""
+            }
+
+
+            if(sortBy) {
+              filter.sort = sortBy
+              filter.order = -1
+            }
+
+            if(filterPrice) {
+              if(filterPrice === 'asc') {
+               filter.sort = (sortBy && sortBy === 'isPromoted') ? 'promoCost' : 'cost'
+               filter.order = 1
+              }else {
+               filter.sort = (sortBy && sortBy === 'isPromoted') ? 'promoCost' : 'cost'
+               filter.order = -1
+              }
+             }
             let result: Pagination<any> = await client.getPublishedProducts(filter)
             setCount(result.totalDocs)
             return result?.docs
@@ -50,17 +75,29 @@ function HomeExplore() {
       <div className="col-md-12">
         <Filter 
         categories = {categoryData ?? []}
+
+        selectedCategory = {selectedCategory}
+        setSelectedCategory = {(categoryId: string | null) => setSelectedCategory(categoryId)}
+
+        filterPrice = {filterPrice}
+        setFilterPrice = {(status: string) => setFilterPrice(status)}
+
+        sortBy = {sortBy}
+        setSortBy = {(sort: string) => setSortBy(sort)}
+
+        sortLabel = {sortLabel}
+        setSortLabel = {(label: string) => setSortLabel(label)}
         />
       </div>
       {data.map((product: Product, key: number) => {
                 return <div key={key} className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
         <div className="sc-card-product">
           <div className="card-media">
-            <a href="item-details.html"><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></a>
+            <a href={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></a>
             {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
           </div>
           <div className="card-title">
-            <h5 className="style2 line-clamp-1 w-fit"><a href="item-details.html">{product.title}</a></h5>
+            <h5 className="style2 line-clamp-1 w-fit"><a href={`/${product.slug}-${product?._id}.html`}>{product.title}</a></h5>
             {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
           </div>
           <div className="meta-info">
@@ -70,7 +107,7 @@ function HomeExplore() {
               </div>
               <div className="info">
                 <span>Vendeur</span>
-                <h6> <a href="author02.html">{product.seller.companyInfo.companyName}</a> </h6>
+                <h6> <a href={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</a> </h6>
               </div>
             </div>
             <div className="price">

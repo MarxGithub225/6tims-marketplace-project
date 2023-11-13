@@ -39,7 +39,7 @@ function Brands() {
             <div className="img flex justify-center">
             <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
-            <h4 className="heading"><a href="login.html"> {partner.seller.companyInfo.companyName}</a></h4>
+            <h4 className="heading"><a href={`/seller/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</a></h4>
           </div>
           })}
           
@@ -51,7 +51,7 @@ function Brands() {
             <div className="img flex justify-center">
             <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
-            <h4 className="heading"><a href="login.html"> {partner.seller.companyInfo.companyName}</a></h4>
+            <h4 className="heading"><a href={`/seller/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</a></h4>
           </div>
           })}
           </FeaturesCarousel>

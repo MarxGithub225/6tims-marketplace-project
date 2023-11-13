@@ -84,16 +84,16 @@ export default function BannerPage() {
                 }
 
                 setMeta({
-                hasNextPage : result?.hasNextPage,
-                hasPrevPage : result?.hasPrevPage,
-                limit : result?.limit,
-                nextPage : result?.nextPage,
-                page : result?.page,
-                pagingCounter : result?.pagingCounter,
-                prevPage : result?.prevPage,
-                totalDocs : result?.totalDocs,
-                totalPages : result?.totalPages
-            })
+                    hasNextPage : result?.hasNextPage,
+                    hasPrevPage : result?.hasPrevPage,
+                    limit : result?.limit,
+                    nextPage : result?.nextPage,
+                    page : result?.page,
+                    pagingCounter : result?.pagingCounter,
+                    prevPage : result?.prevPage,
+                    totalDocs : result?.totalDocs,
+                    totalPages : result?.totalPages
+                })
                 return result?.docs
             },
             keepPreviousData: true

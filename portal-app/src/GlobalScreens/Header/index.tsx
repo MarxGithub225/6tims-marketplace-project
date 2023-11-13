@@ -3,6 +3,8 @@ import React from "react";
 import $ from 'jquery'
 import {ReactComponent as EnIcon} from '../../assets/icons/langs/EnIcon.svg'
 import {ReactComponent as FrIcon} from '../../assets/icons/langs/FrIcon.svg'
+import logo  from '../../assets/images/tims_logo_black.png'
+import logoWhite  from '../../assets/images/tims_logo_white.png'
 function Header() {
 
     const changeTheme = (theme: string) => {
@@ -19,10 +21,10 @@ function Header() {
           let moonDark: any = document.getElementById("moon_dark");
     
           if(logoHeader){
-              logoHeader.src = "assets/images/logo/tims_logo_white.png";
+              logoHeader.src = logoWhite;
           }
           if(logoFooter){
-            logoFooter.src = "assets/images/logo/tims_logo_white.png";
+            logoFooter.src = logoWhite;
           }
           if(moonDark){
               moonDark.src = "assets/images/icon/moon-2.png";
@@ -40,10 +42,10 @@ function Header() {
           let moonDark: any = document.getElementById("moon_dark");
     
           if(logoHeader){
-            logoHeader.src = "assets/images/logo/tims_logo_black.png";
+            logoHeader.src = logo;
           }
           if(logoFooter){
-            logoFooter.src = "assets/images/logo/tims_logo_black.png";
+            logoFooter.src = logo;
           }
           if(moonDark){
               moonDark.src = "assets/images/icon/moon.png";
@@ -60,7 +62,7 @@ function Header() {
             <div id="site-logo" className="clearfix">
               <div id="site-logo-inner">
                 <a href="/" rel="home" className="main-logo">
-                  <img id="logo_header" src="assets/images/logo/tims_logo_black.png" alt="nft-gaming" width={133} height={56} data-retina="assets/images/logo/logo_dark@2x.png" data-width={133} data-height={56} />
+                  <img id="logo_header" src={logo} alt="nft-gaming" width={133} height={56} data-retina="assets/images/logo/logo_dark@2x.png" data-width={133} data-height={56} />
                 </a>
               </div>
             </div>

@@ -155,7 +155,7 @@ const productImgResize = async (req, res, next) => {
     const filesPath = '../../../public/files/products'
     fs.mkdirSync(filesPath, {recursive: true})
     await sharp(req.file.path)
-      .resize(512, 512)
+      .resize(1080, 1080)
       .toFormat('png')
       .png({quality: 90})
       .toFile(`public/files/products/${req.file.filename}`)

@@ -5,7 +5,7 @@ function PageHeader() {
   <div className="overlay" />
   <div className="themesflat-container">
     <div className="row">
-      <div className="col-md-12">
+      {/* <div className="col-md-12">
         <div className="page-title-heading mg-bt-12">
           <h1 className="heading text-center">Item Details 1</h1>
         </div>
@@ -16,7 +16,7 @@ function PageHeader() {
             <li>Item Details 1</li>
           </ul>
         </div>
-      </div>
+      </div> */}
     </div>
   </div>                    
 </section>;

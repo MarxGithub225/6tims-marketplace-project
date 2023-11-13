@@ -78,6 +78,21 @@ export class Client {
     ...paginationOption
   })
 
+  getCategoryById = (
+    id: string
+  ): Promise<dataSchemas.Category1> =>
+  this.service.getCategoryById(id)
+
+  getSubCategoryById = (
+    id: string
+  ): Promise<dataSchemas.Category2> =>
+  this.service.getSubCategoryById(id)
+
+  getSubCategoryById2 = (
+    id: string
+  ): Promise<dataSchemas.Category3> =>
+  this.service.getSubCategoryById2(id)
+
   createCategory = (
     body: dataSchemas.CreateRequest
   ): Promise<string> => this.service.createCategory(body)

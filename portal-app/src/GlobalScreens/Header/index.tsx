@@ -114,9 +114,9 @@ function Header() {
                   </svg>
                 </a>
                 <div className="top-search">
-                  <form action="#" method="get" role="search" className="search-form">
-                    <input type="search" id="s" className="search-field" placeholder="Search..." name="s" title="Search for" required />
-                    <button className="search search-submit" type="submit" title="Search">
+                  <form action="/search" method="get" role="search" className="search-form">
+                    <input type="search" id="q" className="search-field" placeholder="Recherche..." name="q" title="Recherche pour" required />
+                    <button className="search search-submit" type="submit" title="Recherche">
                       <i className="icon-fl-search-filled" />
                     </button>
                   </form>

@@ -18,6 +18,7 @@ import { useLocation } from "react-router-dom";
 
 function CategoryPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [selectedCategory3, setSelectedCategory3] = useState<string | null>(null)
   const [filterPrice, setFilterPrice] = useState<string | null>(null)
   const [sortBy, setSortBy] = useState<any | null>(null)
   const [sortLabel, setSortLabel] = useState<string | null>(null)
@@ -32,11 +33,19 @@ function CategoryPage() {
 
   const { data, isLoading, isFetching, isError, fetchNextPage, hasNextPage}: any =
   useInfiniteQuery({
-        queryKey: ['hotProductsData', category2Id, filterPrice, sortBy, limit],
+        queryKey: ['hotProductsData', category2Id, filterPrice, sortBy, limit, selectedCategory, selectedCategory3],
         queryFn: async ({ pageParam}: any) => {
             let filter: PaginationOptionProduct = {page: pageParam, limit, published_only: 'true'}
             if(category2Id) {
               filter.category2Id = category2Id
+            }
+            if(selectedCategory3) {
+              filter.category2Id = ''
+              filter.category3Id = selectedCategory3
+            }
+            if(selectedCategory) {
+              filter.category2Id = selectedCategory
+              filter.category3Id = ''
             }
             let result: Pagination<any> = await client.getBestProducts(filter)
 
@@ -119,11 +128,11 @@ function CategoryPage() {
 
                   {categoryData?.category?.subCategory2Ids?.map((category: Category2) => {
                     return <>
-                    <label>{category.label}
-                      <input type="checkbox" />
+                    <label onClick={() => setSelectedCategory(category._id)} >{category.label}
+                      <input type="checkbox" checked={(selectedCategory === category._id || (category2Id === category._id && !selectedCategory))} />
                       <span className="btn-checkbox" />
                     </label><br />
-                    </>
+                        </>
                   })}
                 </form>
               </div>
@@ -138,11 +147,11 @@ function CategoryPage() {
 
               {categoryData?.category?.subCategory3Ids?.map((category: Category3) => {
                 return <>
-                <label>{category.label}
-                  <input type="checkbox" />
+                <label onClick={() => setSelectedCategory3(category._id)} >{category.label}
+                  <input type="checkbox" checked={selectedCategory3 === category._id} />
                   <span className="btn-checkbox" />
                 </label><br />
-                </>
+                    </>
               })}
               </form>
               </div>

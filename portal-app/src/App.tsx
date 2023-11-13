@@ -13,7 +13,6 @@ import BlogPage from './Pages/BlogPage';
 import BlogDetailsPage from './Pages/BlogDetailsPage';
 import SellersPage from './Pages/SellersPage';
 import SellerPage from './Pages/SellerPage';
-import PartnerPage from './Pages/PartnerPage';
 import ProductHistorical from './Pages/ProductHistorical';
 import CartPage from './Pages/CartPage';
 import CheckoutPage from './Pages/CheckoutPage';
@@ -42,7 +41,7 @@ function App() {
           < Route path={'/blog/:id'} element={ <BlogDetailsPage /> } />
           < Route path={'/sellers'} element={ <SellersPage /> } />
           < Route path={'/seller/:id'} element={ <SellerPage /> } />
-          < Route path={'/partner/:id'} element={ <PartnerPage /> } />
+          < Route path={'/partner/:id'} element={ <SellerPage /> } />
           < Route path={'/product-activity/:id'} element={ <ProductHistorical /> } />
           < Route path={'/cart'} element={ <CartPage /> } />
           < Route path={'/checkout'} element={ <CheckoutPage /> } />

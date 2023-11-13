@@ -53,6 +53,11 @@ export default class Service {
       return request('GET', `blogs/all${query}`, this.options)
     }
 
+    async getRecentsBlogs(paginationOption: PaginationOption, id: string) {
+      const query = getPaginationQuery(paginationOption)
+      return request('GET', `blogs/all-recents/${id}${query}`, this.options)
+    }
+
     async getblogById(id: string) {
       return request('GET', `blogs/${id}`, this.options)
     }

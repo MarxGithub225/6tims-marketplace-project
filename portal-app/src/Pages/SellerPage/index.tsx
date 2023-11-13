@@ -1,1102 +1,183 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import PageHeader from "../../GlobalScreens/PageHeader";
-
+import { BookOpen, Clock, Eye, Heart, MessageCircle, Share, ThumbsUp, Video } from "react-feather";
+import { useState } from "react";
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { PaginationOptionSeller } from "../../sdks/seller-v1/utils/DataSchemas";
+import { Pagination } from "../../sdks/GlobalDataSchemas";
+import { API_FILE_URL, calcReadingDuration, calculatePrice, formatDuration } from "../../utilities/constants";
+import useSeller from "../../hooks/useSeller";
+import useCategory from "../../hooks/useCategory";
+import { Seller } from "../../sdks/seller-v1/utils/DataSchemas";
+import { File } from "../../sdks/image-v1/utils/DataSchemas";
+import { useLocation, useParams } from "react-router-dom";
+import moment from "moment";
+import ReactPlayer from "react-player";
+import { removeUnnecessaryHTMLStuff } from "../../utilities/helper";
+import useProduct from "../../hooks/useProduct";
+import { PaginationOptionCategory } from "../../sdks/category-v1/utils/DataSchemas";
+import { PaginationOptionProduct, Product } from "../../sdks/product-v1/utils/DataSchemas";
 function SellerPage() {
+
+    const {id} = useParams<any>()
+  const { client } = useSeller()
+  const { client: clientProduct } = useProduct()
+  const [liked, setLiked] = useState<boolean>(false)
+  const [page, setPage] = useState<number>(1)
+  const [limit, setLimit] = useState<number>(10)
+  const [limitProducts, setLimitProducts] = useState<number>(20)
+  const [meta, setMeta] = useState<any> (null)
+  const [selectedCategory, setSelected] = useState<any>({
+    index: -1,
+    categoryId: ''
+  })
+  const { data, isLoading, isFetching, isError }: any =
+  useQuery({
+      queryKey: ['sellerDetails', id],
+      queryFn: async () => {
+          if(id) {
+            let result: Seller = await client.getSellerById(id)
+            return result
+          }else return null
+      }
+  })
+
+  const { data: dataCategories, isLoading: isLoadingCategories, isFetching: isFetchingCategories, isError: isErrorCategories }: any =
+    useQuery({
+        queryKey: ['SellercategoriesData', page, limit, id],
+        queryFn: async () => {
+            if(id) {
+                let filter: PaginationOptionProduct = {page, limit, sellerId: id}
+                let result: Pagination<any> = await clientProduct.getAllProductsGroupByCategories(filter)
+                return result?.docs
+            }else return []
+            
+        }
+    })
+
+    const { data: dataProducts, isLoading: isLoadingProducts, isFetching: isFetchingProducts, isError: isErrorProducts, fetchNextPage }: any =
+    useInfiniteQuery({
+        queryKey: ['SellerProductsData', page, limit, id, selectedCategory],
+        queryFn: async ({ pageParam}: any) => {
+            if(id) {
+                let filter: PaginationOptionProduct = {page: pageParam, limit: limitProducts, sellerId: id, published_only: 'true', approved: 'true', new: 'false', cancelled: 'false', archived: 'false', sort: 'viewsCount', order: -1, categoryId: selectedCategory?.categoryId}
+                let result: Pagination<any> = await clientProduct.getPublishedProducts(filter)
+                setMeta({
+                    hasNextPage : result?.hasNextPage,
+                    hasPrevPage : result?.hasPrevPage,
+                    limit : result?.limit,
+                    nextPage : result?.nextPage,
+                    page : result?.page,
+                    pagingCounter : result?.pagingCounter,
+                    prevPage : result?.prevPage,
+                    totalDocs : result?.totalDocs,
+                    totalPages : result?.totalPages
+                })
+                return result?.docs
+            }else return []
+            
+        },
+        initialPageParam: 1,
+        getNextPageParam(lastPage: any, allPages: any) {
+          return lastPage?.length > 0 ? allPages?.length + 1 : undefined;
+        }
+    })
   return <>
   <PageHeader/>
     <section className="tf-section authors">
-        <div className="themesflat-container">
+        {data && <div className="themesflat-container">
             <div className="flat-tabs tab-authors">
             <div className="author-profile flex">
                 <div className="feature-profile">
-                <img src="assets/images/avatar/avt-author-tab.jpg" alt="Image" className="avatar" />
+                <img className="rounded-3xl" src={data.personnalInfo?.image ? `${API_FILE_URL}/icons/${data?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${data.companyInfo.companyName}`} />
                 </div>
                 <div className="infor-profile">
-                <span>Author Profile</span>
-                <h2 className="title">Trista Francis</h2>
-                <p className="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
-                <form>
-                    <input type="text" className="inputcopy" defaultValue="DdzFFzCqrhshMSxABCdfrge" readOnly />
-                    <button type="button" className="btn-copycode"><i className="icon-fl-file-1" /></button>
-                </form>
+                <span>Profile vendeur</span>
+                <h2 className="title">{data.companyInfo.companyName}</h2>
+                <p className="content">Actif dépuis le {moment(data.createdAt).format('DD MMMM, YYYY')} | a vendu {data?.soldNumber} articles</p>
+                
                 </div>
-                <div className="widget-social style-3">
-                    <div />
-                    <div className="btn-profile"><a href="login.html" className="sc-button style-1 follow">Follow</a></div>
-                </div>
+                
             </div>
             <ul className="menu-tab flex">
-                <li className="tablinks active">ALL</li>
-                <li className="tablinks">ART</li>
-                <li className="tablinks">MUSIC</li>
-                <li className="tablinks">COLLECTIBLES</li>
-                <li className="tablinks">SPORTS</li>
+                <li className={`tablinks ${selectedCategory?.index === -1 ? 'active': ''}`}
+                onClick={() => {
+                    setSelected({
+                        index: -1,
+                        categoryId: ''
+                    })
+                    }}
+                >TOUS</li>
+                {dataCategories ? 
+                dataCategories.map((data: any, key: number) => {
+                    return <li key={key} 
+                    onClick={() => {
+                    setSelected({
+                        index: key,
+                        categoryId: data?.category[0]?._id
+                    })
+                    }}
+                    className={`tablinks  ${key === selectedCategory?.index ? 'active': ''} `}>
+                    {data?.category && <span className="uppercase">{data?.category[0]?.label}</span>}</li>
+                })
+                : <></>}
             </ul>
             <div className="content-tab">
-                <div className="content-inner">
-                <div className="row">
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode ">
-                        <div className="card-media active">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-3.jpg" alt="" /></a>
-                        <div className="button-place-bid ">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title mg-bt-16">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-1.jpg" alt="" />
+                {(dataProducts && dataProducts?.pages) ?  <div className="content-inner">
+                    <div className="row">
+                    {dataProducts.pages.map((page: Array<Product>) => (
+                    <>
+                    {page.map((product: Product, key: number) => {
+                    return <div className="col-xl-3 col-lg-4 col-md-6 col-12">
+                            <div className="sc-card-product explode ">
+                                <div className="card-media active">
+                                <a href={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></a>
+                                <div className="button-place-bid ">
+                                    <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Panier</span></a>
+                                </div>
+                                {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
+                                </div>
+                                <div className="card-title mg-bt-16">
+                                <h5 className="sline-clamp-1"><a href={`/${product.slug}-${product?._id}.html`}>{product.title}</a></h5>
+                                </div>
+                                <div className="meta-info">
+                                <div className="author">
+                                    <div className="avatar">
+                                    <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${product.slug}`} />
+                                    </div>
+                                    <div className="info">
+                                    <span>Vendeur</span>
+                                    <h6> <a href={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</a>  </h6>
+                                    </div>
+                                </div>
+                                {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
+                                </div>
+                                <div className="card-bottom style-explode">
+                                <div className="price">
+                                    <div className="price-details">
+                                    <h5> {calculatePrice(product).price} DH</h5>
+                                    {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
+                                    </div>
+                                </div>
+                                <a href="activity1.html" className="view-history reload">Voir historique</a>
+                                </div>
                             </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
+                            </div>})}
+                    </>))}
+                    {meta?.hasNextPage && <div className="col-md-12 wrap-inner load-more text-center">
+                        <a href="" 
+                        onClick={(e: any) => {
+                            e.preventDefault()
+                            fetchNextPage()
+                          }}
+                        className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
+                        </div>}
                     </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-4.jpg" alt="" /></a>
-                        <div className="coming-soon">coming soon</div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title mg-bt-16">
-                        <h5><a href="item-details.html">"Space babe - Night 2/25”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-2.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Price</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-2.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title mg-bt-16">
-                        <h5><a href="item-details.html">"CyberPrimal 042 LAN”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-4.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-7.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title mg-bt-16">
-                        <h5><a href="item-details.html">"Crypto Egg Stamp #5”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-3.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item8.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-1.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-9.jpg" alt="" /></a>
-                        <div className="coming-soon">coming soon</div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Space babe - Night 2/25”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-2.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Price</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/image-box-6.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-4.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/image-box-11.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-3.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-md-12 wrap-inner load-more text-center">
-                    <a href="author02.html" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
-                    </div>
-                </div>
-                </div>
-                <div className="content-inner">
-                <div className="row">
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode ">
-                        <div className="card-media active">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-3.jpg" alt="" /></a>
-                        <div className="button-place-bid ">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-1.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-4.jpg" alt="" /></a>
-                        <div className="coming-soon">coming soon</div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Space babe - Night 2/25”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-2.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Price</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-2.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"CyberPrimal 042 LAN”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-4.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-7.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Crypto Egg Stamp #5”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-3.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/image-box-6.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-4.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/image-box-11.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-3.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-md-12 wrap-inner load-more text-center">
-                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
-                    </div>
-                </div>
-                </div>
-                <div className="content-inner">
-                <div className="row">
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode ">
-                        <div className="card-media active">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-3.jpg" alt="" /></a>
-                        <div className="button-place-bid ">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-1.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-4.jpg" alt="" /></a>
-                        <div className="coming-soon">coming soon</div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Space babe - Night 2/25”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-2.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Price</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-2.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"CyberPrimal 042 LAN”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-4.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-7.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Crypto Egg Stamp #5”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-3.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/image-box-6.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-4.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/image-box-11.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-3.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-md-12 wrap-inner load-more text-center">
-                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
-                    </div>
-                </div>
-                </div>
-                <div className="content-inner">
-                <div className="row">
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode ">
-                        <div className="card-media active">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-3.jpg" alt="" /></a>
-                        <div className="button-place-bid ">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-1.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-9.jpg" alt="" /></a>
-                        <div className="coming-soon">coming soon</div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Space babe - Night 2/25”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-2.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Price</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/image-box-6.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-4.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/image-box-11.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-3.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-md-12 wrap-inner load-more text-center">
-                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
-                    </div>
-                </div>
-                </div>
-                <div className="content-inner">
-                <div className="row">
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-7.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Crypto Egg Stamp #5”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-3.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item8.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-1.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/card-item-9.jpg" alt="" /></a>
-                        <div className="coming-soon">coming soon</div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Space babe - Night 2/25”</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-2.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Price</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/image-box-6.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-4.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div className="sc-card-product explode">
-                        <div className="card-media">
-                        <a href="item-details.html"><img src="assets/images/box-item/image-box-11.jpg" alt="" /></a>
-                        <div className="button-place-bid">
-                            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Place Bid</span></a>
-                        </div>
-                        <button className="wishlist-button heart"><span className="number-like"> 100</span></button>
-                        </div>
-                        <div className="card-title">
-                        <h5><a href="item-details.html">"Hamlet Contemplates Yorick's SalvadorDali"</a></h5>
-                        </div>
-                        <div className="meta-info">
-                        <div className="author">
-                            <div className="avatar">
-                            <img src="assets/images/avatar/avt-3.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                            <span>Creator</span>
-                            <h6> <a href="author02.html">SalvadorDali</a> </h6>
-                            </div>
-                        </div>
-                        <div className="tags">bsc</div>
-                        </div>
-                        <div className="card-bottom style-explode">
-                        <div className="price">
-                            <span>Current Bid</span>
-                            <div className="price-details">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                            </div>
-                        </div>
-                        <a href="activity1.html" className="view-history reload">View History</a>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="col-md-12 wrap-inner load-more text-center">
-                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
-                    </div>
-                </div>
-                </div>
+                </div>: <></>}
             </div>
             </div>
-        </div>
+        </div>}
     </section>
 
   </>;

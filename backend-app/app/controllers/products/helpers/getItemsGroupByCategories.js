@@ -75,7 +75,6 @@ const getItemsGroupByCategories = async (model = {}, query = {}) => {
         }
       ],
       (err, items) => {
-        console.log('items', items)
         if (err) {
           return reject(buildErrObject(422, err.message))
         }

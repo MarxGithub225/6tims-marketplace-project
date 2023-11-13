@@ -40,8 +40,6 @@ function BlogPage() {
         },
         initialPageParam: 1,
         getNextPageParam(lastPage: any, allPages: any) {
-          console.log('lastPage', lastPage)
-          console.log('allPages', allPages)
           return lastPage?.length > 0 ? allPages?.length + 1 : undefined;
         },
     })

@@ -14,10 +14,14 @@ import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import { useLocation, useParams } from "react-router-dom";
 import moment from "moment";
 import ReactPlayer from "react-player";
+import { removeUnnecessaryHTMLStuff } from "../../utilities/helper";
 function BlogDetailsPage() {
   const {id} = useParams<any>()
   const { client } = useBlog()
   const [liked, setLiked] = useState<boolean>(false)
+  const [page, setPage] = useState<number>(1)
+  const [limit, setLimit] = useState<number>(10)
+
   const { data, isLoading, isFetching, isError }: any =
   useQuery({
       queryKey: ['blogDetails', id],
@@ -28,6 +32,19 @@ function BlogDetailsPage() {
           }else return null
       }
   })
+
+  const { data: recetntsBlogs, isLoading: recentLoading, isFetching: recentFetching, isError: recentError}: any =
+  useQuery({
+        queryKey: ['recentsBlogsData', limit, id],
+        queryFn: async ({ pageParam}: any) => {
+            if(id) {
+              let filter: PaginationOptionBlog = {page, limit, published_only: 'true'}
+              let result: Pagination<any> = await client.getRecentsBlogs(filter, id)
+
+              return result?.docs
+            }else return []
+        }
+    })
   return <>
   <PageHeader/>
   <div className="tf-section post-details">
@@ -124,36 +141,20 @@ function BlogDetailsPage() {
       <div className="side-bar details">
         <div className="widget widget-recent-post mg-bt-43">
           <h3 className="title-widget mg-bt-23">Recent Post</h3>
-          <ul>
-            <li className="box-recent-post">
-              <div className="box-feature"><a href="blog-details.html"><img src="assets/images/box-item/icon1-recont-post.jpg" alt="image" /></a></div>
+          {recetntsBlogs && <ul>
+
+            {recetntsBlogs?.map((blog: Blog, key:number) => {
+              return <li className="box-recent-post" key={key} >
+              <div className="box-feature"><a href={`/blog/${blog._id}`}><img src={`${API_FILE_URL}/blogs/${blog?.image?.path}`} alt={`6tims - tims group | ${blog.slug}`} /></a></div>
               <div className="box-content">
-                <a href="blog-details.html" className="title-recent-post">6 Make Mobile Website Faster</a>
-                <span><span className="sub-recent-post">Lorem ipsum dolor sit amer....</span><a href="blog.html" className="day-recent-post">August 10, 2021</a></span>
+                <a href={`/blog/${blog._id}`} className="title-recent-post line-clamp-1">{blog.title}</a>
+                <span><span className="sub-recent-post">{removeUnnecessaryHTMLStuff(blog.description).substring(0, 20).trimEnd() + '....'}</span><a href="blog.html" className="day-recent-post">{moment(blog.createdAt).format('DD MMMM YYYY')}</a></span>
               </div>
             </li>
-            <li className="box-recent-post">
-              <div className="box-feature"><a href="blog-details.html"><img src="assets/images/box-item/icon2-recont-post.jpg" alt="image" /></a></div>
-              <div className="box-content">
-                <a href="blog-details.html" className="title-recent-post">Experts Web Design Tips</a>
-                <span><span className="sub-recent-post">Lorem ipsum dolor sit amer....</span><a href="blog.html" className="day-recent-post">August 22, 2021</a></span>
-              </div>
-            </li>
-            <li className="box-recent-post">
-              <div className="box-feature"><a href="blog-details.html"><img src="assets/images/box-item/icon3-recont-post.jpg" alt="image" /></a></div>
-              <div className="box-content">
-                <a href="blog-details.html" className="title-recent-post">Importance Of Web Design</a>
-                <span><span className="sub-recent-post">Lorem ipsum dolor sit amer....</span><a href="blog.html" className="day-recent-post">August 20, 2021</a></span>
-              </div>
-            </li>
-            <li className="box-recent-post">
-              <div className="box-feature"><a href="blog-details.html"><img src="assets/images/box-item/icon4-recont-post.jpg" alt="image" /></a></div>
-              <div className="box-content">
-                <a href="blog-details.html" className="title-recent-post">Avoid These Erros In UI Design</a>
-                <span><span className="sub-recent-post">Lorem ipsum dolor sit amer....</span><a href="blog.html" className="day-recent-post">August 12, 2021</a></span>
-              </div>
-            </li>
-          </ul>
+            })}
+            
+            
+          </ul>}
         </div>
         {/* <div className="widget widget-tag style-1">
           <h3 className="title-widget mg-bt-23">Popular Tag</h3>

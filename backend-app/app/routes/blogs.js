@@ -17,7 +17,8 @@ const {
   updateBlog,
   likeBlog,
   commentBlog,
-  updateBlogView
+  updateBlogView,
+  getRecentBlogs
 } = require('../controllers/blogs')
 
 const {
@@ -35,6 +36,7 @@ const {
  * Get all items route
  */
 router.get('/all', getAllBlogs)
+router.get('/all-recents/:id', getRecentBlogs)
 
 /*
  * Like item route

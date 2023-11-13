@@ -50,6 +50,13 @@ export class Client {
     ...paginationOption
   })
 
+  getRecentsBlogs = (
+    paginationOption: dataSchemas.PaginationOptionBlog = { page: 1, limit: 10},
+    id: string
+  ): Promise<Pagination<dataSchemas.Blog>> =>
+  this.service.getRecentsBlogs({
+    ...paginationOption
+  }, id)
   getblogById = (id: string): Promise<dataSchemas.Blog> =>
   this.service.getblogById(id)
 

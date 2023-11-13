@@ -6,6 +6,7 @@ const {updateBlog} = require('./updateBlog')
 const {likeBlog} = require('./likeBlog')
 const {commentBlog} = require('./commentBlog')
 const {updateBlogView} = require('./updateBlogView')
+const {getRecentBlogs} = require('./getRecentBlogs')
 
 module.exports = {
   createBlog,
@@ -15,5 +16,6 @@ module.exports = {
   updateBlog,
   likeBlog,
   commentBlog,
-  updateBlogView
+  updateBlogView,
+  getRecentBlogs
 }

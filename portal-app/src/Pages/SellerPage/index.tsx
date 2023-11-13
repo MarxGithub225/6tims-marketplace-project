@@ -318,7 +318,7 @@ function SellerPage() {
                     </div>
                     </div>
                     <div className="col-md-12 wrap-inner load-more text-center">
-                    <a href="author02.html" className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
+                    <a href="author02.html" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
                     </div>
                 </div>
                 </div>
@@ -538,7 +538,7 @@ function SellerPage() {
                     </div>
                     </div>
                     <div className="col-md-12 wrap-inner load-more text-center">
-                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
+                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
                     </div>
                 </div>
                 </div>
@@ -758,7 +758,7 @@ function SellerPage() {
                     </div>
                     </div>
                     <div className="col-md-12 wrap-inner load-more text-center">
-                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
+                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
                     </div>
                 </div>
                 </div>
@@ -906,7 +906,7 @@ function SellerPage() {
                     </div>
                     </div>
                     <div className="col-md-12 wrap-inner load-more text-center">
-                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
+                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
                     </div>
                 </div>
                 </div>
@@ -1090,7 +1090,7 @@ function SellerPage() {
                     </div>
                     </div>
                     <div className="col-md-12 wrap-inner load-more text-center">
-                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
+                    <a href="#" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
                     </div>
                 </div>
                 </div>

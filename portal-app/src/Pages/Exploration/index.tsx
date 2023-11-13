@@ -19,7 +19,7 @@ function Exploration() {
   const [sortLabel, setSortLabel] = useState<string | null>(null)
 
   const [page, setPage] = useState<number>(1)
-  const [limit, setLimit] = useState<number>(3)
+  const [limit, setLimit] = useState<number>(20)
   const { client } = useProduct()
   const [meta, setMeta] = useState<any> (null)
   const { data, isLoading, isFetching, isError, fetchNextPage, hasNextPage}: any =
@@ -154,7 +154,7 @@ function Exploration() {
               e.preventDefault()
               fetchNextPage()
             }}
-            id="loadmore" className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
+            id="loadmore" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
           </div>
         </div>}
       </div>: <></>}

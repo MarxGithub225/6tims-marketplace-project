@@ -347,7 +347,7 @@ function SearchPage() {
             </div>
           </div>
           <div className="btn-auction center">
-            <a href="#" className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
+            <a href="#" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
           </div>
         </div>
       </div>

@@ -1,68 +1,83 @@
-import React from "react";
 import PageHeader from "../../GlobalScreens/PageHeader";
 import CustumButton from "../../Components/CustumButton";
 
+import { BookOpen, Clock, Eye, Heart, MessageCircle, Share, ThumbsUp, Video } from "react-feather";
+import { useState } from "react";
+import { useQuery } from '@tanstack/react-query'
+import { PaginationOptionBlog } from "../../sdks/blog-v1/utils/DataSchemas";
+import { Pagination } from "../../sdks/GlobalDataSchemas";
+import { API_FILE_URL, calcReadingDuration, calculatePrice, formatDuration } from "../../utilities/constants";
+import useBlog from "../../hooks/useBlog";
+import useCategory from "../../hooks/useCategory";
+import { Blog } from "../../sdks/blog-v1/utils/DataSchemas";
+import { File } from "../../sdks/image-v1/utils/DataSchemas";
+import { useLocation, useParams } from "react-router-dom";
+import moment from "moment";
+import ReactPlayer from "react-player";
 function BlogDetailsPage() {
+  const {id} = useParams<any>()
+  const { client } = useBlog()
+  const [liked, setLiked] = useState<boolean>(false)
+  const { data, isLoading, isFetching, isError }: any =
+  useQuery({
+      queryKey: ['blogDetails', id],
+      queryFn: async () => {
+          if(id) {
+            let result: Blog = await client.getblogById(id)
+            return result
+          }else return null
+      }
+  })
   return <>
   <PageHeader/>
   <div className="tf-section post-details">
   <div className="themesflat-container">
-    <div className="wrap-flex-box style">
+    {data && <div className="wrap-flex-box style">
       <div className="post">
         <div className="inner-content">
-          <h2 className="title-post">I Believe everyone can be a designer as long they love to create design</h2>
+          <h2 className="title-post">{data.title}</h2>
           <div className="divider" />
           <div className="meta-post flex mg-bt-31">
-            <div className="box">
-              <div className="inner">
-                <h6 className="desc">DESIGNER INTERVIEW</h6>
-                <p>AUGUST CHAPTER</p>
-              </div>
-            </div>
+            <div className="box"/>
             <div className="box left">
               <div className="inner boder pad-r-50">
-                <h6 className="desc">WRITER</h6>
-                <p>DWINAWAN</p>
               </div>
               <div className="inner mg-l-39 mg-r-1">
                 <h6 className="desc">DATE</h6>
-                <p>AUGUST 11, 2021</p>
+                <p>{moment(data.createdAt).format('DD MMMM, YYYY')}</p>
               </div>
             </div>
           </div>
-          <div className="image">
-            <img src="assets/images/blog/thumb-7.jpg" alt="Image" />
-          </div> 
-          <div className="inner-post mg-t-40">
-            <h3 className="heading mg-bt-16">What is the most fun thing to become a designer?</h3>    
-            <p className="mg-bt-24">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-              Cupidatat non Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-            </p> 
-            <div className="image-box">
-              <img src="assets/images/blog/thumb1_details.jpg" alt="Image" />
-              <img src="assets/images/blog/thumb2_details.jpg" alt="Image" />
-            </div>
-          </div>   
-          <div className="inner-post mg-t-22">
-            <h3 className="heading mg-bt-16">How is your daily routine?</h3>    
-            <p className="mg-bt-24">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Cupidatat non Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-            </p> 
+          {data?.isVideo? <div className="w-full rounded-lg h-[500px]">
+            <ReactPlayer
+                  controls
+                  url={data?.videoUrl}
+                  width="100%"
+                  height="100%"
+              />
+
+            </div>:
             <div className="image">
-              <img src="assets/images/blog/thumb-6.jpg" alt="Image" />
-            </div>
-          </div>       
-          <div className="inner-post mg-t-24">
-            <h3 className="heading mg-bt-16">Middle Post Heading</h3>    
-            <p>Middle Post Heading</p>
-            <p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
-              totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
-            </p> 
-            <p className="mg-bt-22">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, 
-              sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>                                   
+            <img src={`${API_FILE_URL}/blogs/${data?.largeImage?.path}`} alt={`6tims - tims group | ${data.slug}`} />
+            </div> 
+          }
+          <div className="mt-3 stats-item flex items-center justify-between">
+              <div className="right">
+                <span> <Eye size={16} /> {data?.viewsCount} </span>
+                <span> <MessageCircle size={16} /> {data?.comments?.length} </span>
+                <span> <Clock size={16}/> {data?.isVideo ? 
+            <>{formatDuration(Number(data?.videoDuration) + Number(data?.readDuration)*60)}</>: <>{calcReadingDuration(data?.description)} min</>} </span>
+              </div>
+
+              <div className="left">
+                <span> <Heart size={16} /> {data?.likes?.length} </span>
+              </div>
           </div>
-          <div className="sc-widget style-1">
+          
+          <div className="inner-post mg-t-40"
+          dangerouslySetInnerHTML={{__html: data.description}}
+          /> 
+          {/* <div className="sc-widget style-1">
             <div className="widget widget-tag style-2">
               <h4 className="title-widget">Tags</h4>
               <ul>
@@ -79,7 +94,7 @@ function BlogDetailsPage() {
                 <li className="mgr-none"><a href="#" className="icon-fl-mess" /></li>
               </ul>
             </div>
-          </div>    
+          </div>     */}
           <div className="divider d2" />
           <div id="comments">
             <h3 className="heading mg-bt-23">
@@ -140,7 +155,7 @@ function BlogDetailsPage() {
             </li>
           </ul>
         </div>
-        <div className="widget widget-tag style-1">
+        {/* <div className="widget widget-tag style-1">
           <h3 className="title-widget mg-bt-23">Popular Tag</h3>
           <ul>
             <li><a href="blog.html" className="box-widget-tag">Bitcoin</a></li>
@@ -153,9 +168,9 @@ function BlogDetailsPage() {
             <li><a href="blog.html" className="box-widget-tag">Wallet</a></li>
             <li><a href="blog.html" className="box-widget-tag">Crypto</a></li>
           </ul>
-        </div>
+        </div> */}
       </div>
-    </div>
+    </div>}
   </div>
 </div></>
 ;

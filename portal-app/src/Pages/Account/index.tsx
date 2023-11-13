@@ -65,7 +65,7 @@ function ProfilePage() {
                   </div>
                 </div>
                 <div className="table-btn mt52">
-                  <a href="#">Load more</a>
+                  <a href="#">Charger plus</a>
                 </div>
               </div>
               

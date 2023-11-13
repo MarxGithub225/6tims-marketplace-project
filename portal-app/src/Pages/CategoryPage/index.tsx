@@ -26,7 +26,7 @@ function CategoryPage() {
   const search = useLocation().search;
   const category2Id = new URLSearchParams(search).get('category2Id');
   const [page, setPage] = useState<number>(1)
-  const [limit, setLimit] = useState<number>(3)
+  const [limit, setLimit] = useState<number>(15)
   const { client } = useProduct()
   const { client: clientCategory } = useCategory()
 
@@ -80,14 +80,14 @@ function CategoryPage() {
                     {categoryData?.label}
                 </h2>
                 <p className="sub-title ct small mg-bt-20 pad-420">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.
+                Découvrez les produits nouveaux et tendances
                 </p>
             </div>
         </div>
       <div className="row">
         <div className="col-xl-3 col-lg-3 col-md-12">
           <div id="side-bar" className="side-bar style-3">
-            <div className="widget widget-category mgbt-24 boder-bt">
+            {/* <div className="widget widget-category mgbt-24 boder-bt">
               <div className="title-wg-category">
                 <h4 className="title-widget style-2">Status</h4>
                 <i className="icon-fl-down-2" />
@@ -108,7 +108,7 @@ function CategoryPage() {
                   </label><br />
                 </form>
               </div>
-            </div>
+            </div> */}
             {categoryData?.category && <div className="widget widget-category mgbt-24 boder-bt">
               <div className="title-wg-category">
                 <h4 className="title-widget style-2">Toutes les categories</h4>
@@ -262,7 +262,7 @@ function CategoryPage() {
           </div>
         </div>
         {(data && data?.pages) ?  <div className="col-xl-9 col-lg-9 col-md-12">
-          <div className="box-epxlore">
+          <div className="box-epxlore gap-x-[28.575px]">
             {data.pages.map((page: Array<Product>) => (
           <>
           {page.map((product: Product, key: number) => {
@@ -303,7 +303,7 @@ function CategoryPage() {
               e.preventDefault()
               fetchNextPage()
             }}
-            className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
+            className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
           </div>}
         </div>: <></>}
       </div>

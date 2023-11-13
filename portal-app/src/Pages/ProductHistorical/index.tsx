@@ -74,7 +74,7 @@ function ProductHistorical() {
           <div className="button-active icon icon-5" />
         </div>                          
         <div className="btn-activity mg-t-40 center">
-          <a href="#" className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
+          <a href="#" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
         </div>
       </div>
       <div className="col-lg-4 col-md-4 col-12">

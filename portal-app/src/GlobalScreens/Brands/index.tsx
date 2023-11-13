@@ -29,7 +29,7 @@ function Brands() {
           Nos partenaires
         </h2>
         <h5 className="sub-title ct style-1 pad-400">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.
+          Les grandes marques nous font confiance.
         </h5>
       </div>
       {(data && data?.length) ?  <div className="col-md-12">

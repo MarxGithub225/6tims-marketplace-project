@@ -334,3 +334,23 @@
     padding-right: 15px;
     padding-left: 15px;
 }
+
+.stats-item {
+    .right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    span {
+        padding: 9px 15px;
+        border-radius: 40px;
+        background-color: #F8F8F8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        font-size: 16px;
+        font-weight: 500;
+        height: 35px;
+    }
+}

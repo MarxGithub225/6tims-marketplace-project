@@ -40,7 +40,7 @@ function HomeBlogs() {
         {data.map((blog: Blog, key: number) => {
             return <div key={key} className="sc-card-collection style-2 home2">
             <div className="card-media-h6">
-              <img src={`${API_FILE_URL}/blogs/${blog?.image?.path}`} alt={`6tims - tims group | ${blog.slug}`} />
+            <a href={`/blog/${blog._id}`}><img src={`${API_FILE_URL}/blogs/${blog?.image?.path}`} alt={`6tims - tims group | ${blog.slug}`} /></a>
             </div>
             <div className="card-bottom">
               <div className="author">
@@ -49,8 +49,7 @@ function HomeBlogs() {
                         <span>{moment(blog.createdAt).format('DD MMMM YYYY')}</span>
                         <span className="name"></span>
                     </div>
-                    <h4 className="ellips-txt-3"><a href="author01.html">{removeUnnecessaryHTMLStuff(blog.description)}</a></h4>
-                  
+                    <h4 className="ellips-txt"><a href={`/blog/${blog._id}`}>{removeUnnecessaryHTMLStuff(blog.title)}</a></h4>
                 </div>
               </div>
               {blog.likes.length > 0 ? <button className="wishlist-button public heart mg-t-6"><span className="number-like"> {blog.likes.length}</span></button> : <></>}

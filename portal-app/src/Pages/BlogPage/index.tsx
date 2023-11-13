@@ -1,45 +1,96 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import PageHeader from "../../GlobalScreens/PageHeader";
-
+import { useState } from "react";
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
+import { PaginationOptionBlog } from "../../sdks/blog-v1/utils/DataSchemas";
+import { Pagination } from "../../sdks/GlobalDataSchemas";
+import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
+import useBlog from "../../hooks/useBlog";
+import { Blog } from "../../sdks/blog-v1/utils/DataSchemas";
+import { File } from "../../sdks/image-v1/utils/DataSchemas";
+import { PaginationOptionCategory } from "../../sdks/category-v1/utils/DataSchemas";
+import moment from "moment";
+import { removeUnnecessaryHTMLStuff } from "../../utilities/helper";
 function BlogPage() {
+
+    const [page, setPage] = useState<number>(1)
+  const [limit, setLimit] = useState<number>(15)
+  const { client } = useBlog()
+  const [meta, setMeta] = useState<any> (null)
+  const { data, isLoading, isFetching, isError, fetchNextPage, hasNextPage}: any =
+  useInfiniteQuery({
+        queryKey: ['hotAllBlogsData', limit],
+        queryFn: async ({ pageParam}: any) => {
+            let filter: PaginationOptionBlog = {page: pageParam, limit, published_only: 'true'}
+            let result: Pagination<any> = await client.getPublishedBlogs(filter)
+
+            setMeta({
+              hasNextPage : result?.hasNextPage,
+              hasPrevPage : result?.hasPrevPage,
+              limit : result?.limit,
+              nextPage : result?.nextPage,
+              page : result?.page,
+              pagingCounter : result?.pagingCounter,
+              prevPage : result?.prevPage,
+              totalDocs : result?.totalDocs,
+              totalPages : result?.totalPages
+          })
+        return result?.docs
+        },
+        initialPageParam: 1,
+        getNextPageParam(lastPage: any, allPages: any) {
+          console.log('lastPage', lastPage)
+          console.log('allPages', allPages)
+          return lastPage?.length > 0 ? allPages?.length + 1 : undefined;
+        },
+    })
   return <>
     
     <PageHeader/>
     <div className="tf-section sc-card-blog dark-style2">
         <div className="themesflat-container">
-        <div className="row">
-           {
-            [0, 1, 2, 3, 4, 5, 6, 7].map((data: any, key: number) => {
+        {(data && data?.pages) ?  <div className="row">
+        <>
+        {data.pages.map((page: Array<Blog>) => (
+          <>
+           {page.map((blog: Blog, key: number) => {
                 return  <div key={key} className="fl-blog fl-item2 col-lg-4 col-md-6">
                 <article className="sc-card-article">
                     <div className="card-media">
-                    <a href="blog-details.html"><img src="assets/images/blog/thumb-1.jpg" alt="" /></a>
+                    <a href={`/blog/${blog._id}`}><img src={`${API_FILE_URL}/blogs/${blog?.image?.path}`} alt={`6tims - tims group | ${blog.slug}`} /></a>
                     </div>
                     <div className="meta-info">
                     <div className="author">
                         <div className="info">
-                            <span>09 Août 2023</span>
+                            <span>{moment(blog.createdAt).format('DD MMMM YYYY')}</span>
                             <span className="name"></span>
                         </div>
                     </div>
-                    <button className="wishlist-button public heart mg-t-6"><span className="number-like"> 100</span></button>
+                    {blog.likes.length > 0 ? <button className="wishlist-button public heart mg-t-6"><span className="number-like"> {blog.likes.length}</span></button> : <></>}
                     </div>
                     <div className="text-article">
-                    <h3><a href="blog-details.html">The next big trend in crypto</a></h3>
-                    <p>Dolore officia sint incididunt non excepteur ea mollit commodo ut
-                        enim reprehenderit cupidatat labore ad laborum consectetur
-                        consequat...</p>
+                    <h3 className="ellips-txt"><a href={`/blog/${blog._id}`}>{removeUnnecessaryHTMLStuff(blog.title)}</a></h3>
+                    <p className="ellips-txt-3">{removeUnnecessaryHTMLStuff(blog.description)}</p>
                     </div>
-                    <a href="blog-details.html" className="sc-button fl-button pri-3"><span>Read More</span></a>
+                    <a href={`/blog/${blog._id}`} className="sc-button fl-button pri-3"><span>Lire plus</span></a>
                 </article>
                 </div>
             })
            }
+           </>
+           ))}
+           </>
             
-            <div className="col-md-12 wrap-inner load-more text-center mg-t-10">
-            <a href="blog.html" id="loadmore" className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
-            </div>
-        </div>
+           {meta?.hasNextPage && <div className="col-md-12 wrap-inner load-more text-center mg-t-10">
+            <a href="" 
+            onClick={(e: any) => {
+                e.preventDefault()
+                fetchNextPage()
+              }}
+            id="loadmore" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
+            </div>}
+        </div>: <></>}
         </div>
     </div>
 

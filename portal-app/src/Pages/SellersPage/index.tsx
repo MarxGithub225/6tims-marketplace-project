@@ -351,7 +351,7 @@ function SellersPage() {
                 </div>
             </div>
             <div className="col-md-12 wrap-inner load-more mg-t-10 text-center">
-                <a href="#" id="loadmore" className="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
+                <a href="#" id="loadmore" className="sc-button loadmore fl-button pri-3"><span>Charger plus</span></a>
             </div>
             </div>
         </div>

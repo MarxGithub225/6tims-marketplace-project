@@ -13,7 +13,7 @@ import Countdown from 'react-countdown';
 function HomeHotProducts () {
   const [allCount, setCount] = useState<number>(0)
   const [page, setPage] = useState<number>(1)
-  const [limit, setLimit] = useState<number>(10)
+  const [limit, setLimit] = useState<number>(5)
   const { client } = useProduct()
 
   const { data, isLoading, isFetching, isError }: any =
@@ -33,7 +33,7 @@ function HomeHotProducts () {
           <div className="heading-live-auctions">
             <h2 className="tf-title pb-23">
               Les produits chauds du moment</h2>
-              {allCount > 10 && <a href="/hot-exploration" className="exp style2">DECOUVRIR PUS</a>}
+              {allCount > 5 && <a href="/hot-exploration" className="exp style2">DECOUVRIR PUS</a>}
           </div>
         </div>
         <div className="col-md-12">

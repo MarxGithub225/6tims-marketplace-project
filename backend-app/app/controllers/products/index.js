@@ -1,6 +1,7 @@
 const {createProduct} = require('./createProduct')
 const {getAllProducts} = require('./getAllProducts')
 const {getAllBestProducts} = require('./getAllBestProducts')
+const {getRelativeProducts} = require('./getRelativeProducts')
 const {getProduct} = require('./getProduct')
 const {updateProduct} = require('./updateProduct')
 const {likeProduct} = require('./likeProduct')
@@ -19,5 +20,6 @@ module.exports = {
   updateProduct,
   likeProduct,
   viewProduct,
-  commentProduct
+  commentProduct,
+  getRelativeProducts
 }

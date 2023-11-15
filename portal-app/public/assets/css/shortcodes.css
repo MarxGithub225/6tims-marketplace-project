@@ -5632,8 +5632,18 @@ section.today-picks {
     display: flex;
     position: absolute;
     top: 1px;
-    right: 117px;
+    right: 57px;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
+.seller-tab .menu-tab::-webkit-scrollbar{
+    display: none;
+    width: 0 !important;
+  }
 
 .seller-tab .menu-tab li{
     padding: 7px 31px;

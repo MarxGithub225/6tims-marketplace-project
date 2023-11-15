@@ -21,7 +21,8 @@ const {
   updateProduct,
   likeProduct,
   viewProduct,
-  commentProduct
+  commentProduct,
+  getRelativeProducts
 } = require('../controllers/products')
 
 const {
@@ -53,6 +54,7 @@ router.get(
 router.get('/seller', requireAuth, trimRequest.all, getAllProducts)
 
 router.get('/best', getAllBestProducts)
+router.get('/relative/:id', getRelativeProducts)
 
 router.get('/categories', getAllProductsGroupByCategories)
 router.put('/like/:productId', requireAdminAuth, likeProduct)

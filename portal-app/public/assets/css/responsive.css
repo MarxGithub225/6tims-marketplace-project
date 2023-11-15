@@ -437,7 +437,7 @@
   .header_2.style .mode_switcher,
   .mode_switcher{
     top: 105px !important;
-    display: block;
+    display: flex;
   }
 
   .header_2.style .mode_switcher.style2{

@@ -7,6 +7,10 @@ import { Pagination } from "../../../sdks/GlobalDataSchemas";
 import { API_FILE_URL } from "../../../utilities/constants";
 
 function HomeCategories() {
+
+  const scrollImages = window.document.querySelector(".menu-tab");
+  const scrollLength = scrollImages ? scrollImages.scrollWidth - scrollImages.clientWidth : 0;
+
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(10)
   const { client } = useProduct()
@@ -27,6 +31,22 @@ function HomeCategories() {
             return result?.docs
         }
     })
+
+    const leftScroll = () => {
+      if(scrollImages)
+      scrollImages.scrollBy({
+        left: -200,
+        behavior: "smooth"
+      });
+    }
+    const rightScroll = () => {
+      if(scrollImages) {
+        scrollImages.scrollBy({
+          left: 200,
+          behavior: "smooth"
+        });
+      }
+    }
   return <div className="col-md-12">
   <h2 className="tf-title style2 mb-25 text-left">Catégories</h2>
   <div className="flat-tabs seller-tab style3 tablet-30">
@@ -77,6 +97,9 @@ function HomeCategories() {
         </div>
       </div>
     </div>: <></>}
+    <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-0 right-[15px] cursor-pointer scroll-category right-arrow" onClick={rightScroll} />
+
+    <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-0 left-[200px] cursor-pointer scroll-category left-arrow" onClick={leftScroll} />
   </div> 
 </div>;
 }

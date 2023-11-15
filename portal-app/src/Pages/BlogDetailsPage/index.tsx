@@ -1,17 +1,15 @@
 import PageHeader from "../../GlobalScreens/PageHeader";
 import CustumButton from "../../Components/CustumButton";
 
-import { BookOpen, Clock, Eye, Heart, MessageCircle, Share, ThumbsUp, Video } from "react-feather";
+import { Clock, Eye, Heart, MessageCircle } from "react-feather";
 import { useState } from "react";
 import { useQuery } from '@tanstack/react-query'
 import { PaginationOptionBlog } from "../../sdks/blog-v1/utils/DataSchemas";
 import { Pagination } from "../../sdks/GlobalDataSchemas";
-import { API_FILE_URL, calcReadingDuration, calculatePrice, formatDuration } from "../../utilities/constants";
+import { API_FILE_URL, calcReadingDuration, formatDuration } from "../../utilities/constants";
 import useBlog from "../../hooks/useBlog";
-import useCategory from "../../hooks/useCategory";
 import { Blog } from "../../sdks/blog-v1/utils/DataSchemas";
-import { File } from "../../sdks/image-v1/utils/DataSchemas";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import moment from "moment";
 import ReactPlayer from "react-player";
 import { removeUnnecessaryHTMLStuff } from "../../utilities/helper";
@@ -113,28 +111,30 @@ function BlogDetailsPage() {
             </div>
           </div>     */}
           <div className="divider d2" />
-          <div id="comments">
-            <h3 className="heading mg-bt-23">
-              Leave A Comment
-            </h3>
-            <form action="https://themesflat.co/html/axiesv/contact/contact-process.php" method="post" id="commentform" className="comment-form">
-              <fieldset className="name">
-                <input type="text" id="name" placeholder="Name" className="tb-my-input" name="name" tabIndex={2}  aria-required="true" required />
-              </fieldset>
-              <fieldset className="email">
-                <input type="email" id="email" placeholder="Email *" className="tb-my-input" name="email" tabIndex={2}  aria-required="true" required />
-              </fieldset>
-              <fieldset className="message">
-                <textarea id="message" name="message" rows={4} placeholder="Message" tabIndex={4} aria-required="true" required defaultValue={""} />
-              </fieldset>
-              <div className="btn-submit mg-t-36">
-                <CustumButton
-                label={"Envoyer"}
-                onclick={() => {}}
-                backgroundColor="#e73a5d"
-                />
-              </div>
-            </form>
+          <div className="w-[600px]">
+            <div id="comments">
+              <h3 className="heading mg-bt-23">
+                Leave A Comment
+              </h3>
+              <form action="https://themesflat.co/html/axiesv/contact/contact-process.php" method="post" id="commentform" className="comment-form">
+                <fieldset className="name">
+                  <input type="text" id="name" placeholder="Name" className="tb-my-input" name="name" tabIndex={2}  aria-required="true" required />
+                </fieldset>
+                <fieldset className="email">
+                  <input type="email" id="email" placeholder="Email *" className="tb-my-input" name="email" tabIndex={2}  aria-required="true" required />
+                </fieldset>
+                <fieldset className="message">
+                  <textarea id="message" name="message" rows={4} placeholder="Message" tabIndex={4} aria-required="true" required defaultValue={""} />
+                </fieldset>
+                <div className="btn-submit mg-t-36">
+                  <CustumButton
+                  label={"Envoyer"}
+                  onclick={() => {}}
+                  backgroundColor="#e73a5d"
+                  />
+                </div>
+              </form>
+            </div>          
           </div>          
         </div>
       </div>

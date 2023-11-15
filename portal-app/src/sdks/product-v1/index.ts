@@ -56,6 +56,14 @@ export class Client {
   this.service.getBestProducts({
     ...paginationOption
   })
+  getRelativeProducts  = (
+    paginationOption: dataSchemas.PaginationOptionProduct = { page: 1, limit: 10},
+    id: string
+  ): Promise<Pagination<dataSchemas.Product>> =>
+  this.service.getRelativeProducts({
+    ...paginationOption
+  }, id)
+
 
   getAllProductsGroupByCategories = (
     paginationOption: dataSchemas.PaginationOptionProduct = { page: 1, limit: 10}

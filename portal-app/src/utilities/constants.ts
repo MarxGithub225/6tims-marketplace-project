@@ -123,13 +123,14 @@ export const randomChar= (length: number) => {
 export const calculatePrice = (product: Product): {promo: boolean, isBonus: boolean, price: number, oldPrice: number, percentage: number, countdown:number} =>  {
     if(product.isPromoted && ((new Date(product.promostartDate).getTime() <= new Date().getTime()) && (new Date(product.promoendDate).getTime() >= new Date().getTime()))) {
         if(product.promoType === 'bonus') {
+            const endDate: any = new Date(product.promoendDate).getTime()
             return {
                 promo: true,
                 isBonus: true,
                 price: product.cost,
                 oldPrice: product.cost,
                 percentage: 0,
-                countdown: 0
+                countdown: endDate
             }
         }else {
             const endDate: any = new Date(product.promoendDate).getTime()

@@ -106,6 +106,11 @@ export default class Service {
       return request('GET', `products/best${query}`, this.options)
     }
 
+    async getRelativeProducts(paginationOption: PaginationOption, id: string) {
+      const query = getPaginationQuery(paginationOption)
+      return request('GET', `products/relative/${id}${query}`, this.options)
+    }
+
     async getAllProductsGroupByCategories(paginationOption: PaginationOption) {
       const query = getPaginationQuery(paginationOption)
       return request('GET', `products/categories${query}`, this.options)

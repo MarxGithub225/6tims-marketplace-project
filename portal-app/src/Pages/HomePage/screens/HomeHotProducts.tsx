@@ -10,12 +10,14 @@ import useProduct from "../../../hooks/useProduct";
 import { Product } from "../../../sdks/product-v1/utils/DataSchemas";
 import { File } from "../../../sdks/image-v1/utils/DataSchemas";
 import Countdown from 'react-countdown';
+import { setProduct } from "../../../redux/features/productSlice";
+import { useAppDispatch } from "../../../redux/hooks";
 function HomeHotProducts () {
   const [allCount, setCount] = useState<number>(0)
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(5)
   const { client } = useProduct()
-
+  const dispatch = useAppDispatch()
   const { data, isLoading, isFetching, isError }: any =
     useQuery({
         queryKey: ['bestProductsData', page, limit],
@@ -51,7 +53,11 @@ function HomeHotProducts () {
                     <Countdown className="js-countdown" date={calculatePrice(product).countdown} />
                     </div>}
                     <div className="button-place-bid">
-                    <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Mettre au panier</span></a>
+                    <a href="#" 
+                    onClick={() => {
+                      dispatch(setProduct(product))
+                    }}
+                    data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Mettre au panier</span></a>
                     </div>
                 </div>
                 <div className="card-title">

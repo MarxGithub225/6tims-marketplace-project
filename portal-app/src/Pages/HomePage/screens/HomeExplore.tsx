@@ -11,6 +11,9 @@ import { Product } from "../../../sdks/product-v1/utils/DataSchemas";
 import { Category1 } from "../../../sdks/category-v1/utils/DataSchemas";
 import { File } from "../../../sdks/image-v1/utils/DataSchemas";
 import Filter from "../../../GlobalScreens/Filter";
+import CartModal from "../../../GlobalScreens/CartModal";
+import { useAppDispatch } from "../../../redux/hooks";
+import { setProduct } from "../../../redux/features/productSlice";
 
 function HomeExplore() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
@@ -21,6 +24,7 @@ function HomeExplore() {
   const [sortBy, setSortBy] = useState<any | null>(null)
   const [sortLabel, setSortLabel] = useState<string | null>(null)
   const { client } = useProduct()
+  const dispatch = useAppDispatch()
   const [meta, setMeta] = useState<any> (null)
   const { data, isLoading, isFetching, isError, fetchNextPage }: any =
   useInfiniteQuery({
@@ -133,7 +137,11 @@ function HomeExplore() {
             </div>
           </div>
           <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Panier</span></a>
+            <a href="#" 
+             onClick={() => {
+              dispatch(setProduct(product))
+            }}
+            data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Panier</span></a>
             <a href="activity1.html" className="view-history reload">Voir historique</a>
           </div>
         </div>
@@ -150,6 +158,7 @@ function HomeExplore() {
       </div>}
     </div>: <></>}
   </div>
+  <CartModal/>
 </section>;
 }
 

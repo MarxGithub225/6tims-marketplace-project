@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import authReducer from './features/authSlice'
-import carReducer from './features/carSlice'
+import carReducer from './features/productSlice'
 import sidebarReducer from './features/sidebarSlice'
 import themeReducer from './features/themeSlice'
 import headerReducer from './features/headerSlice'
@@ -16,7 +16,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({ 
   auth: authReducer,
-  carInfos: carReducer,
+  product: carReducer,
   sidebar: sidebarReducer,
   theme: themeReducer,
   header: headerReducer

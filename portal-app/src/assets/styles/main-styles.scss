@@ -404,3 +404,24 @@
 .inner-content * {
     font-size: 14px;
 }
+
+.qty-button {
+    border: 1px solid rgba(138,138,160,0.3);
+    outline: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    font-size: 18px;
+    line-height: 28px;
+    border-radius: 4px;
+    padding: 13px 15px;
+    width: 100px;
+    background: transparent;
+    color: #1F1F2C;
+    height: 56px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}

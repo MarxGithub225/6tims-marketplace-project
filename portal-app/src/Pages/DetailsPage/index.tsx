@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
 import Related from "./screens/Related";
 import Brands from "../../GlobalScreens/Brands";
 import TopSellers from "../../GlobalScreens/TopSellers";
@@ -12,19 +11,21 @@ import { useState } from "react";
 import { useQuery } from '@tanstack/react-query'
 import { PaginationOptionProduct } from "../../sdks/product-v1/utils/DataSchemas";
 import { Pagination } from "../../sdks/GlobalDataSchemas";
-import { API_FILE_URL, calcReadingDuration, calculatePrice, formatDuration } from "../../utilities/constants";
+import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
 import useProduct from "../../hooks/useProduct";
 import { Product } from "../../sdks/product-v1/utils/DataSchemas";
 import { useParams } from "react-router-dom";
-import moment from "moment";
-import ReactPlayer from "react-player";
-import { removeUnnecessaryHTMLStuff } from "../../utilities/helper";
 import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import Countdown from "react-countdown";
 import CartModal from "../../GlobalScreens/CartModal";
+import { useAppDispatch } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
+import { setProduct } from "../../redux/features/productSlice";
 
 function DetailsPage() {
-
+  const productSelected = useSelector((state: RootState) => state.product.productSelected)
+  const dispatch = useAppDispatch()
   const [checkedTab, setCheckedTab] = useState<number>(0)
   const {slug} = useParams<any>()
   const { client } = useProduct()
@@ -90,7 +91,7 @@ function DetailsPage() {
                 <div className="meta-info">
                   <div className="author">
                     <div className="avatar">
-                    <img src={data.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${data.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${data.slug}`} />
+                    <img src={data.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${data.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-288.jpg`} alt={`6tims - tims group | ${data.slug}`} />
                     </div>
                     <div className="info">
                       <span>Vendeur</span>
@@ -116,7 +117,11 @@ function DetailsPage() {
                   <Countdown className="js-countdown text-[20px] "  date={calculatePrice(data).countdown} />
                 </div>}
               </div>
-              <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button loadmore style bag fl-button pri-3"><span>Mettre dans le panier</span></a>
+              <a href="#" 
+              onClick={() => {
+                dispatch(setProduct(data))
+              }}
+              data-toggle="modal" data-target="#popup_bid" className="sc-button loadmore style bag fl-button pri-3"><span>Mettre dans le panier</span></a>
               <div className="flat-tabs themesflat-tabs">
                 <ul className="menu-tab tab-title">
                  {data.principalFeatures && <li className={`item-title ${checkedTab === 0 ? 'active': ''}`}
@@ -145,7 +150,7 @@ function DetailsPage() {
                             <div className="sc-author-box style-2">
                               <div className="author-avatar">
                                 <a href="#">
-                                  <img src="assets/images/avatar/avt-3.jpg" alt="" className="avatar" />
+                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
                                 </a>
                                 <div className="badge" />
                               </div>
@@ -169,7 +174,7 @@ function DetailsPage() {
                             <div className="sc-author-box style-2">
                               <div className="author-avatar">
                                 <a href="#">
-                                  <img src="assets/images/avatar/avt-11.jpg" alt="" className="avatar" />
+                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
                                 </a>
                                 <div className="badge" />
                               </div>
@@ -193,7 +198,7 @@ function DetailsPage() {
                             <div className="sc-author-box style-2">
                               <div className="author-avatar">
                                 <a href="#">
-                                  <img src="assets/images/avatar/avt-1.jpg" alt="" className="avatar" />
+                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
                                 </a>
                                 <div className="badge" />
                               </div>
@@ -217,7 +222,7 @@ function DetailsPage() {
                             <div className="sc-author-box style-2">
                               <div className="author-avatar">
                                 <a href="#">
-                                  <img src="assets/images/avatar/avt-5.jpg" alt="" className="avatar" />
+                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
                                 </a>
                                 <div className="badge" />
                               </div>
@@ -241,7 +246,7 @@ function DetailsPage() {
                             <div className="sc-author-box style-2">
                               <div className="author-avatar">
                                 <a href="#">
-                                  <img src="assets/images/avatar/avt-7.jpg" alt="" className="avatar" />
+                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
                                 </a>
                                 <div className="badge" />
                               </div>
@@ -265,7 +270,7 @@ function DetailsPage() {
                             <div className="sc-author-box style-2">
                               <div className="author-avatar">
                                 <a href="#">
-                                  <img src="assets/images/avatar/avt-8.jpg" alt="" className="avatar" />
+                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
                                 </a>
                                 <div className="badge" />
                               </div>
@@ -293,7 +298,7 @@ function DetailsPage() {
                             <div className="sc-author-box style-2">
                               <div className="author-avatar">
                                 <a href="#">
-                                  <img src="assets/images/avatar/avt-3.jpg" alt="" className="avatar" />
+                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
                                 </a>
                                 <div className="badge" />
                               </div>

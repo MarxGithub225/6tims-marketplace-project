@@ -1,25 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
 import PageHeader from "../../GlobalScreens/PageHeader";
-import { BookOpen, Clock, Eye, Heart, MessageCircle, Share, ThumbsUp, Video } from "react-feather";
 import { useState } from "react";
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
-import { PaginationOptionSeller } from "../../sdks/seller-v1/utils/DataSchemas";
 import { Pagination } from "../../sdks/GlobalDataSchemas";
-import { API_FILE_URL, calcReadingDuration, calculatePrice, formatDuration } from "../../utilities/constants";
+import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
 import useSeller from "../../hooks/useSeller";
-import useCategory from "../../hooks/useCategory";
 import { Seller } from "../../sdks/seller-v1/utils/DataSchemas";
 import { File } from "../../sdks/image-v1/utils/DataSchemas";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import moment from "moment";
-import ReactPlayer from "react-player";
-import { removeUnnecessaryHTMLStuff } from "../../utilities/helper";
 import useProduct from "../../hooks/useProduct";
-import { PaginationOptionCategory } from "../../sdks/category-v1/utils/DataSchemas";
 import { PaginationOptionProduct, Product } from "../../sdks/product-v1/utils/DataSchemas";
+import { useAppDispatch } from "../../redux/hooks";
+import { setProduct } from "../../redux/features/productSlice";
+import CartModal from "../../GlobalScreens/CartModal";
 function SellerPage() {
 
+    const dispatch = useAppDispatch()
     const {id} = useParams<any>()
   const { client } = useSeller()
   const { client: clientProduct } = useProduct()
@@ -83,6 +80,23 @@ function SellerPage() {
           return lastPage?.length > 0 ? allPages?.length + 1 : undefined;
         }
     })
+
+    const scrollImages = window.document.querySelector(".menu-tab");
+    const leftScroll = () => {
+      if(scrollImages)
+      scrollImages.scrollBy({
+        left: -200,
+        behavior: "smooth"
+      });
+    }
+    const rightScroll = () => {
+      if(scrollImages) {
+        scrollImages.scrollBy({
+          left: 200,
+          behavior: "smooth"
+        });
+      }
+    }
   return <>
   <PageHeader/>
     <section className="tf-section authors">
@@ -100,29 +114,35 @@ function SellerPage() {
                 </div>
                 
             </div>
-            <ul className="menu-tab flex">
-                <li className={`tablinks ${selectedCategory?.index === -1 ? 'active': ''}`}
-                onClick={() => {
-                    setSelected({
-                        index: -1,
-                        categoryId: ''
-                    })
-                    }}
-                >TOUS</li>
-                {dataCategories ? 
-                dataCategories.map((data: any, key: number) => {
-                    return <li key={key} 
+            <div className="relative">
+                <ul className="relative menu-tab flex">
+                    <li className={`tablinks ${selectedCategory?.index === -1 ? 'active': ''}`}
                     onClick={() => {
-                    setSelected({
-                        index: key,
-                        categoryId: data?.category[0]?._id
+                        setSelected({
+                            index: -1,
+                            categoryId: ''
+                        })
+                        }}
+                    >TOUS</li>
+                    {dataCategories ? 
+                    dataCategories.map((data: any, key: number) => {
+                        return <li key={key} 
+                        onClick={() => {
+                        setSelected({
+                            index: key,
+                            categoryId: data?.category[0]?._id
+                        })
+                        }}
+                        className={`tablinks  ${key === selectedCategory?.index ? 'active': ''} `}>
+                        {data?.category && <span className="uppercase">{data?.category[0]?.label}</span>}</li>
                     })
-                    }}
-                    className={`tablinks  ${key === selectedCategory?.index ? 'active': ''} `}>
-                    {data?.category && <span className="uppercase">{data?.category[0]?.label}</span>}</li>
-                })
-                : <></>}
-            </ul>
+                    : <></>}
+                </ul>
+                <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-[20px] right-[15px] cursor-pointer scroll-category right-arrow" onClick={rightScroll} />
+
+            <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-[20px] left-[15px] cursor-pointer scroll-category left-arrow" onClick={leftScroll} />
+            </div>
+            
             <div className="content-tab">
                 {(dataProducts && dataProducts?.pages) ?  <div className="content-inner">
                     <div className="row">
@@ -134,7 +154,11 @@ function SellerPage() {
                                 <div className="card-media active">
                                 <a href={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></a>
                                 <div className="button-place-bid ">
-                                    <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Panier</span></a>
+                                    <a href="#" 
+                                    onClick={() => {
+                                        dispatch(setProduct(product))
+                                      }}
+                                    data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Panier</span></a>
                                 </div>
                                 {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
                                 </div>
@@ -180,6 +204,7 @@ function SellerPage() {
         </div>}
     </section>
 
+    <CartModal/>
   </>;
 }
 

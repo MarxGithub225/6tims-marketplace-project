@@ -62,7 +62,7 @@ function CartPage() {
         <div className="sc-card-activity style1">
           <div className="content">
             <div className="media">
-              <img src="assets/images/box-item/image-box-11.jpg" alt="" />
+              <img src="assets/images/box-item/image-box-10.jpg" alt="" />
             </div>
             <div className="infor">
               <h3> <a href="item-details.html">Erotic 35mm and polaroid photography</a> </h3>
@@ -86,7 +86,7 @@ function CartPage() {
         <div className="sc-card-activity style1">
           <div className="content">
             <div className="media">
-              <img src="assets/images/box-item/image-box-21.jpg" alt="" />
+              <img src="assets/images/box-item/image-box-10.jpg" alt="" />
             </div>
             <div className="infor">
               <h3> <a href="item-details.html">Our Journey Start</a> </h3>
@@ -110,7 +110,7 @@ function CartPage() {
         <div className="sc-card-activity style1">
           <div className="content">
             <div className="media">
-              <img src="assets/images/box-item/image-box-6.jpg" alt="" />
+              <img src="assets/images/box-item/image-box-10.jpg" alt="" />
             </div>
             <div className="infor">
               <h3> <a href="item-details.html">Skrrt Cobain Official</a> </h3>

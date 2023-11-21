@@ -1,4 +1,4 @@
-const {buildErrObject} = require('../../middleware/utils')
+const {buildErrObject} = require('../utils')
 
 /**
  * Checks is password matches

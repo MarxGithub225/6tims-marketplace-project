@@ -8,7 +8,7 @@ interface CustumButtonProps {
     onclick: Function
 }
 function CustumButton({label, icon, backgroundColor="#e73a5d", color="#fff", onclick=()=>{}, borderColor}: CustumButtonProps) {
-  return <div className="custom-button gap-x-3"
+  return <div className="custom-button gap-x-3 cursor-pointer"
   style={{
     background: backgroundColor,
     color: color,

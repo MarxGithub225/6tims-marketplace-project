@@ -15,6 +15,7 @@ const validateCreateCategory = [
     .trim(),
   check('iconId').exists().withMessage('MISSING').not(),
   check('imageId').exists().withMessage('MISSING').not(),
+  check('percent').exists().withMessage('MISSING').not(),
   check('suspended')
     .exists()
     .withMessage('MISSING')
@@ -44,6 +45,7 @@ const validateCreateCategory2 = [
     .trim(),
   check('iconId').exists().withMessage('MISSING').not(),
   check('imageId').exists().withMessage('MISSING').not(),
+  check('percent').exists().withMessage('MISSING').not(),
   check('categoryId')
     .exists()
     .withMessage('MISSING')
@@ -79,6 +81,7 @@ const validateCreateCategory3 = [
     .trim(),
   check('iconId').exists().withMessage('MISSING').not(),
   check('imageId').exists().withMessage('MISSING').not(),
+  check('percent').exists().withMessage('MISSING').not(),
   check('categoryId')
     .exists()
     .withMessage('MISSING')

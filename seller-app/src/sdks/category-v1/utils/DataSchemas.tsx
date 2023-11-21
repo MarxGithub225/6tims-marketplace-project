@@ -8,6 +8,7 @@ export interface CreateRequest {
   imageId: string | null
   sizeGuide: string
   suspended: boolean
+  percent: number
 }
 
 export interface CreateRequest2 extends CreateRequest {
@@ -29,6 +30,7 @@ export interface Category {
   createdBy: string
   updatedBy: string
   clicksNumber: string
+  percent: number
   updatedUser: FullUserProfile
   createdUser: FullUserProfile
   icon: File

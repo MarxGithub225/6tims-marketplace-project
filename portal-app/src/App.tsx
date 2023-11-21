@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Header from './GlobalScreens/Header';
 import Footer from './GlobalScreens/Footer';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
@@ -19,17 +19,24 @@ import CheckoutPage from './Pages/CheckoutPage';
 import LoginPage from './Pages/Auth/LoginPage';
 import RegisterPage from './Pages/Auth/RegisterPage';
 import ProfilePage from './Pages/Account';
+import { useAppDispatch } from './redux/hooks';
+import { getCart } from './redux/features/cartSlice';
 function App() {
+  const dispatch = useAppDispatch()
+  const {pathname} = useLocation()
+  const headerRef: any = useRef(null)
 
-
-  let public_routes = [
-
-  ]
+  useEffect(() => {
+    dispatch(getCart())
+    if (headerRef) {
+      headerRef?.current?.scrollIntoView({ behavior: "smooth" })
+    }
+  }, [pathname])
   
   return (
     <div id="wrapper">
       <div id="page" className="clearfix">
-        <Header/>
+        <Header headerRef={headerRef} />
         <Routes>
           < Route path={'/*'} element={ <HomePage /> } />
           < Route path={'/:slug'} element={ <DetailsPage /> } />

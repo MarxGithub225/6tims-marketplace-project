@@ -37,7 +37,6 @@ const {
  */
 router.get('/all', getAllBlogs)
 router.get('/all-recents/:id', getRecentBlogs)
-
 /*
  * Like item route
  */

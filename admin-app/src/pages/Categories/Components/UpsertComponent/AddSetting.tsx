@@ -32,6 +32,7 @@ const defaultSetting: CreateRequest = {
     imageId: null,
     sizeGuide: "none",
     suspended: false,
+    percent: 0
 }
 
 const defaultSetting2: CreateRequest2 = {
@@ -40,7 +41,8 @@ const defaultSetting2: CreateRequest2 = {
     imageId: null,
     sizeGuide: "none",
     suspended: false,
-    categoryId: ""
+    categoryId: "",
+    percent: 0
 }
 
 const defaultSetting3: CreateRequest3 = {
@@ -50,7 +52,8 @@ const defaultSetting3: CreateRequest3 = {
     sizeGuide: "none",
     suspended: false,
     categoryId: "",
-    category2Id: ""
+    category2Id: "",
+    percent: 0
 }
 
 function AddSetting({ modalOpened, toggleModal, upsertSetting, currentSetting, setCurrentSetting, loading, settingTitle, settingValue}: AddSettingProps) {
@@ -205,6 +208,16 @@ function AddSetting({ modalOpened, toggleModal, upsertSetting, currentSetting, s
                     classname='user-select-dropdown' width="100%" required={true} label={`Select sous category`}
                         placeholder={'Choose'} options={subCategories} onChange={handleSelectChange2}
                     />}
+                    <div className="custom-input-group">
+                        <div className="custom-input-group-label">Pourcentage de commission</div>
+                        <input
+                            name='percent'
+                            value={currentSetting?.percent}
+                            className='custom-input-group-value custom-input-group-value-no-big w-full'
+                            onChange={handleChange}
+                            placeholder={'Add percent'}
+                        />
+                    </div>
                     <div className="custom-input-check">
                         <label className={`option capitalize`}>
                             {`${currentSetting?.suspended ? 'Suspendu' : 'Pas suspendu'}`}

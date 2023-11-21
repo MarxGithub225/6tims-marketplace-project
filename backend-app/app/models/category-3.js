@@ -46,6 +46,10 @@ const Category3Schema = new mongoose.Schema(
     clicksNumber: {
       type: Number,
       default: 0
+    },
+    percent: {
+      type: Number,
+      default: 0
     }
   },
   {

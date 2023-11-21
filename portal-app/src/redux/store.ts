@@ -3,7 +3,7 @@ import authReducer from './features/authSlice'
 import carReducer from './features/productSlice'
 import sidebarReducer from './features/sidebarSlice'
 import themeReducer from './features/themeSlice'
-import headerReducer from './features/headerSlice'
+import cartReducer from './features/cartSlice'
 
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   product: carReducer,
   sidebar: sidebarReducer,
   theme: themeReducer,
-  header: headerReducer
+  cart: cartReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

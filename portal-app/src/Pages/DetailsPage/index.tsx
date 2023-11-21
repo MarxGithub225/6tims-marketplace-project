@@ -19,12 +19,9 @@ import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import Countdown from "react-countdown";
 import CartModal from "../../GlobalScreens/CartModal";
 import { useAppDispatch } from "../../redux/hooks";
-import { RootState } from "../../redux/store";
-import { useSelector } from "react-redux";
 import { setProduct } from "../../redux/features/productSlice";
 
 function DetailsPage() {
-  const productSelected = useSelector((state: RootState) => state.product.productSelected)
   const dispatch = useAppDispatch()
   const [checkedTab, setCheckedTab] = useState<number>(0)
   const {slug} = useParams<any>()

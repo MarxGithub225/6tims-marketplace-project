@@ -34,7 +34,8 @@ const defaultSetting: any = {
     iconId: null,
     imageId: null,
     sizeGuide: "none",
-    suspended: false
+    suspended: false,
+    percent: 0
 }
 const defaultSetting2: any = {
     label: "",
@@ -42,7 +43,8 @@ const defaultSetting2: any = {
     imageId: null,
     sizeGuide: "none",
     suspended: false,
-    categoryId: ""
+    categoryId: "",
+    percent: 0
 }
 
 const defaultSetting3: any = {
@@ -52,7 +54,8 @@ const defaultSetting3: any = {
     sizeGuide: "none",
     suspended: false,
     categoryId: "",
-    category2Id: ""
+    category2Id: "",
+    percent: 0
 }
 const settingOptions: Array<OptionInterface> = [
     { label: "catégories", value: "1" },

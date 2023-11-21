@@ -37,6 +37,10 @@ const CategorySchema = new mongoose.Schema(
       type: Number,
       default: 0
     },
+    percent: {
+      type: Number,
+      default: 0
+    },
     subCategory2Ids: [
       {
         type: mongoose.Schema.Types.ObjectId,

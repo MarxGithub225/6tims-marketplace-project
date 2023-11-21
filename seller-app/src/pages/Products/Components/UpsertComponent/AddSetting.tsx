@@ -633,7 +633,7 @@ function AddSetting({ modalOpened, toggleModal, upsertSetting, currentSetting, s
                             </div>
 
                             <div className="w-full itemWidth:w-[29.22%]">
-                                <CustomSelect2 classname='user-select-dropdown' value={currentSetting?.category3Id} width="100%" required={false} label={`Sous catégorie 2`}
+                                <CustomSelect2 classname='user-select-dropdown' value={currentSetting?.category3Id} width="100%" required={false} label={`Type de produit`}
                                     placeholder='Choose' options={sub2Categories} onChange={handleSubCategory2SelectChange}
                                 />
                             </div>

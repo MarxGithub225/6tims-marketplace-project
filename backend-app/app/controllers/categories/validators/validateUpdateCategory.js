@@ -13,6 +13,7 @@ const validateUpdateCategory = [
     .withMessage('IS_EMPTY'),
   check('iconId').exists().withMessage('MISSING').not(),
   check('imageId').exists().withMessage('MISSING').not(),
+  check('percent').exists().withMessage('MISSING').not(),
   check('suspended')
     .exists()
     .withMessage('MISSING')
@@ -41,6 +42,7 @@ const validateUpdateCategory2 = [
     .withMessage('IS_EMPTY'),
   check('iconId').exists().withMessage('MISSING').not(),
   check('imageId').exists().withMessage('MISSING').not(),
+  check('percent').exists().withMessage('MISSING').not(),
   check('categoryId')
     .exists()
     .withMessage('MISSING')
@@ -75,6 +77,7 @@ const validateUpdateCategory3 = [
     .withMessage('IS_EMPTY'),
   check('iconId').exists().withMessage('MISSING').not(),
   check('imageId').exists().withMessage('MISSING').not(),
+  check('percent').exists().withMessage('MISSING').not(),
   check('categoryId')
     .exists()
     .withMessage('MISSING')

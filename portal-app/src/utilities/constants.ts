@@ -154,3 +154,28 @@ export const calculatePrice = (product: Product): {promo: boolean, isBonus: bool
         }
     }
 }
+
+export interface CartVariableProps {
+    quantity: number
+    sku: string
+    label: string
+  }
+export interface CartProductProps {
+      _id: string
+      sellerId: string
+      title: string
+      slug: string
+      promo: boolean
+      isBonus: boolean
+      price: number
+      oldPrice: number
+      percentage: number
+      boughtNumber: number
+      bonusNumber: number
+      colorId: string
+      image: string
+      variables: Array<CartVariableProps>
+      totalQty: number
+      totalPrice: number
+      initialProduct: Product
+}

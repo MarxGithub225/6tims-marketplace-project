@@ -5,8 +5,13 @@ import {ReactComponent as EnIcon} from '../../assets/icons/langs/EnIcon.svg'
 import {ReactComponent as FrIcon} from '../../assets/icons/langs/FrIcon.svg'
 import logo  from '../../assets/images/tims_logo_black.png'
 import logoWhite  from '../../assets/images/tims_logo_white.png'
-function Header() {
-
+import avatar  from '../../assets/images/avt-1.jpg'
+import { ShoppingCart } from "react-feather";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { Link } from "react-router-dom";
+function Header({headerRef}: any) {
+  const cart = useSelector((state: RootState) => state.cart.cart)
     const changeTheme = (theme: string) => {
         if(theme === 'dark') {
           $(".body").addClass("is_dark")
@@ -53,7 +58,7 @@ function Header() {
         }
     }
 
-  return <header id="header_main" className="header_1 header_2 style2 js-header">
+  return <header id="header_main" ref={headerRef} className="header_1 header_2 style2 js-header">
   <div className="themesflat-container">
     <div className="row">
       <div className="col-md-12">                              
@@ -122,11 +127,22 @@ function Header() {
                   </form>
                 </div>
               </div>
+
+              {(cart && cart.length) ?<div className="header-search flat-show-search">
+                <Link to={'/cart'} className="show-search header-search-trigger text-white relative">
+                  <ShoppingCart/>
+
+                  <div className="absolute flex items-center font-bold text-[#e73a5d] justify-center -top-3 -right-3 w-7 h-7 rounded-full bg-white">
+                    {cart.length < 10 ? cart.length : '+9'}
+                  </div>
+                </Link>
+                
+              </div>: <></>}
               
               <div className="admin_active" id="header_admin">
                 <div className="header_avatar">
                   <div className="popup-user">
-                    <img className="avatar" src="assets/images/avatar/avt-5.jpg" alt="avatar" />
+                    <img className="avatar" src={avatar} alt="avatar" />
                     <div className="avatar_popup mt-20">
                       <h4>Tyler Covington</h4>
                       <div className="d-flex align-items-center mt-20 mg-bt-12">

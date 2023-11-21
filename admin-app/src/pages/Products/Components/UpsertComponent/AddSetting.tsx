@@ -330,7 +330,7 @@ function AddSetting({ modalOpened, toggleModal, currentSetting, setCurrentSettin
                                 <div className="w-full" >
                                     <div className="relative custom-select w-full h-[72px] ">
                                         <div className="flex flex-col">
-                                        <span className="custom-select-label">Sous catégorie 2</span>
+                                        <span className="custom-select-label">Type de produit</span>
                                         </div>
                                         <div className="flex flex-row justify-between items-center">
                                             <span

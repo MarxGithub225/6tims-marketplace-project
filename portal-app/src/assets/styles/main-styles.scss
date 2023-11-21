@@ -425,3 +425,24 @@
     align-items: center;
     justify-content: center;
 }
+
+.cart-modal-list {
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        border-radius: 16.0252px;
+        background: scroll;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 32.0504px;
+        overflow: hidden;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 32.0504px;
+        overflow: hidden;
+      }
+}

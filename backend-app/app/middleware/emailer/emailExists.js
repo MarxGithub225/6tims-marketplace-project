@@ -1,5 +1,5 @@
 const User = require('../../models/user')
-const {buildErrObject} = require('../../middleware/utils')
+const {buildErrObject} = require('../utils')
 
 /**
  * Checks User model if user with an specific email exists

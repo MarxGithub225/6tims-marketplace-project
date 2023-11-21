@@ -1,5 +1,3 @@
-import * as heic2any from 'heic2any';
-
 export function transformArray(arr: any[]) {
     if (arr && arr?.length > 0) {
         return arr?.map((item: any, index) => ({ value: item.id, name: item.name, groupId: item.group_id, groupName: item?.group?.name }));

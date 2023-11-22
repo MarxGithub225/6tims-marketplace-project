@@ -40,6 +40,12 @@ const validateCreateOrder = [
     .not()
     .isEmpty()
     .withMessage('IS_EMPTY'),
+  check('shippingAddress.state')
+    .exists()
+    .withMessage('MISSING')
+    .not()
+    .isEmpty()
+    .withMessage('IS_EMPTY'),
   check('shippingAddress.fullLocation')
     .exists()
     .withMessage('MISSING')

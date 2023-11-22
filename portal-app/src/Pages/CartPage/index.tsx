@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext, AuthStatus } from "../../context/auth";
 
 function CartPage() {
-  const { authStatus } = useContext(AuthContext)
+  const { authStatus, setUserInfo } = useContext(AuthContext)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const cart = useSelector((state: RootState) => state.cart.cart)
@@ -36,7 +36,6 @@ function CartPage() {
     }
     setTotal(total)
   }, [cart])
- 
   return <>
   <PageHeader/>
 

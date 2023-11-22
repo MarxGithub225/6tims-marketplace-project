@@ -40,7 +40,7 @@ export class Client {
   }
 
   authorize = (data: dataSchemas.AuthorizeRequest): Promise<dataSchemas.AuthorizeResponse> => {
-    return this.authService.authorize(data)
+    return this.authService.login(data)
   }
 
   login = (data: dataSchemas.AuthorizeRequest): Promise<dataSchemas.AuthorizeResponse> => {

@@ -88,7 +88,7 @@ function LoginPage() {
                 label="Se connecter"
                 backgroundColor="#f7a700"
                 color="#fff"
-                disabled={!active}
+                disabled={!active || email.trim() === "" || password.trim() === ""}
                 onclick={() => !mutation.isLoading && mutation.mutate()}
                 isLoading={mutation?.isLoading}
                 />

@@ -67,9 +67,6 @@ const handleSelectChangeGender = (selectedOption: any) => {
 }
 
 
-
-
-
 const handleSelectImage = (data: File) => {
     setImageSrc(data)
     setCurrentSetting({ ...currentSetting, imageId: data?._id })

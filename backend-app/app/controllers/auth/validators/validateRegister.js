@@ -5,7 +5,7 @@ const {check} = require('express-validator')
  * Validates register request
  */
 const validateRegister = [
-  check('firstName') 
+  check('firstName')
     .exists()
     .withMessage('MISSING')
     .not()
@@ -43,6 +43,16 @@ const validateRegister = [
     .withMessage('IS_EMPTY')
     .isIn(['man', 'woman'])
     .withMessage('USER_NOT_IN_KNOWN_GENDER'),
+  check('password')
+    .exists()
+    .withMessage('MISSING')
+    .not()
+    .isEmpty()
+    .withMessage('IS_EMPTY')
+    .isLength({
+      min: 5
+    })
+    .withMessage('PASSWORD_TOO_SHORT_MIN_5'),
   check('imageId')
     .exists()
     .withMessage('MISSING')

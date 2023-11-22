@@ -35,7 +35,7 @@ const defaultAdress: address = {
 
 const defaultOrderData: CreateRequest = {
   cost: 0,
-  fees: 0,
+  fees: 10,
   paidMethod: "cash",
   products: [],
   shippingAddress: {

@@ -10,12 +10,7 @@ const validateCreateOrder = [
     .not()
     .isEmpty()
     .withMessage('IS_EMPTY'),
-  check('fees')
-    .exists()
-    .withMessage('MISSING')
-    .not()
-    .isEmpty()
-    .withMessage('IS_EMPTY'),
+  check('fees').exists().withMessage('MISSING').not(),
   check('paidMethod')
     .exists()
     .withMessage('MISSING')
@@ -47,6 +42,12 @@ const validateCreateOrder = [
     .isEmpty()
     .withMessage('IS_EMPTY'),
   check('shippingAddress.fullLocation')
+    .exists()
+    .withMessage('MISSING')
+    .not()
+    .isEmpty()
+    .withMessage('IS_EMPTY'),
+  check('shippingAddress.zipCode')
     .exists()
     .withMessage('MISSING')
     .not()

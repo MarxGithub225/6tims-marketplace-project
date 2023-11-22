@@ -5,7 +5,7 @@ const {check} = require('express-validator')
  * Validates register request
  */
 const validateRegister = [
-  check('firstName')
+  check('firstName') 
     .exists()
     .withMessage('MISSING')
     .not()

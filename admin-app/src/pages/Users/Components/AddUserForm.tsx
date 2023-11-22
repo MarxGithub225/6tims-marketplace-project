@@ -1,20 +1,13 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import CustomModal from '../../../global-components/CustomModal';
 import CustomSelect from '../../../global-components/CustomSelect/CustomSelect';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
-import { notifyError, notifySuccess } from '../../../global-components/CustomAlert';
-import { transformArray } from '../../../utilities/functions';
+import { useQuery } from '@tanstack/react-query';
 import CustomButton from '../../../global-components/CustomButton';
-import FileDropZone from '../../../global-components/FileDropZone';
-import { API_FILE_URL, IMAGE_ACCEPT } from '../../../utilities/constants';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
-import {ReactComponent as FileIcon} from '../../../assets/icons/fileIcon.svg';
+import { API_FILE_URL } from '../../../utilities/constants';
 import { AdminRoles, MorroccoCities } from '../../../sdks/user-v1/utils/DataSchemas';
 import useImage from '../../../hooks/useImage';
-import { ScaleLoader } from 'react-spinners';
 import useIcon from '../../../hooks/useIcon';
 import { Pagination } from '../../../sdks/GlobalDataSchemas';
 import { Icon } from '../../../sdks/icon-v1/utils/DataSchemas';
@@ -56,9 +49,6 @@ const defaultValue: any = {
 function AddUserForm({ modalOpened, toggleModal, groupName = "User",  upsertSetting, currentSetting, setCurrentSetting, loading }: AddUserFormProps) {
     const { client } = useImage()
     const { client: iconClient} = useIcon()
-    const [userType, setUserType] = useState<string>("")
-    const [userCity, setUserCity] = useState<string>("")
-    const [userGender, setUserGender] = useState<string>("man")
     const [user, setUser] = useState<any>(currentSetting)
     const [imageSrc, setImageSrc] =
         useState<any>(currentSetting?.image ? currentSetting?.image : null)
@@ -66,17 +56,14 @@ function AddUserForm({ modalOpened, toggleModal, groupName = "User",  upsertSett
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
     const handleSelectChange = (selectedOption: any) => {
-        setUserType(selectedOption?.value)
         setCurrentSetting({ ...currentSetting, role: selectedOption?.value})
     }
 
     const handleSelectChangeCity = (selectedOption: any) => {
-        setUserCity(selectedOption?.value)
         setCurrentSetting({ ...currentSetting, address: {...currentSetting?.address, city: selectedOption?.value}})
     }
 
     const handleSelectChangeGender = (selectedOption: any) => {
-        setUserGender(selectedOption?.value)
         setCurrentSetting({ ...currentSetting, gender: selectedOption?.value})
     }
 

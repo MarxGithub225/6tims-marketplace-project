@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PageHeader from "../../GlobalScreens/PageHeader";
 import CustumButton from "../../Components/CustumButton";
 import { ArrowLeft, Minus, Plus, ShoppingBag, ShoppingCart, Trash } from "react-feather";
@@ -12,8 +12,10 @@ import { useAppDispatch } from "../../redux/hooks";
 import { setProduct } from "../../redux/features/productSlice";
 import CartModal from "../../GlobalScreens/CartModal";
 import { useNavigate } from "react-router-dom";
+import { AuthContext, AuthStatus } from "../../context/auth";
 
 function CartPage() {
+  const { authStatus } = useContext(AuthContext)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const cart = useSelector((state: RootState) => state.cart.cart)
@@ -49,7 +51,7 @@ function CartPage() {
             <img src={product.image} alt={`6tims | tims group - ${product.slug}`} />
             </a>
             <div className="infor">
-              <h3 className="line-clamp-1" > <a href="item-details.html">{product.title}</a></h3>
+              <h3 className="line-clamp-1" > <a href={`/${product.slug}-${product?._id}.html`}>{product.title}</a></h3>
               <div className="status">started following <span className="author">Gayle Hicks</span></div>
               <div className="status flex items-center gap-x-3">
                 <span className="author">{product.price} DH</span>
@@ -142,7 +144,13 @@ function CartPage() {
 
           <CustumButton
           label={"Commander"}
-          onclick={() => navigate('/checkout')}
+          onclick={() => {
+            if(authStatus === AuthStatus.SignedIn ) {
+              navigate('/checkout')
+            }else {
+              navigate(`/login?redirect=true&urlRequest=/cart`)
+            }
+          }}
           backgroundColor="#e73a5d"
           icon={<ShoppingCart size={15}/>}
           />

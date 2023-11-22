@@ -446,3 +446,146 @@
         overflow: hidden;
       }
 }
+
+.new-custom-select {
+    font-size: 14px;
+    border: 1px solid rgba(138, 138, 160, 0.3);
+    border-radius: 8px;
+    padding: 9px 20px;
+    margin-bottom: 24px;
+    background: transparent;
+    height: 48px;
+    position: relative;
+
+    .custom-select-placeholder {
+        color: #8A8AA0;
+    }
+
+    .custom-select-selected {
+        color: #1F1F2C;
+    }
+
+    .select-dropdown {
+        top: 53px;
+        right: 0;
+        position: absolute;
+        height: auto;
+        max-height: 242px;
+        overflow-y: auto;
+        background: #fff;
+        box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        z-index: 100000;
+        width: 100%;
+        cursor: pointer;
+        
+        .dropdown-menu-item {
+            padding: 9px 20px;
+            color: #1F1F2C;
+            cursor: pointer;
+
+            &:hover {
+                background: rgba(247, 167, 0, .1);
+            }
+        }
+    }
+}
+
+
+.custom-input-check .option-selected,
+.custom-input-check .option {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  color: #64748b;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 21px; /* 150% */
+  letter-spacing: -0.1px;
+}
+
+
+
+/* Hide the browser's default radio button */
+.custom-input-check .option-selected input,
+.custom-input-check .option input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-input-check input {
+  margin-right: 8px;
+}
+
+.custom-input-check input[type="checkbox"] {
+  background-color: CanvasText;
+  width: 1.15em;
+  height: 1.15em;
+  border-radius: 0.15em;
+}
+
+/* Create a custom radio button */
+.custom-input-check .checkmark {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  border: 1.5px solid #64748b;
+  border-radius: 50%;
+}
+
+[data-theme='dark'] .custom-input-check .checkmark {
+  background: #F5F6F7;
+  border: 1px solid #3A3154;
+}
+
+
+.option:has(> input:checked~.checkmark) {
+  color: #1e293b;
+}
+.all-option-item:has(input:checked~.checkmark) .option-price{
+  color: #1e293b;
+}
+/* When the radio button is checked, add a blue background */
+.custom-input-check .option-selected input:checked~.checkmark,
+.custom-input-check .option input:checked~.checkmark {
+  border: 1.5px solid #f4a607;;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.custom-input-check .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.custom-input-check .option-selected input:checked~.checkmark:after,
+.custom-input-check .option input:checked~.checkmark:after {
+  display: block;
+}
+
+.custom-input-check .option-selected .checkmark:after,
+.custom-input-check .option .checkmark:after {
+  left: 1.5px;
+  top: 1.5px;
+  height: 10px;
+  width: 10px;
+  background: #f4a607;;
+  border-radius: 50%;
+}
+
+/* Style the indicator (dot/circle) */
+.custom-input-check .option-selected input:checked~.checkmark:after,
+.custom-input-check .option input:checked~.checkmark:after {
+  left: 1.5px;
+  top: 1.5px;
+  height: 10px;
+  width: 10px;
+  background: #f4a607;;
+  border-radius: 50%;
+}

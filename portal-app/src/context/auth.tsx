@@ -16,7 +16,6 @@ export interface ISession {
     accessToken: string,
     refreshToken: string
 }
-
   
   export interface IAuth {
     sessionInfo?: { accessToken?: string; refreshToken?: string, userInfo?: any}
@@ -40,19 +39,6 @@ export interface ISession {
   
   export const AuthContext = React.createContext<IAuth>(defaultState)
   
-  export const AuthIsSignedIn: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-    const { authStatus, sessionInfo }: IAuth = useContext(AuthContext)
-    return <>{
-      authStatus === AuthStatus.SignedIn && sessionInfo?.accessToken
-      && children
-    }</>
-  }
-  
-  export const AuthIsNotSignedIn: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-    const { authStatus }: IAuth = useContext(AuthContext)
-  
-    return <>{authStatus === AuthStatus.SignedOut && children}</>
-  }
 
   const parseJwt = (token: string): any => {
     try {
@@ -137,10 +123,6 @@ export interface ISession {
             userInfo: simpleUser,
           });
   
-          if (['master', 'manager'].includes(simpleUser.role ?? '')) {
-            setIsMaster(true);
-          }
-          
           setAuthStatus(AuthStatus.SignedIn)
         } catch (err: any) {
           setAuthStatus(AuthStatus.SignedOut)

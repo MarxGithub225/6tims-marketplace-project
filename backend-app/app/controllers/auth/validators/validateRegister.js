@@ -5,12 +5,20 @@ const {check} = require('express-validator')
  * Validates register request
  */
 const validateRegister = [
-  check('name')
+  check('firstName')
     .exists()
     .withMessage('MISSING')
     .not()
     .isEmpty()
-    .withMessage('IS_EMPTY'),
+    .withMessage('IS_EMPTY')
+    .trim(),
+  check('lastName')
+    .exists()
+    .withMessage('MISSING')
+    .not()
+    .isEmpty()
+    .withMessage('IS_EMPTY')
+    .trim(),
   check('email')
     .exists()
     .withMessage('MISSING')
@@ -19,16 +27,22 @@ const validateRegister = [
     .withMessage('IS_EMPTY')
     .isEmail()
     .withMessage('EMAIL_IS_NOT_VALID'),
-  check('password')
+  check('role')
     .exists()
     .withMessage('MISSING')
     .not()
     .isEmpty()
     .withMessage('IS_EMPTY')
-    .isLength({
-      min: 5
-    })
-    .withMessage('PASSWORD_TOO_SHORT_MIN_5'),
+    .isIn(['user', 'master', 'manager', 'delivery', 'moderator'])
+    .withMessage('USER_NOT_IN_KNOWN_ROLE'),
+  check('gender')
+    .exists()
+    .withMessage('MISSING')
+    .not()
+    .isEmpty()
+    .withMessage('IS_EMPTY')
+    .isIn(['man', 'woman'])
+    .withMessage('USER_NOT_IN_KNOWN_GENDER'),
   check('imageId')
     .exists()
     .withMessage('MISSING')
@@ -54,7 +68,8 @@ const validateRegister = [
     .isEmpty()
     .withMessage('IS_EMPTY'),
   check('address.zipCode').exists().withMessage('MISSING').not(),
-  check('newsletterSubscribed').exists().withMessage('MISSING').not().trim(),
+  check('deleted').exists().withMessage('MISSING').not().trim(),
+  check('suspended').exists().withMessage('MISSING').not().trim(),
   (req, res, next) => {
     validateResult(req, res, next)
   }

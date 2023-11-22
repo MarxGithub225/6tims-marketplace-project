@@ -21,6 +21,7 @@ import RegisterPage from './Pages/Auth/RegisterPage';
 import ProfilePage from './Pages/Account';
 import { useAppDispatch } from './redux/hooks';
 import { getCart } from './redux/features/cartSlice';
+import AuthProvider from "./context/auth";
 function App() {
   const dispatch = useAppDispatch()
   const {pathname} = useLocation()
@@ -33,7 +34,7 @@ function App() {
     }
   }, [pathname])
   
-  return (
+  return <AuthProvider>
     <div id="wrapper">
       <div id="page" className="clearfix">
         <Header headerRef={headerRef} />
@@ -63,7 +64,7 @@ function App() {
      
     </div>
 
-  );
+    </AuthProvider>;
 }
 
 export default App;

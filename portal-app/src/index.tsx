@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import './assets/styles/main-styles.scss';
 import 'react-multi-carousel/lib/styles.css';
+import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import RQProviders from "./providers/ReactQueryProvider"
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,6 +19,7 @@ root.render(
       <RQProviders>
         <Router>
           <App />
+          <ToastContainer icon={false} closeButton={false} />
         </Router>
       </RQProviders>
   </Provider>

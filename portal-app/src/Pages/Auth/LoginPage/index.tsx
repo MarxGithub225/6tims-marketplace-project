@@ -1,8 +1,40 @@
-import React from "react";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useContext, useEffect, useState } from "react";
 import PageHeader from "../../../GlobalScreens/PageHeader";
 import CustumButton from "../../../Components/CustumButton";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext, AuthStatus } from "../../../context/auth";
+import { useMutation } from "@tanstack/react-query";
 
 function LoginPage() {
+  const search = useLocation().search;
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [active, setActive] = useState<boolean>(false);
+  const { signIn, authStatus } = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (authStatus === AuthStatus.SignedIn) {
+      if(search) {
+        const urlRequest = new URLSearchParams(search).get('urlRequest');
+        const tagData = new URLSearchParams(search).get('tag') ?? '';
+        let tag='';
+        if(tagData) {
+          tag= `?tag=${tagData}`
+        }
+        navigate(`${urlRequest}${tag}`)
+      }else {
+        navigate('/profile')
+      }
+    }
+  }, [authStatus])
+  
+  const mutation: any = useMutation({
+    mutationFn: async () => {
+      return await signIn(email, password);
+    }
+  });
   return <>
   <PageHeader/>
    <section className="tf-login tf-section">
@@ -37,24 +69,46 @@ function LoginPage() {
           </div>
           <div className="form-inner">
             <form action="#" id="contactform">
-              <input id="name" name="name" tabIndex={1}  aria-required="true" required type="text" placeholder="Your Full Name" />
-              <input id="email" name="email" tabIndex={2}  aria-required="true" type="email" placeholder="Your Email Address" required />
+              <input id="email" name="name" tabIndex={1}  
+              placeholder={"John@mail.com"}
+              value={email}
+              aria-required="true" required type="text" onChange={(e: any) => setEmail(e.target.value)}/>
+              <input id="pass" name="pass" tabIndex={2}  
+              aria-required="true" value={password} type="password" placeholder={"*********"} required onChange={(e: any) => setPassword(e.target.value)}/>
               <div className="row-form style-1">
                 <label>Resté connecté
-                  <input type="checkbox" />
+                  <input type="checkbox" checked={active}
+                  onChange={() => setActive(!active)}
+                  />
                   <span className="btn-checkbox" />
                 </label>
                 <a href="#" className="forgot-pass">Mot de passe oublié ?</a>
               </div>
               <CustumButton
                 label="Se connecter"
-                onclick={() => {}}
                 backgroundColor="#f7a700"
                 color="#fff"
+                disabled={!active}
+                onclick={() => !mutation.isLoading && mutation.mutate()}
+                isLoading={mutation?.isLoading}
                 />
 
                 <div className="">
-                    <label >Je suis nouveau</label>, <a href="#" className="forgot-pass">Créer mon compte</a>
+                    <label >Je suis nouveau</label>, <a href="#" 
+                    onClick={(e: any) => {
+                      e.preventDefault()
+                      if(search) {
+                        const urlRequest = new URLSearchParams(search).get('urlRequest');
+                        const tagData = new URLSearchParams(search).get('tag') ?? '';
+                        let tag='';
+                        if(tagData) {
+                          tag= `&tag=${tagData}`
+                        }
+            
+                        navigate(`/registration?redirect=true&urlRequest=${urlRequest}${tag}`)
+                      }else navigate('/registration')
+                    }}
+                    className="forgot-pass">Créer mon compte</a>
                 </div>
             </form>
           </div>

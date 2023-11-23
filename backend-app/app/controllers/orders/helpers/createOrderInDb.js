@@ -47,7 +47,7 @@ const createOrderInDb = (id = '', req) => {
                   variables: {$elemMatch: getVariable}
                 },
                 {
-                  $inc: {quantity: -Number(pdtItem?.quantity)}
+                  $inc: {quantity: -Number(_the_variable?.quantity)}
                 },
                 {
                   new: true

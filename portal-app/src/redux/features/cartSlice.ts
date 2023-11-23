@@ -67,11 +67,21 @@ export const titleSlice = createSlice({
                 localStorage.setItem('__6tims_e_ecommerce_cart__', JSON.stringify(state.cart))
             }
         },
-        
+        updateCart: (state) => {
+            const result = localStorage.getItem('__6tims_e_ecommerce_cart__');
+             if(result) {
+               localStorage.removeItem('__6tims_e_ecommerce_cart__')
+               window.location.href="/"
+             }
+         },
+         deleteCart: (state) => {
+           state.cart = []
+           localStorage.removeItem('__6tims_e_ecommerce_cart__')
+         },
     }
 })
 
-export const { setCart, getCart } = titleSlice.actions
+export const { setCart, getCart, updateCart, deleteCart } = titleSlice.actions
 
 
 export default titleSlice.reducer

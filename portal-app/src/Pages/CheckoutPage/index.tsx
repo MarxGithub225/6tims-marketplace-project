@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useEffect, useRef, useState } from "react";
 import PageHeader from "../../GlobalScreens/PageHeader";
 import CustumButton from "../../Components/CustumButton";
@@ -9,13 +11,14 @@ import {ReactComponent as Googlepay} from '../../assets/icons/bank/Googlepay.svg
 import {ReactComponent as Paypal} from '../../assets/icons/bank/Visa.svg'
 import {ReactComponent as Applepay} from '../../assets/icons/bank/Applepay.svg'
 import { AuthContext } from "../../context/auth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import useOrder from "../../hooks/useOrder";
 import { CreateRequest } from "../../sdks/order-v1/utils/DataSchemas";
 import { notifyError, notifySuccess } from "../../Components/CustomAlert";
+import { deleteCart } from "../../redux/features/cartSlice";
 
 interface address {
   city: string
@@ -54,6 +57,7 @@ function CheckoutPage() {
   const [totalState, setTotal] = useState<number>(0)
   const { authStatus, sessionInfo } = useContext(AuthContext)
   let [showOptions, setShowOptions] = useState(false)
+  const dispatch = useDispatch()
   let optionsRef = useRef(null)
   
   useOnClickOutSide(optionsRef, ()=> setShowOptions(false))
@@ -86,8 +90,12 @@ function CheckoutPage() {
         return orderData && await client?.createOrder(orderData)
     },
     onSuccess: () => {
-        notifySuccess({ message: `Inscription réussie !` })
-        setLoading(false)
+      const showOrderSuccess = window.document.getElementById("showOrderSuccess")
+      if(showOrderSuccess) {
+        showOrderSuccess.click()
+      }
+      dispatch(deleteCart())
+      setLoading(false)
     },
     onError: (e: any) => {
         let error: string = "An error occured, please retry";
@@ -343,6 +351,21 @@ function CheckoutPage() {
     </div>
   </div>
 </section>
+  <div className="modal fade popup" id="order_success_sms" tabIndex={-1} role="dialog" aria-hidden="true">
+    <div className="modal-dialog modal-dialog-centered" role="document">
+      <div className="modal-content">
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <div className="modal-body space-y-5 pd-40">
+          <h3 className="text-center">Votre commande a été ajoutée avec succès!</h3>
+          <p className="text-center">Nous procédons à votre livraison dans de plus bref délais. Merci de votre confiance.</p>
+          <a href="/profile" className="btn btn-primary"> Voire ma commande </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a style={{display: 'none'}} href="#" id="showOrderSuccess" className="btn btn-primary" data-toggle="modal" data-target="#order_success_sms" data-dismiss="modal" aria-label="Close"/>
   </>;
 }
 

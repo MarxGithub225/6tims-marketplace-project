@@ -21,18 +21,17 @@ const createOrderInDb = (id = '', req) => {
         await Promise.all(
           req?.products.map(async (pdtItem) => {
             const thePdt = await product.findByIdAndUpdate(
-              pdtItem?.id,
+              pdtItem?._id,
               {
                 $push: {
                   historical: {
                     type: 'sell',
                     actedBy: id,
-                    variable: pdtItem?.label,
-                    sku: pdtItem?.sku,
+                    variable: pdtItem?.variables,
                     actedAt: new Date()
                   }
                 },
-                $inc: {purchaseCount: Number(pdtItem?.quantity)}
+                $inc: {purchaseCount: Number(pdtItem?.totalQty)}
               },
               {
                 new: true

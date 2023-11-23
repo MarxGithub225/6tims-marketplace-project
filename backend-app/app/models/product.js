@@ -113,18 +113,20 @@ const ProductSchema = new mongoose.Schema(
           default: 'view',
           enum: ['like', 'view', 'sell', 'comment']
         },
-        count: {
-          type: Number,
-          default: 0
-        },
-        variable: {
-          type: String,
-          default: ''
-        },
-        sku: {
-          type: String,
-          default: ''
-        },
+        variables: [
+          {
+            label: {
+              type: String
+            },
+            quantity: {
+              type: Number,
+              default: 0
+            },
+            sku: {
+              type: String
+            }
+          }
+        ],
         actedBy: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User'

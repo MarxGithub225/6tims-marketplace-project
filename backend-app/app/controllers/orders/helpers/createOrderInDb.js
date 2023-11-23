@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const order = require('../../../models/order')
 const product = require('../../../models/product')
 const {buildErrObject} = require('../../../middleware/utils')
@@ -37,23 +38,32 @@ const createOrderInDb = (id = '', req) => {
                 new: true
               }
             )
-            pdtItem?.variables?.forEach(async (_the_variable) => {
-              const getVariable = thePdt.variables.find(
-                (variable) =>
-                  variable.sku.toString() === _the_variable?.sku.toString()
-              )
-              await product.updateOne(
-                {
-                  variables: {$elemMatch: getVariable}
-                },
-                {
-                  $inc: {quantity: -Number(_the_variable?.quantity)}
-                },
-                {
-                  new: true
+            await Promise.all(
+              pdtItem?.variables?.map(async (_the_variable) => {
+                const getVariable = thePdt.variables.find(
+                  (variable) =>
+                    variable.sku.toString() === _the_variable?.sku.toString()
+                )
+                console.log('getVariable', getVariable)
+                console.log('_the_variable', _the_variable)
+                console.log('thePdt', thePdt)
+                if (getVariable) {
+                  await product.updateOne(
+                    {
+                      variables: {$elemMatch: getVariable}
+                    },
+                    {
+                      $inc: {
+                        'variables.$.quantity': -Number(_the_variable?.quantity)
+                      }
+                    },
+                    {
+                      new: true
+                    }
+                  )
                 }
-              )
-            })
+              })
+            )
           })
         )
         resolve(item)

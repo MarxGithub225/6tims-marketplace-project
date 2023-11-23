@@ -37,20 +37,23 @@ const createOrderInDb = (id = '', req) => {
                 new: true
               }
             )
-            const getVariable = thePdt.variables.find(
-              (variable) => variable.sku.toString() === pdtItem?.sku.toString()
-            )
-            await product.updateOne(
-              {
-                variables: {$elemMatch: getVariable}
-              },
-              {
-                $inc: {quantity: -Number(pdtItem?.quantity)}
-              },
-              {
-                new: true
-              }
-            )
+            pdtItem?.variables?.forEach(async (_the_variable) => {
+              const getVariable = thePdt.variables.find(
+                (variable) =>
+                  variable.sku.toString() === _the_variable?.sku.toString()
+              )
+              await product.updateOne(
+                {
+                  variables: {$elemMatch: getVariable}
+                },
+                {
+                  $inc: {quantity: -Number(pdtItem?.quantity)}
+                },
+                {
+                  new: true
+                }
+              )
+            })
           })
         )
         resolve(item)

@@ -7,7 +7,7 @@ function ProfilePage() {
   <PageHeader/>
    <section className="tf-dashboard tf-tab2">
   <div className="tf-container">
-    <div className="row ">
+    {/* <div className="row ">
       <div className="col-xl-3 col-lg-12 col-md-12">
         <div className="dashboard-user">
           <div className="dashboard-infor">
@@ -74,6 +74,10 @@ function ProfilePage() {
           
         </div>
       </div>
+    </div> */}
+
+    <div className="flex justify-center items-center h-[300px] w-full">
+      <h1>Page pas encore prête.</h1>
     </div>
   </div>
 </section>

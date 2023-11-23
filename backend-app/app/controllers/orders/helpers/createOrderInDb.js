@@ -28,7 +28,7 @@ const createOrderInDb = (id = '', req) => {
                   historical: {
                     type: 'sell',
                     actedBy: id,
-                    variable: pdtItem?.variables,
+                    variables: pdtItem?.variables,
                     actedAt: new Date()
                   }
                 },
@@ -44,9 +44,6 @@ const createOrderInDb = (id = '', req) => {
                   (variable) =>
                     variable.sku.toString() === _the_variable?.sku.toString()
                 )
-                console.log('getVariable', getVariable)
-                console.log('_the_variable', _the_variable)
-                console.log('thePdt', thePdt)
                 if (getVariable) {
                   await product.updateOne(
                     {

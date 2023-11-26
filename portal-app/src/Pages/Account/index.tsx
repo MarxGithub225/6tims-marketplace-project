@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PageHeader from "../../GlobalScreens/PageHeader";
 import { CreditCard, Edit, Heart, Home, Lock, Navigation, ShoppingBag, User } from "react-feather";
 import author_db from '../../assets/images/author-db.jpeg'
@@ -15,6 +15,8 @@ import useAuth from "../../hooks/useAuth";
 import { notifySuccess, notifyError } from "../../Components/CustomAlert";
 import useUser from "../../hooks/userUser";
 import { File } from "../../sdks/image-v1/utils/DataSchemas";
+import CustomSelect from "../../Components/CustomSelect";
+import { MorroccoCities } from "../../sdks/user-v1/utils/DataSchemas";
 function ProfilePage() {
   const { client } = useUser()
   const { client: iconClient} = useIcon()
@@ -23,10 +25,7 @@ function ProfilePage() {
     {icon: <User/>, title: "Mon profile", link: "/account/profile"},
     {icon: <ShoppingBag/>, title: "Mes commandes", link: "/account/orders"},
     {icon: <Heart/>, title: "Mes favoris", link: "/favorites"},
-    {icon: <Navigation/>, title: "Mes adresses", link: "/account/addresses"},
-    {icon: <CreditCard/>, title: "Mes cartes", link: "/account/bank-cards"},
-    {icon: <Edit/>, title: "Modifier mes information", link: "/account/data/update"},
-    {icon: <Lock/>, title: "Modifier mon mot de passe", link: "/account/password/update"}
+    // {icon: <CreditCard/>, title: "Mes cartes", link: "/account/bank-cards"},
   ]
 
   const { data: iconData, isLoading, isFetching, isError }: any =
@@ -37,7 +36,12 @@ function ProfilePage() {
           return result?.docs
       }
   })
-
+  const handleChange = (e: any) => {
+    e.preventDefault()
+    const { name, value } = e.target
+    setCurrentSetting({ ...currentSetting, [name]: value })
+}
+  const [currentSetting, setCurrentSetting] = useState<any>(null)
   const navigate = useNavigate()
 
     useEffect(() => {
@@ -48,7 +52,9 @@ function ProfilePage() {
         errMessage,
           { transition: Slide, hideProgressBar: true, autoClose: 2000 }
         )
-    }
+      }else {
+        setCurrentSetting(sessionInfo?.userInfo)
+      }
     }, [])
 
     const upsertMutation = useMutation({
@@ -102,6 +108,17 @@ function ProfilePage() {
       //     ]
       // });
       }
+      const handleSelectChangeCity = (selectedOption: any) => {
+        setCurrentSetting({ ...currentSetting, address: {...currentSetting?.address, city: selectedOption?.value}})
+     }
+     const handleChangeAdress = (e: any) => {
+      e.preventDefault()
+        const { name, value } = e.target
+        setCurrentSetting({ ...currentSetting, address: {...currentSetting?.address, [name]: value}})
+    }
+    const handleSelectChangeGender = (selectedOption: any) => {
+        setCurrentSetting({ ...currentSetting, gender: selectedOption?.value})
+    }
   return <>
   <PageHeader/>
    <section className="tf-dashboard tf-tab2">
@@ -111,7 +128,7 @@ function ProfilePage() {
         <div className="dashboard-user">
           <div className="dashboard-infor">
             <div className="avatar">
-              <img src={`${API_FILE_URL}/icons/${sessionInfo?.userInfo?.image?.path}`} alt="images" />
+              <img src={`${API_FILE_URL}/icons/${sessionInfo?.userInfo?.image?.path}`} alt={`6tims | Tim's group - ${sessionInfo?.userInfo?.fullName}`} />
             </div>
             <div className="name">{sessionInfo?.userInfo?.fullName}</div>
             <div className="pax">{sessionInfo?.userInfo?.email}</div>
@@ -161,87 +178,62 @@ function ProfilePage() {
           <div className="flat-tabs tab-create-item">
             <h4 className="title-create-item">Select method</h4>
             <ul className="menu-tab tabs">
-              <li className="tablinks active"><span className="icon-fl-tag" />Fixed Price</li>
+              <li className="tablinks active"><User />Informations personnelles</li>
               <li className="tablinks"><span className="icon-fl-clock" />Time Auctions</li>
               <li className="tablinks"><span className="icon-fl-icon-22" />Open For Bids</li>
             </ul>
             <div className="content-tab">
               <div className="content-inner">
                 <form action="#">
-                  <h4 className="title-create-item">Price</h4>
-                  <input type="text" placeholder="Enter price for one item (ETH)" />
-                  <h4 className="title-create-item">Title</h4>
-                  <input type="text" placeholder="Item Name" />
-                  <h4 className="title-create-item">Description</h4>
-                  <textarea placeholder="e.g. “This is very limited item”" defaultValue={""} />
+                  <h4 className="title-create-item">Nom</h4>
+                  <input type="text" id="lastName" name="lastName" placeholder="Nom" value={currentSetting?.lastName}
+                  onChange={handleChange} />
+                  <h4 className="title-create-item">Prénom</h4>
+                  <input type="text" id="firstName" name="firstName" placeholder="Prénoms" value={currentSetting?.firstName}
+                  onChange={handleChange} />
                   <div className="row-form style-3">
                     <div className="inner-row-form">
-                      <h4 className="title-create-item">Royalties</h4>
-                      <input type="text" placeholder="5%" />
+                      <h4 className="title-create-item">Ville</h4>
+                     <CustomSelect
+                      value={currentSetting?.address?.city}
+                      options={MorroccoCities}
+                      onChange={handleSelectChangeCity}
+                      placeholder="Ville"
+                      height={'h-[46px]'}
+                      marginBottom="mb-[24px]"
+                      rounded={'rounded-[8px]'}
+                      />
                     </div>
                     <div className="inner-row-form">
-                      <h4 className="title-create-item">Size</h4>
-                      <input type="text" placeholder="e.g. “size”" />
+                      <h4 className="title-create-item">Code postale</h4>
+                      <input type="text"
+                      id="zipCode" name="zipCode"
+                      onChange={handleChangeAdress} 
+                      value={currentSetting?.address?.zipCode}
+                      placeholder="Code postale"
+                      />
                     </div>
-                    <div className="inner-row-form style-2">
-                      <div className="seclect-box">
-                        <div id="item-create" className="dropdown">
-                          <a href="#" className="btn-selector nolink">Abstraction</a>
-                          <ul>
-                            <li><span>Art</span></li>
-                            <li><span>Music</span></li>
-                            <li><span>Domain Names</span></li>
-                            <li><span>Virtual World</span></li>
-                            <li><span>Trading Cards</span></li>
-                            <li><span>Sports</span></li>
-                            <li><span>Utility</span></li>
-                          </ul>
-                        </div>
-                      </div>
+                    <div className="inner-row-form">
+                      <h4 className="title-create-item">Numéro de téléphone</h4>
+                      <input type="text"
+                      value={currentSetting?.address?.phone}
+                      id="phone" name="phone"
+                      onChange={handleChangeAdress}
+                      placeholder={"Numéro de téléphone"}
+                      />
                     </div>
                   </div>
                 </form>
               </div>
               <div className="content-inner">
                 <form action="#">
-                  <h4 className="title-create-item">Minimum bid</h4>
-                  <input type="text" placeholder="enter minimum bid" />
-                  <div className="row">
-                    <div className="col-md-6">
-                      <h5 className="title-create-item">Starting date</h5>
-                      <input type="date" name="bid_starting_date" id="bid_starting_date" className="form-control" min="1997-01-01" />
-                    </div>
-                    <div className="col-md-6">
-                      <h4 className="title-create-item">Expiration date</h4>
-                      <input type="date" name="bid_expiration_date" id="bid_expiration_date" className="form-control" />
-                    </div>
-                  </div>
-                  <h4 className="title-create-item">Title</h4>
-                  <input type="text" placeholder="Item Name" />
-                  <h4 className="title-create-item">Description</h4>
-                  <textarea placeholder="e.g. “This is very limited item”" defaultValue={""} />
-                </form>
-              </div>
-              <div className="content-inner">
-                <form action="#">
-                  <h4 className="title-create-item">Price</h4>
-                  <input type="text" placeholder="Enter price for one item (ETH)" />
-                  <h4 className="title-create-item">Minimum bid</h4>
-                  <input type="text" placeholder="enter minimum bid" />
-                  <div className="row">
-                    <div className="col-md-6">
-                      <h5 className="title-create-item">Starting date</h5>
-                      <input type="date" name="bid_starting_date" id="bid_starting_date2" className="form-control" min="1997-01-01" />
-                    </div>
-                    <div className="col-md-6">
-                      <h4 className="title-create-item">Expiration date</h4>
-                      <input type="date" name="bid_expiration_date" id="bid_expiration_date2" className="form-control" />
-                    </div>
-                  </div>
-                  <h4 className="title-create-item">Title</h4>
-                  <input type="text" placeholder="Item Name" />
-                  <h4 className="title-create-item">Description</h4>
-                  <textarea placeholder="e.g. “This is very limited item”" defaultValue={""} />
+                  <h4 className="title-create-item">Adresse complète</h4>
+                  <input type="text"
+                  id="fullLocation" name="fullLocation"
+                  value={currentSetting?.address?.fullLocation}
+                  onChange={handleChangeAdress} 
+                  placeholder="Adresse complète"
+                  />
                 </form>
               </div>
             </div>

@@ -63,6 +63,12 @@ const validateCreateOrder = [
       'delivered'
     ])
     .withMessage('ORDER_NOT_IN_KNOWN_STATUS'),
+  check('orderDetails')
+    .exists()
+    .withMessage('MISSING')
+    .not()
+    .isEmpty()
+    .withMessage('IS_EMPTY'),
   (req, res, next) => {
     validateResult(req, res, next)
   }

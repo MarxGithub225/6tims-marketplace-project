@@ -13,12 +13,7 @@ const OrderSchema = new mongoose.Schema(
     },
     items: [
       {
-        type: {
-          type: String,
-          default: 'view',
-          enum: ['order', 'validation', 'shipping', 'delivery']
-        },
-        bonusNumbertype: {
+        bonusNumber: {
           type: Number,
           default: 0
         },

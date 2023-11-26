@@ -133,7 +133,7 @@ function ProfilePage() {
             <div className="name">{sessionInfo?.userInfo?.fullName}</div>
             <div className="pax">{sessionInfo?.userInfo?.email}</div>
             <div className="description">
-              {`${sessionInfo?.userInfo.address?.city}, ${sessionInfo?.userInfo.address?.fullLocation} - ${sessionInfo?.userInfo.address?.zipCode}`}
+              {`${sessionInfo?.userInfo?.address?.city}, ${sessionInfo?.userInfo?.address?.fullLocation} - ${sessionInfo?.userInfo?.address?.zipCode}`}
             </div>
           </div>
           <div className="dashboard-filter">

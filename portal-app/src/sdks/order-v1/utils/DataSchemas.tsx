@@ -15,6 +15,7 @@ export interface CreateRequest {
     zipCode: string
   }
   orderStatus: string
+  orderDetails: Array<any>
 }
 
 export interface Order {

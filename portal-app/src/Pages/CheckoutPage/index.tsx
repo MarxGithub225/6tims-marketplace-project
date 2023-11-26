@@ -19,6 +19,8 @@ import useOrder from "../../hooks/useOrder";
 import { CreateRequest } from "../../sdks/order-v1/utils/DataSchemas";
 import { notifyError, notifySuccess } from "../../Components/CustomAlert";
 import { deleteCart } from "../../redux/features/cartSlice";
+import CustomSelect from "../../Components/CustomSelect";
+import { MorroccoCities } from "../../sdks/user-v1/utils/DataSchemas";
 
 interface address {
   city: string
@@ -49,12 +51,14 @@ const defaultOrderData: CreateRequest = {
     zipCode: "",
   },
   orderStatus: "pending",
+  orderDetails: []
 }
 function CheckoutPage() {
   const { client } = useOrder()
   const navigate = useNavigate()
   const cart = useSelector((state: RootState) => state.cart.cart)
   const [totalState, setTotal] = useState<number>(0)
+  const [shipingFees, setFees] = useState<number>(0)
   const { authStatus, sessionInfo } = useContext(AuthContext)
   let [showOptions, setShowOptions] = useState(false)
   const dispatch = useDispatch()
@@ -83,10 +87,14 @@ function CheckoutPage() {
      total += c.totalPrice
     }
     setTotal(total)
+
+    const _fees = (cart.length * 50) <= 500 ? (cart.length * 50) : 500;
+    setFees(_fees)
   }, [cart])
 
   const upsertMutation = useMutation({
     mutationFn: async () => {
+
         return orderData && await client?.createOrder(orderData)
     },
     onSuccess: () => {
@@ -103,15 +111,42 @@ function CheckoutPage() {
             error = "DUPLICATED_DATA"
         } else error = e?.errors?.msg
         notifyError({ message: error })
+        setLoading(false)
     }
   })
 
-  const makeOrder = () => {
+  const makeOrder = async () => {
+    const result = cart.reduce(function (r: any, a: any) {
+      r[a?.sellerId] = r[a?.sellerId] || [];
+      r[a?.sellerId].push(a);
+      return r;
+    }, Object.create(null));  
+
+    const orderDetails = Object.entries(result).map((e) => ( { sellerId: e[0], items: e[1] } ));
+    await  Promise.all(
+      orderDetails.map(async (order: any) => {
+        let sellerMoneyAmount = 0;
+        let totalCost = 0;
+        await  Promise.all(
+          order?.items?.map((item: any) => {
+            const _the_percentage = item.initialProduct?.category3?.percent ?? 10;
+            sellerMoneyAmount = sellerMoneyAmount + (item.totalPrice - ((item.totalPrice * _the_percentage) / 100))
+            totalCost = totalCost + item.totalPrice
+          })
+        )
+        order.sellerMoneyAmount = sellerMoneyAmount
+        order.totalCost = totalCost
+        order.status = 'pending'
+      })
+    )
+
     setOrderData({
       ...orderData,
       shippingAddress: shippingAddress,
-      cost: totalState,
-      products: cart
+      fees: shipingFees,
+      cost: shipingFees + totalState,
+      products: cart,
+      orderDetails
     })
     setLoading(true)
 
@@ -119,6 +154,9 @@ function CheckoutPage() {
       upsertMutation.mutate()
     }, 500);
   }
+  const handleSelectChangeCity = (selectedOption: any) => {
+    setShippingAddress({ ...shippingAddress, city: selectedOption?.value})
+}
   return <>
   <PageHeader/>
 
@@ -165,28 +203,31 @@ function CheckoutPage() {
               <div className="form-label mb-3">
               Adresse de livraison
               </div>
-              <fieldset className="city">
-                <input type="text" id="city" 
-                value={shippingAddress?.zipCode} 
-                onChange={(e: any) => {
-                  setShippingAddress({
-                    ...shippingAddress,
-                    city: e.target.value
-                  })
-                }}
-                placeholder="Ville" className="tb-my-input" name="city" tabIndex={2}  aria-required="true" required />
-              </fieldset>
-              <fieldset className="zipCode">
-                <input type="text" id="zipCode" 
-                value={shippingAddress?.city} 
-                onChange={(e: any) => {
-                  setShippingAddress({
-                    ...shippingAddress,
-                    zipCode: e.target.value
-                  })
-                }}
-                placeholder="Code postale" className="tb-my-input" name="zipCode" tabIndex={2}  aria-required="true" required />
-              </fieldset>
+
+              <div className="flex items-center gap-[20px]">
+                <div className="mb-[20px] w-full">
+                <CustomSelect
+                 value={shippingAddress?.city}
+                 options={MorroccoCities}
+                 onChange={handleSelectChangeCity}
+                placeholder="Ville"
+                height={'h-[56px]'}
+                marginBottom="mb-0"
+                rounded={'rounded-[4px]'}
+                />
+                </div>
+                <fieldset className="zipCode">
+                  <input type="text" id="zipCode" 
+                  value={shippingAddress?.zipCode} 
+                  onChange={(e: any) => {
+                    setShippingAddress({
+                      ...shippingAddress,
+                      zipCode: e.target.value
+                    })
+                  }}
+                  placeholder="Code postale" className="tb-my-input" name="zipCode" tabIndex={2}  aria-required="true" required />
+                </fieldset>
+              </div>
 
               <fieldset className="name">
                 <input type="text" id="state"
@@ -269,58 +310,22 @@ function CheckoutPage() {
       </div>
       <div className="col-lg-4 col-md-4 col-12">
         <div className="order-resume w-full">
-          {/* <div className="price-item">
-            <div className="price-item-label">
-              Sous total
-            </div>
-            <div className="price-item-value">
-              500 000 DH
-            </div>
-          </div>
           <div className="price-item">
             <div className="price-item-label">
               Sous total
             </div>
             <div className="price-item-value">
-              500 000 DH
+            {totalState?.toString()} DH
             </div>
           </div>
-
           <div className="price-item">
             <div className="price-item-label">
-              Sous total
+              Côut de livraison
             </div>
             <div className="price-item-value">
-              500 000 DH
+              {shipingFees?.toString()} DH
             </div>
           </div>
-
-          <div className="price-item">
-            <div className="price-item-label">
-              Sous total
-            </div>
-            <div className="price-item-value">
-              500 000 DH
-            </div>
-          </div>
-
-          <div className="price-item">
-            <div className="price-item-label">
-              Sous total
-            </div>
-            <div className="price-item-value">
-              500 000 DH
-            </div>
-          </div>
-
-          <div className="price-item">
-            <div className="price-item-label">
-              Sous total
-            </div>
-            <div className="price-item-value">
-              500 000 DH
-            </div>
-          </div> */}
 
           <div className="total-amount">
             <div className="total-amount-label">
@@ -328,7 +333,7 @@ function CheckoutPage() {
             </div>
 
             <div className="total-amount-value">
-              {totalState?.toString()} DH
+              {(totalState + shipingFees)?.toString()} DH
             </div>
           </div>
 
@@ -337,6 +342,7 @@ function CheckoutPage() {
           onclick={() => makeOrder()}
           backgroundColor="#e73a5d"
           icon={<ShoppingCart size={15}/>}
+          isLoading={loading}
           />
           <CustumButton
           label="Faire mes achats"
@@ -354,7 +360,9 @@ function CheckoutPage() {
   <div className="modal fade popup" id="order_success_sms" tabIndex={-1} role="dialog" aria-hidden="true">
     <div className="modal-dialog modal-dialog-centered" role="document">
       <div className="modal-content">
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close"
+        onClick={() => navigate('/')}
+        >
           <span aria-hidden="true">×</span>
         </button>
         <div className="modal-body space-y-5 pd-40">

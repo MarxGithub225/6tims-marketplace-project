@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 const order = require('../../../models/order')
+const orderDetails = require('../../../models/order-details')
 const product = require('../../../models/product')
 const {buildErrObject} = require('../../../middleware/utils')
 /**
@@ -61,6 +62,14 @@ const createOrderInDb = (id = '', req) => {
                 }
               })
             )
+          })
+        )
+        await Promise.all(
+          req.orderDetails.map((ODetail) => {
+            orderDetails.create({
+              ...ODetail,
+              orderId: item?._id
+            })
           })
         )
         resolve(item)

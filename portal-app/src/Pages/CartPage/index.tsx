@@ -20,6 +20,7 @@ function CartPage() {
   const dispatch = useAppDispatch()
   const cart = useSelector((state: RootState) => state.cart.cart)
   const [totalState, setTotal] = useState<number>(0)
+  const [shipingFees, setFees] = useState<number>(0)
   const openQtyForm = window.document.getElementById("openQtyForm")
   const modifyQty = (initialProduct: Product) => {
     if(openQtyForm) {
@@ -35,6 +36,8 @@ function CartPage() {
      total += c.totalPrice
     }
     setTotal(total)
+    const _fees = (cart.length * 50) <= 500 ? (cart.length * 50) : 500;
+    setFees(_fees)
   }, [cart])
   return <>
   <PageHeader/>
@@ -60,10 +63,17 @@ function CartPage() {
                   <Plus/>
                 </div>
                 <span className="author">= {product.totalPrice} DH</span>
-                {product.variables.length ? <div className="flex items-center gap-x-1">
+                {product.variables.length > 1 ? <div className="flex items-center gap-x-1">
                   <span>Variantes: </span>
                  {product.variables.map((variable: CartVariableProps, index: number) => {
-                  return <><span key={index} >({variable.label} * {variable.quantity}) </span> {index < (product.variables.length - 1) && <span>,</span>}</>
+                  return <><span key={index} >({variable.label ?? ' - '} * {variable.quantity}) </span> {index < (product.variables.length - 1) && <span>,</span>}</>
+                 })}
+                </div>: <></>}
+
+                {product.variables.length === 1 && product.variables[0]?.label ? <div className="flex items-center gap-x-1">
+                  <span>Variante: </span>
+                 {product.variables.map((variable: CartVariableProps, index: number) => {
+                  return <><span key={index} >({variable.label ?? ' - '} * {variable.quantity}) </span> {index < (product.variables.length - 1) && <span>,</span>}</>
                  })}
                 </div>: <></>}
               </div>
@@ -78,58 +88,22 @@ function CartPage() {
       </div>
       <div className="col-lg-4 col-md-4 col-12">
         <div className="order-resume w-full">
-          {/* <div className="price-item">
+        <div className="price-item">
             <div className="price-item-label">
               Sous total
             </div>
             <div className="price-item-value">
-              500 000 DH
-            </div>
-          </div> */}
-          {/* <div className="price-item">
-            <div className="price-item-label">
-              Sous total
-            </div>
-            <div className="price-item-value">
-              500 000 DH
+            {totalState?.toString()} DH
             </div>
           </div>
-
           <div className="price-item">
             <div className="price-item-label">
-              Sous total
+              Côut de livraison
             </div>
             <div className="price-item-value">
-              500 000 DH
+              {shipingFees?.toString()} DH
             </div>
           </div>
-
-          <div className="price-item">
-            <div className="price-item-label">
-              Sous total
-            </div>
-            <div className="price-item-value">
-              500 000 DH
-            </div>
-          </div>
-
-          <div className="price-item">
-            <div className="price-item-label">
-              Sous total
-            </div>
-            <div className="price-item-value">
-              500 000 DH
-            </div>
-          </div>
-
-          <div className="price-item">
-            <div className="price-item-label">
-              Sous total
-            </div>
-            <div className="price-item-value">
-              500 000 DH
-            </div>
-          </div> */}
 
           <div className="total-amount">
             <div className="total-amount-label">
@@ -137,7 +111,7 @@ function CartPage() {
             </div>
 
             <div className="total-amount-value">
-              {totalState?.toString()} DH
+              {(totalState + shipingFees)?.toString()} DH
             </div>
           </div>
 

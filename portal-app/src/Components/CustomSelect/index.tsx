@@ -8,12 +8,14 @@ interface CustomSelectProps {
     options: { name: string, value: number | string | boolean, subCategories?: Array<any> }[]
     onChange: Function
     width?: any
-    height?: number
+    height?: string
     classname?: string
     required?: boolean
+    marginBottom?: string
+    rounded?: string
 }
 function CustomSelect({value = "", label = "", placeholder = "", options = [], onChange = () => {
-}, classname="", required = false
+}, classname="", required = false, height="h-[48px]", marginBottom="mb-6", rounded='rounded-[8px]'
                   }: CustomSelectProps) {
     const [selectOptionsOpen, setSelectOptionOpen] = useState<boolean>(false)
     const [selected, setSelected] = useState<any>()
@@ -50,7 +52,7 @@ function CustomSelect({value = "", label = "", placeholder = "", options = [], o
             setSelected(null)
         }
     }, [])
-  return <div className="new-custom-select w-full" ref={optionsRef}  onClick={() => setSelectOptionOpen(!selectOptionsOpen)}>
+  return <div className={`new-custom-select w-full ${height} ${marginBottom} ${rounded}`} ref={optionsRef}  onClick={() => setSelectOptionOpen(!selectOptionsOpen)}>
             <div className="flex flex-row justify-between items-center h-full w-full">
                 <span
                     className={`custom-select-placeholder capitalize ${selected ? 'custom-select-selected': ''}`}>{selected?.name ? selected?.name : placeholder}</span>

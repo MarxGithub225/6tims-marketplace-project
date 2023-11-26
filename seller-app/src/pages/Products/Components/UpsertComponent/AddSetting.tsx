@@ -980,6 +980,7 @@ function AddSetting({ modalOpened, toggleModal, upsertSetting, currentSetting, s
                                         !currentSetting?.title?.trim() ||
                                         !currentSetting?.categoryId ||
                                         !currentSetting?.category2Id ||
+                                        !currentSetting?.category3Id ||
                                         !currentSetting?.brandId ||
                                         !currentSetting?.cost ||
                                         !currentSetting?.mainImage||

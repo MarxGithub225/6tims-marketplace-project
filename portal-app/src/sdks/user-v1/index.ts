@@ -43,7 +43,7 @@ export class Client {
     return this.profileService.getMe()
   }
 
-  updateProfile = (id: string , data: dataSchemas.CreateRequest): Promise<Record<string, any>> => {
+  updateProfile = (id: string , data: dataSchemas.UpdateRequest): Promise<Record<string, any>> => {
     return this.profileService.updateProfile(id, data)
   }
 
@@ -56,7 +56,7 @@ export class Client {
     return this.userService.createUser(data)
   }
 
-  updateUser = (id: string , data: dataSchemas.CreateRequest): Promise<Record<string, any>> => {
+  updateUser = (id: string , data: dataSchemas.UpdateRequest): Promise<Record<string, any>> => {
     return this.userService.updateUser(id , data)
   }
 

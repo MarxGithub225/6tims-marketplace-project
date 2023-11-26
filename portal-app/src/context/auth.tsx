@@ -107,14 +107,17 @@ export interface ISession {
   
           const simpleUser = {
             id: user._id,
-            imageId: user.image,
+            imageId: user.imageId,
+            image: user.image,
             firstName: user.firstName,
             lastName: user.lastName,
             fullName: user.fullName,
             email: user.email,
             address: user.address,
             gender: user.gender,
-            role: user.role
+            role: user.role,
+            newsletterSubscribed: user.newsletterSubscribed,
+            deleted: user.deleted
           }
   
           setSessionInfo({

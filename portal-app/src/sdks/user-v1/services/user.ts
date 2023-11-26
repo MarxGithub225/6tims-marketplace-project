@@ -1,7 +1,7 @@
 import request from '../../../api'
 import { Options } from '../../../api/DataSchemas'
 import { PaginationOption } from '../../GlobalDataSchemas'
-import { CreateRequest, PaginationOptionUser } from '../utils/DataSchemas'
+import { CreateRequest, PaginationOptionUser, UpdateRequest } from '../utils/DataSchemas'
 
 function getPaginationQuery(paginationOption: PaginationOptionUser) {
     let query = `?page=${paginationOption.page}&limit=${paginationOption.limit}`
@@ -62,7 +62,7 @@ export default class UserService {
         return request('DELETE', `users/${id}`, this.options)
     }
 
-    async updateUser(id: string , data: CreateRequest) {
+    async updateUser(id: string , data: UpdateRequest) {
       const requestOptions: Options = {
         ...this.options,
         data: data

@@ -35,24 +35,24 @@ function Brands() {
       {(data && data?.length) ?  <div className="col-md-12">
         <div className="sc-box-icon-inner style-2 hidden bigTablet:flex">
           {data.map((partner: Partner, key: number) => {
-            return <div key={key} className="sc-box-icon">
+            return <a href={`/partner/${partner.seller._id}`} key={key} className="sc-box-icon">
             <div className="img flex justify-center">
             <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
             <h4 className="heading"><a href={`/partner/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</a></h4>
-          </div>
+          </a>
           })}
           
         </div> 
         <div className="sc-box-icon-inner style-2 block bigTablet:hidden">
         <FeaturesCarousel>
         {data.map((partner: Partner, key: number) => {
-            return <div key={key} className="sc-box-icon">
+            return <a href={`/partner/${partner.seller._id}`} key={key} className="sc-box-icon">
             <div className="img flex justify-center">
             <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
             <h4 className="heading"><a href={`/partner/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</a></h4>
-          </div>
+          </a>
           })}
           </FeaturesCarousel>
         </div>  

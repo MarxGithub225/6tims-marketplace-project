@@ -1,6 +1,6 @@
 import request from '../../../api'
 import { Options } from '../../../api/DataSchemas'
-import { ChangePassword, CreateRequest } from '../utils/DataSchemas'
+import { ChangePassword, CreateRequest, UpdateRequest } from '../utils/DataSchemas'
 export default class ProfileService {
     options: Options
 
@@ -11,13 +11,13 @@ export default class ProfileService {
         return request('GET', `profile`, this.options)
     }
 
-    async updateProfile(id: string , data: CreateRequest) {
+    async updateProfile(id: string , data: UpdateRequest) {
         const requestOptions: Options = {
           ...this.options,
           data: data
         }
       
-        return request('PATCH', `profile/${id}`, requestOptions)
+        return request('PATCH', `profile`, requestOptions)
    }
 
    async changePassword(data: ChangePassword) {

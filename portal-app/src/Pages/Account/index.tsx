@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useContext, useEffect } from "react";
 import PageHeader from "../../GlobalScreens/PageHeader";
 import { CreditCard, Edit, Heart, Home, Lock, Navigation, ShoppingBag, User } from "react-feather";
@@ -6,8 +7,18 @@ import { toast, Slide } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { AuthContext, AuthStatus } from "../../context/auth";
 import { API_FILE_URL } from "../../utilities/constants";
+import useIcon from "../../hooks/useIcon";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Pagination } from "../../sdks/GlobalDataSchemas";
+import { Icon } from "../../sdks/icon-v1/utils/DataSchemas";
+import useAuth from "../../hooks/useAuth";
+import { notifySuccess, notifyError } from "../../Components/CustomAlert";
+import useUser from "../../hooks/userUser";
+import { File } from "../../sdks/image-v1/utils/DataSchemas";
 function ProfilePage() {
-  const { authStatus, sessionInfo } = useContext(AuthContext)
+  const { client } = useUser()
+  const { client: iconClient} = useIcon()
+  const { authStatus, sessionInfo, setUserInfo } = useContext(AuthContext)
   const menu = [
     {icon: <User/>, title: "Mon profile", link: "/account/profile"},
     {icon: <ShoppingBag/>, title: "Mes commandes", link: "/account/orders"},
@@ -17,6 +28,15 @@ function ProfilePage() {
     {icon: <Edit/>, title: "Modifier mes information", link: "/account/data/update"},
     {icon: <Lock/>, title: "Modifier mon mot de passe", link: "/account/password/update"}
   ]
+
+  const { data: iconData, isLoading, isFetching, isError }: any =
+  useQuery({
+      queryKey: ['iconsData'],
+      queryFn: async () => {
+          let result: Pagination<Icon> = await iconClient.getAllIcones({ page: 1, limit: 100})
+          return result?.docs
+      }
+  })
 
   const navigate = useNavigate()
 
@@ -30,6 +50,32 @@ function ProfilePage() {
         )
     }
     }, [])
+
+    const upsertMutation = useMutation({
+      mutationFn: async (id: string) => {
+          return await client?.updateProfile(sessionInfo?.userInfo?.id, {...sessionInfo?.userInfo, imageId: id})
+      },
+      onSuccess: (response) => {
+          notifySuccess({ message: `Icône changée avec succès !` })
+          const simpleUser = {
+            ...sessionInfo?.userInfo,
+            imageId: response.imageId,
+            image: response.image
+          }
+          setUserInfo(simpleUser)
+      },
+      onError: (e: any) => {
+          let error: string = "An error occured, please retry";
+          if(e?.errors?.msg?.includes('duplicate')) {
+              error = "DUPLICATED_DATA"
+          } else error = e?.errors?.msg
+          notifyError({ message: error })
+      }
+    })
+
+    const handleSelectImage = (data: File) => {
+      upsertMutation.mutate(data?._id)
+    }
 
 
     const logout = () => {
@@ -65,7 +111,7 @@ function ProfilePage() {
         <div className="dashboard-user">
           <div className="dashboard-infor">
             <div className="avatar">
-              <img src={`${API_FILE_URL}/icons/${sessionInfo?.userInfo?.imageId}`} alt="images" />
+              <img src={`${API_FILE_URL}/icons/${sessionInfo?.userInfo?.image?.path}`} alt="images" />
             </div>
             <div className="name">{sessionInfo?.userInfo?.fullName}</div>
             <div className="pax">{sessionInfo?.userInfo?.email}</div>
@@ -85,47 +131,124 @@ function ProfilePage() {
           </div>
         </div>
       </div>
-      <div className="col-xl-9 col-lg-12 col-md-12 overflow-table">
-        <div className="dashboard-content inventory content-tab2">
-          
-          <div className="inner-content history active">
-            <h4 className="title-dashboard">History</h4>
-            <div className="history-filter">
-              <div className="history-content">
-                <div className="inner tf-filter-container">
-                  <div className="history-details tf-loadmore 3d">
-                    <div className="authorr">
-                      <div className="avatar">
-                        <img src="assets/images/author/history-at1.jpg" alt="images" />
-                      </div>
-                      <div className="content">
-                        <a href="#" className="name">Kayle Jr. Brown</a>
-                        <div className="description">started following <a href="#">Grey Peep</a> </div>
-                        <div className="date">
-                          <span className="time">16:24</span>
-                          <span><i className="fas fa-circle" /></span>
-                          <span className="month">20/05/2022</span>
+      <div className="col-xl-9 col-lg-6 col-md-12 col-12">
+        <div className="form-create-item">
+          <div className="icons-tab">
+          {iconData?.map((icon: Icon, key: number) => {
+              return <div className="custom-input-check border border-color-gray w-[100px] ">
+              <label className={`option capitalize`}>
+              <img
+              key={key}
+              src={API_FILE_URL + '/icons/' + icon?.path}
+              width={100}
+              height={80}
+              className='rounded-md'
+              alt="Picture of the author"
+              />
+                  <input
+                      type="checkbox"
+                      checked={sessionInfo?.userInfo?.imageId === icon?._id}
+                      value={icon?._id}
+                      onChange={() => {
+                          handleSelectImage(icon)
+                      }}
+                  />
+                  <span className="checkmark"></span>
+              </label>
+          </div>
+          })}
+          </div>
+          <div className="flat-tabs tab-create-item">
+            <h4 className="title-create-item">Select method</h4>
+            <ul className="menu-tab tabs">
+              <li className="tablinks active"><span className="icon-fl-tag" />Fixed Price</li>
+              <li className="tablinks"><span className="icon-fl-clock" />Time Auctions</li>
+              <li className="tablinks"><span className="icon-fl-icon-22" />Open For Bids</li>
+            </ul>
+            <div className="content-tab">
+              <div className="content-inner">
+                <form action="#">
+                  <h4 className="title-create-item">Price</h4>
+                  <input type="text" placeholder="Enter price for one item (ETH)" />
+                  <h4 className="title-create-item">Title</h4>
+                  <input type="text" placeholder="Item Name" />
+                  <h4 className="title-create-item">Description</h4>
+                  <textarea placeholder="e.g. “This is very limited item”" defaultValue={""} />
+                  <div className="row-form style-3">
+                    <div className="inner-row-form">
+                      <h4 className="title-create-item">Royalties</h4>
+                      <input type="text" placeholder="5%" />
+                    </div>
+                    <div className="inner-row-form">
+                      <h4 className="title-create-item">Size</h4>
+                      <input type="text" placeholder="e.g. “size”" />
+                    </div>
+                    <div className="inner-row-form style-2">
+                      <div className="seclect-box">
+                        <div id="item-create" className="dropdown">
+                          <a href="#" className="btn-selector nolink">Abstraction</a>
+                          <ul>
+                            <li><span>Art</span></li>
+                            <li><span>Music</span></li>
+                            <li><span>Domain Names</span></li>
+                            <li><span>Virtual World</span></li>
+                            <li><span>Trading Cards</span></li>
+                            <li><span>Sports</span></li>
+                            <li><span>Utility</span></li>
+                          </ul>
                         </div>
                       </div>
                     </div>
-                    <div className="category-filter">
-                      <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 20 20" fill="none">
-                        <path className="fill-svg" d="M17.9163 14.7012V15.1262C17.9163 15.7429 17.708 16.3346 17.3247 16.8096C17.183 16.9929 16.9497 17.0846 16.708 17.0846H14.4747C14.8163 16.493 14.9997 15.8179 14.9997 15.1262V14.7012C14.9997 13.5012 14.558 12.3931 13.808 11.5514C13.8663 11.5347 13.9163 11.5013 13.9663 11.4763C14.3497 11.2597 14.8247 11.193 15.2747 11.3014C16.8247 11.693 17.9163 13.0845 17.9163 14.7012ZM12.083 2.91797C11.8163 2.91797 11.558 2.94305 11.308 3.00138C12.2997 3.90972 12.9163 5.21797 12.9163 6.66797C12.9163 8.11797 12.2997 9.42622 11.308 10.3346C11.558 10.3929 11.8163 10.418 12.083 10.418C14.1497 10.418 15.833 8.73464 15.833 6.66797C15.833 4.6013 14.1497 2.91797 12.083 2.91797ZM7.91634 2.91797C5.84967 2.91797 4.16634 4.6013 4.16634 6.66797C4.16634 8.73464 5.84967 10.418 7.91634 10.418C9.98301 10.418 11.6663 8.73464 11.6663 6.66797C11.6663 4.6013 9.98301 2.91797 7.91634 2.91797ZM11.108 11.3014C10.958 11.268 10.8163 11.2513 10.6663 11.2513C10.358 11.2513 10.058 11.3263 9.79968 11.4763C9.21635 11.793 8.56634 11.9514 7.91634 11.9514C7.26634 11.9514 6.62468 11.793 6.04968 11.4847C5.77468 11.3347 5.46634 11.2513 5.15801 11.2513C5.02468 11.2513 4.89966 11.268 4.77466 11.293C3.19132 11.6597 2.08301 13.0679 2.08301 14.7012V15.1262C2.08301 15.7429 2.29136 16.3346 2.67469 16.8096C2.81636 16.9929 3.04968 17.0846 3.29135 17.0846H12.5413C12.783 17.0846 13.0163 16.9929 13.158 16.8096C13.5413 16.3346 13.7497 15.7429 13.7497 15.1262V14.7012C13.7497 13.0845 12.658 11.693 11.108 11.3014Z" fill="white" />
-                      </svg>
-                      Following
+                  </div>
+                </form>
+              </div>
+              <div className="content-inner">
+                <form action="#">
+                  <h4 className="title-create-item">Minimum bid</h4>
+                  <input type="text" placeholder="enter minimum bid" />
+                  <div className="row">
+                    <div className="col-md-6">
+                      <h5 className="title-create-item">Starting date</h5>
+                      <input type="date" name="bid_starting_date" id="bid_starting_date" className="form-control" min="1997-01-01" />
+                    </div>
+                    <div className="col-md-6">
+                      <h4 className="title-create-item">Expiration date</h4>
+                      <input type="date" name="bid_expiration_date" id="bid_expiration_date" className="form-control" />
                     </div>
                   </div>
-                </div>
-                <div className="table-btn mt52">
-                  <a href="#">Charger plus</a>
-                </div>
+                  <h4 className="title-create-item">Title</h4>
+                  <input type="text" placeholder="Item Name" />
+                  <h4 className="title-create-item">Description</h4>
+                  <textarea placeholder="e.g. “This is very limited item”" defaultValue={""} />
+                </form>
               </div>
-              
+              <div className="content-inner">
+                <form action="#">
+                  <h4 className="title-create-item">Price</h4>
+                  <input type="text" placeholder="Enter price for one item (ETH)" />
+                  <h4 className="title-create-item">Minimum bid</h4>
+                  <input type="text" placeholder="enter minimum bid" />
+                  <div className="row">
+                    <div className="col-md-6">
+                      <h5 className="title-create-item">Starting date</h5>
+                      <input type="date" name="bid_starting_date" id="bid_starting_date2" className="form-control" min="1997-01-01" />
+                    </div>
+                    <div className="col-md-6">
+                      <h4 className="title-create-item">Expiration date</h4>
+                      <input type="date" name="bid_expiration_date" id="bid_expiration_date2" className="form-control" />
+                    </div>
+                  </div>
+                  <h4 className="title-create-item">Title</h4>
+                  <input type="text" placeholder="Item Name" />
+                  <h4 className="title-create-item">Description</h4>
+                  <textarea placeholder="e.g. “This is very limited item”" defaultValue={""} />
+                </form>
+              </div>
             </div>
           </div>
-          
         </div>
       </div>
+
     </div>
 
   </div>

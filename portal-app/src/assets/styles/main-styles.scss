@@ -611,3 +611,17 @@
   background: #f4a607;;
   border-radius: 50%;
 }
+
+.icons-tab {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+
+.icons-tab::-webkit-scrollbar{
+    display: none;
+    width: 0 !important;
+}

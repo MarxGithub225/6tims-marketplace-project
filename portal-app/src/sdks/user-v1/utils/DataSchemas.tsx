@@ -19,6 +19,8 @@ export interface UserProfile {
   address?: UserAddress
   gender?: string
   role?: string
+  deleted?: boolean
+  newsletterSubscribed?: boolean
 }
 
 export interface FullUserProfile {
@@ -59,6 +61,20 @@ export interface CreateRequest {
   suspended: boolean
   newsletterSubscribed: boolean
 }
+
+export interface UpdateRequest {
+    firstName?: string
+    lastName?: string
+    email?: string
+    password?: string
+    role?: string
+    gender?: string
+    imageId?: string | null
+    address?: UserAddress
+    deleted?: boolean
+    suspended?: boolean
+    newsletterSubscribed?: boolean
+  }
 
 export interface ChangePassword {
   oldPassword: string

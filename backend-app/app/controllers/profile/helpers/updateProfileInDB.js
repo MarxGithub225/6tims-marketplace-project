@@ -24,7 +24,26 @@ const updateProfileInDB = (req = {}, id = '') => {
           reject(error)
         }
       }
-    )
+    ).populate([
+      {
+        path: 'createdUser'
+      },
+      {
+        path: 'updatedUser'
+      },
+      {
+        path: 'image'
+      },
+      {
+        path: 'wishList'
+      },
+      {
+        path: 'blogList'
+      },
+      {
+        path: 'viewedList'
+      }
+    ])
   })
 }
 

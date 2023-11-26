@@ -1,35 +1,87 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import PageHeader from "../../GlobalScreens/PageHeader";
-import { Heart, Home } from "react-feather";
+import { CreditCard, Edit, Heart, Home, Lock, Navigation, ShoppingBag, User } from "react-feather";
 import author_db from '../../assets/images/author-db.jpeg'
+import { toast, Slide } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { AuthContext, AuthStatus } from "../../context/auth";
+import { API_FILE_URL } from "../../utilities/constants";
 function ProfilePage() {
+  const { authStatus, sessionInfo } = useContext(AuthContext)
+  const menu = [
+    {icon: <User/>, title: "Mon profile", link: "/account/profile"},
+    {icon: <ShoppingBag/>, title: "Mes commandes", link: "/account/orders"},
+    {icon: <Heart/>, title: "Mes favoris", link: "/favorites"},
+    {icon: <Navigation/>, title: "Mes adresses", link: "/account/addresses"},
+    {icon: <CreditCard/>, title: "Mes cartes", link: "/account/bank-cards"},
+    {icon: <Edit/>, title: "Modifier mes information", link: "/account/data/update"},
+    {icon: <Lock/>, title: "Modifier mon mot de passe", link: "/account/password/update"}
+  ]
+
+  const navigate = useNavigate()
+
+    useEffect(() => {
+      if(authStatus === AuthStatus.SignedOut ) {
+        navigate('/')
+        let errMessage = "Aucun compte connecté. Merci de vous connecter";
+        toast.error(
+        errMessage,
+          { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+        )
+    }
+    }, [])
+
+
+    const logout = () => {
+      //   confirmAlert({
+      //     title: 'Confirmation',
+      //     message: 'Êtes-vous sûre de vouloir vous déconnecter ?',
+      //     buttons: [
+      //     {
+      //         label: 'Oui, me deconnecter',
+      //         onClick: async () => {
+      //           localStorage.removeItem('userData')
+      //           localStorage.removeItem('accessToken')
+      //           localStorage.removeItem('refreshToken')
+      
+      //           setTimeout(() => {
+      //             window.location.reload()
+      //           }, 500);
+      //         }
+      //     },
+      //     {
+      //         label: 'Non, rester',
+      //         onClick: () => console.log('ok') 
+      //     }
+      //     ]
+      // });
+      }
   return <>
   <PageHeader/>
    <section className="tf-dashboard tf-tab2">
   <div className="tf-container">
-    {/* <div className="row ">
+    <div className="row ">
       <div className="col-xl-3 col-lg-12 col-md-12">
         <div className="dashboard-user">
           <div className="dashboard-infor">
             <div className="avatar">
-              <img src={author_db} alt="images" />
+              <img src={`${API_FILE_URL}/icons/${sessionInfo?.userInfo?.imageId}`} alt="images" />
             </div>
-            <div className="name">Francisco Maia</div>
-            <div className="pax"><i className="fab fa-ethereum" />0x59485…82590</div>
+            <div className="name">{sessionInfo?.userInfo?.fullName}</div>
+            <div className="pax">{sessionInfo?.userInfo?.email}</div>
             <div className="description">
-              8,888 NFTs of beautiful, Asian women painstakingly-crafted where even the most intricate
+              {`${sessionInfo?.userInfo.address?.city}, ${sessionInfo?.userInfo.address?.fullLocation} - ${sessionInfo?.userInfo.address?.zipCode}`}
             </div>
           </div>
           <div className="dashboard-filter">
-            <div className="menu-item flex items-center gap-x-3">
-                <Home/>
-                <span>Accueil</span>
-            </div>
 
-            <div className="menu-item flex items-center gap-x-3">
-                <Heart/>
-                <span>Favorites</span>
-            </div>
+            
+            {menu.map((m: any, index: number) => {
+                    return <div key={index}  className="menu-item flex items-center gap-x-3">
+                    {m.icon}
+                    <span>{m.title}</span>
+                </div>
+                })}
           </div>
         </div>
       </div>
@@ -74,11 +126,8 @@ function ProfilePage() {
           
         </div>
       </div>
-    </div> */}
-
-    <div className="flex justify-center items-center h-[300px] w-full">
-      <h1>Page pas encore prête.</h1>
     </div>
+
   </div>
 </section>
 

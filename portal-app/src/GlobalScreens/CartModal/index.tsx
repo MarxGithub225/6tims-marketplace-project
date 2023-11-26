@@ -127,6 +127,27 @@ function CartModal() {
         showSuccess.click()
       }
     }
+
+    const checkOutOfStock = () => {
+      if(productSelected) {
+        if(productSelected.variables.length === 1) {
+          if(productSelected.variables[0].quantity > 0 && productSelected.variables[0].isActivated) {
+            return false
+          }else return true
+        }else {
+          let result = false;
+
+          productSelected.variables.forEach((element: Variable) => {
+            if(element.quantity > 0 && element.isActivated) {
+              result =  false
+            }else result =  true
+          });
+
+          return result
+        }
+      }
+      
+    }
     
   return <>
   
@@ -158,7 +179,7 @@ function CartModal() {
             <div className="modal-body space-y-5 pd-40">
               <h3>Ajouter au panier</h3>
               <p className="text-center line-clamp-1">{productSelected?.title}</p>
-              {productSelected.variables.length === 1 ? <>
+              {(productSelected.variables.length === 1 && productSelected.variables[0].quantity > 0 && productSelected.variables[0].isActivated) ? <>
                 <p>Entrer la quantité. <span className="color-popup">{productSelected.variables[0]?.quantity} disponibles</span>
                 </p>
                 <div className="flex items-center justify-center w-full gap-4">
@@ -179,6 +200,7 @@ function CartModal() {
               </>: <div className={`max-h-[300px] overflow-y-auto cart-modal-list ${productSelected.variables?.length > 3 ? 'pr-2': ''}`}>
                     {
                         productSelected.variables.map((variable: Variable, key: number) => {
+                          if(variable.quantity > 0 && variable.isActivated)
                             return <div className="mb-2" key={key}>
                                 <p>Entrer la quantité de <span className="font-bold" >({variable.label})</span> - <span className="color-popup">{variable?.quantity} disponibles </span>
                                 </p>
@@ -200,12 +222,14 @@ function CartModal() {
                             </div>
                         })
                     }
-              </div>}
+              </div> }
+
+              {checkOutOfStock() && <p className="text-center text-[red] line-clamp-1">En rupture de stock</p>}
               <div className="hr" />
-              <div className="d-flex justify-content-between">
+              {!checkOutOfStock() && <div className="d-flex justify-content-between">
                 <p> Total:</p>
                 <p className="text-right price color-popup"> {productToCart.totalPrice} DH</p>
-              </div>
+              </div>}
               {/* <div className="d-flex justify-content-between">
                 <p> Service free:</p>
                 <p className="text-right price color-popup"> 0,89 ETH </p>
@@ -218,6 +242,10 @@ function CartModal() {
               onClick={(e: any) => {
                 e.preventDefault()
                 addToCart()
+              }}
+              style={{
+                pointerEvents: checkOutOfStock() ? 'none': 'initial',
+                opacity: checkOutOfStock() ? .5 : 1
               }}
               className="btn btn-primary"> Ajouter</a>
               <a style={{display: 'none'}} href="#" id="showSuccess" className="btn btn-primary" data-toggle="modal" data-target="#popup_bid_success" data-dismiss="modal" aria-label="Close"> Ajouter</a>

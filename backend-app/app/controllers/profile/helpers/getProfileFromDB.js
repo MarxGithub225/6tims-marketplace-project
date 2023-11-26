@@ -14,7 +14,26 @@ const getProfileFromDB = (id = '') => {
       } catch (error) {
         reject(error)
       }
-    })
+    }).populate([
+      {
+        path: 'createdUser'
+      },
+      {
+        path: 'updatedUser'
+      },
+      {
+        path: 'image'
+      },
+      {
+        path: 'wishList'
+      },
+      {
+        path: 'blogList'
+      },
+      {
+        path: 'viewedList'
+      }
+    ])
   })
 }
 

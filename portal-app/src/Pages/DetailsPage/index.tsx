@@ -199,6 +199,13 @@ function DetailsPage() {
 const handleSelectChangeStar = (selectedOption: any) => {
   setRating({ ...rating, star: selectedOption?.value})
 }
+
+const getProductById = () => {
+  if(slug) {
+    const splitId = slug?.split('.html').join('').split('-')
+    return splitId[splitId?.length - 1]
+  }else return ''
+}
   return <>
   <PageHeader/>
   
@@ -232,10 +239,10 @@ const handleSelectChangeStar = (selectedOption: any) => {
                     <div className="avatar">
                     <img src={data.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${data.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-288.jpg`} alt={`6tims - tims group | ${data.slug}`} />
                     </div>
-                    <div className="info">
+                    <Link to={`/seller/${data.seller._id}`} className="info">
                       <span>Vendeur</span>
                       <h6> <Link to={`/seller/${data.seller._id}`}>{data.seller.companyInfo.companyName}</Link> </h6>
-                    </div>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -283,6 +290,17 @@ const handleSelectChangeStar = (selectedOption: any) => {
                 <div className="content-tab">
                   {checkedTab ===  (data.principalFeatures ? 2: 0) && <div className="content-inner tab-content">
                     <ul className="bid-history-list">
+                    
+                    {!data?.ratings?.length ? <span className="text-[17px]">Soyez le premier à <strong
+                    className="cursor-pointer"
+                    onClick={() => {
+                      if (reviewRef) {
+                        setTimeout(() => {
+                          reviewRef?.current?.scrollIntoView({ behavior: "smooth" })
+                        }, 500);
+                      }
+                    }}
+                    >donner votre avis</strong> </span>: <>
                     {data?.ratings
                       ?.sort((a: any, b: any) => b?.postedAt - a?.postedAt)
                       ?.map((rating: any, key: number) => {
@@ -316,7 +334,7 @@ const handleSelectChangeStar = (selectedOption: any) => {
                         </div>
                       </li>
                       })}
-                      
+                    </> }                      
                     </ul>
                   </div>}
                   {checkedTab ===  (data.principalFeatures ? 1: 0) && <div className="content-inner tab-content">                                               
@@ -435,7 +453,7 @@ const handleSelectChangeStar = (selectedOption: any) => {
   </div>
   {/* /tf item details */};
   {sessionInfo?.userInfo && <RecentViews
-    products={sessionInfo?.userInfo?.viewedList}
+    products={sessionInfo?.userInfo?.viewedList?.reverse()?.filter((pdt: Product) => pdt._id !== getProductById())}
   />}
   <Related
   products = {relativeProducts ?? []}

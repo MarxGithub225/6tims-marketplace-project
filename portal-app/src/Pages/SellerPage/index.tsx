@@ -184,7 +184,7 @@ function SellerPage() {
                                     {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
                                     </div>
                                 </div>
-                                <a href="activity1.html" className="view-history reload">Voir historique</a>
+                                <Link to={`/product-activity/${product._id}`} className="view-history reload">Voir historique</Link>
                                 </div>
                             </div>
                             </div>})}

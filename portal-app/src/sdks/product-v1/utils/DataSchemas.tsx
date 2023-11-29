@@ -55,7 +55,7 @@ export interface Variable {
   isActivated: boolean
 }
 
-export interface commentRequest {
+export interface CommentRequest {
   comment: string
   star: number
 }

@@ -9,8 +9,8 @@ const {updateBlogViewsInDb} = require('./helpers/updateBlogViewsInDb')
 const updateBlogView = async (req, res) => {
   try {
     req = matchedData(req)
-    const id = await isIDGood(req.id)
-    res.status(201).json(await updateBlogViewsInDb(id))
+    const blogId = await isIDGood(req.params.blogId)
+    res.status(201).json(await updateBlogViewsInDb(blogId))
   } catch (error) {
     handleError(res, error)
   }

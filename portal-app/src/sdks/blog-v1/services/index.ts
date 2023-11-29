@@ -1,7 +1,7 @@
 import request from '../../../api'
 import { Options } from '../../../api/DataSchemas'
 import { PaginationOption } from '../../GlobalDataSchemas'
-import { CreateRequest, PaginationOptionBlog } from '../utils/DataSchemas'
+import { CreateRequest, PaginationOptionBlog, CommentRequest } from '../utils/DataSchemas'
 
 function getPaginationQuery(paginationOption: PaginationOptionBlog) {
     let query = `?page=${paginationOption.page}&limit=${paginationOption.limit}`
@@ -80,8 +80,12 @@ export default class Service {
       return request('PUT', `blogs/like/${id}`, this.options)
     }
 
-    async commentBlog(id: string) {
-      return request('PUT', `blogs/comment/${id}`, this.options)
+    async commentBlog(id: string, data: CommentRequest) {
+      const requestOptions: Options = {
+        ...this.options,
+        data: data
+      }
+      return request('PUT', `blogs/comment/${id}`, requestOptions)
     }
 
     async viewBlog(id: string) {

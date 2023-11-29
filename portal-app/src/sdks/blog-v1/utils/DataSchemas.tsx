@@ -46,6 +46,10 @@ export interface Blog {
   largeImage: File
 }
 
+export interface CommentRequest {
+  comment: string
+}
+
 export interface PaginationOptionBlog extends PaginationOption{
   published_only?: string
 }

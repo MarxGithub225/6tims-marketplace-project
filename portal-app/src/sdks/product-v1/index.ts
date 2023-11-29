@@ -91,7 +91,7 @@ export class Client {
 
   commentProduct = (
     id: string,
-    data: dataSchemas.commentRequest
+    data: dataSchemas.CommentRequest
   ): Promise<string> => this.service.commentProduct(id, data)
 
   viewProduct = (

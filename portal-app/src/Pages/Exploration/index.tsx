@@ -134,10 +134,10 @@ function Exploration() {
               {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
               <h5> {calculatePrice(product).price} DH</h5>
             </div>
-          </div>
+          </div>product-activity/:id
           <div className="card-bottom">
             <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Panier</span></a>
-            <a href="activity1.html" className="view-history reload">Voir historique</a>
+            <Link to={`/product-activity/${product._id}`} className="view-history reload">Voir historique</Link>
           </div>
         </div>
       </div>})}

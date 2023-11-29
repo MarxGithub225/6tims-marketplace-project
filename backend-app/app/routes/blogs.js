@@ -25,7 +25,8 @@ const {
   validateCreateBlog,
   validateGetBlog,
   validateUpdateBlog,
-  validateDeleteBlog
+  validateDeleteBlog,
+  validateCommentBlog
 } = require('../controllers/blogs/validators')
 
 /*
@@ -45,12 +46,18 @@ router.put('/like/:blogId', requireAuth, likeBlog)
 /*
  * Comment item route
  */
-router.put('/comment/:blogId', requireAuth, commentBlog)
+router.patch(
+  '/comment/:blogId',
+  requireAuth,
+  trimRequest.all,
+  validateCommentBlog,
+  commentBlog
+)
 
 /*
  * Update a view route
  */
-router.put('/view/:id', updateBlogView)
+router.put('/view/:blogId', updateBlogView)
 
 /*
  * Get items route

@@ -24,7 +24,7 @@ function RecentViews({products}: RecentViewsProps) {
         <div className="col-md-12">
         {(products && products?.length) ? <div className="swiper-container carousel8 pt-4 auctions">
             <HotProductCarousel>
-            {products.map((product: Product, key: number) => {
+            {products.slice(0, 5).map((product: Product, key: number) => {
                 return <div className="slider-item" key={key}>										
                 <div className="sc-card-product menu_card style2">
                 <div className="card-media style2">

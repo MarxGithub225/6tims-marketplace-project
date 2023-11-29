@@ -35,13 +35,165 @@ const updateProfileInDB = (req = {}, id = '') => {
         path: 'image'
       },
       {
-        path: 'wishList'
+        path: 'wishList',
+        populate: [
+          {
+            path: 'createdUser'
+          },
+          {
+            path: 'updatedUser'
+          },
+          {
+            path: 'category'
+          },
+          {
+            path: 'category2'
+          },
+          {
+            path: 'category3'
+          },
+          {
+            path: 'refuse',
+            populate: [
+              {
+                path: 'createdUser',
+                populate: [
+                  {
+                    path: 'image'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            path: 'seller',
+            populate: [
+              {
+                path: 'personnalInfo.image'
+              }
+            ]
+          },
+          {
+            path: 'brand'
+          },
+          {
+            path: 'color'
+          },
+          {
+            path: 'images'
+          },
+          {
+            path: 'historical.owner',
+            populate: [
+              {
+                path: 'image'
+              }
+            ]
+          },
+          {
+            path: 'ratings.owner',
+            populate: [
+              {
+                path: 'image'
+              }
+            ]
+          },
+          {
+            path: 'likes.owner'
+          }
+        ]
       },
       {
-        path: 'blogList'
+        path: 'blogList',
+        populate: [
+          {
+            path: 'createdUser'
+          },
+          {
+            path: 'updatedUser'
+          },
+          {
+            path: 'image'
+          },
+          {
+            path: 'largeImage'
+          },
+          {
+            path: 'comments.owner'
+          },
+          {
+            path: 'likes.owner'
+          }
+        ]
       },
       {
-        path: 'viewedList'
+        path: 'viewedList',
+        populate: [
+          {
+            path: 'createdUser'
+          },
+          {
+            path: 'updatedUser'
+          },
+          {
+            path: 'category'
+          },
+          {
+            path: 'category2'
+          },
+          {
+            path: 'category3'
+          },
+          {
+            path: 'refuse',
+            populate: [
+              {
+                path: 'createdUser',
+                populate: [
+                  {
+                    path: 'image'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            path: 'seller',
+            populate: [
+              {
+                path: 'personnalInfo.image'
+              }
+            ]
+          },
+          {
+            path: 'brand'
+          },
+          {
+            path: 'color'
+          },
+          {
+            path: 'images'
+          },
+          {
+            path: 'historical.owner',
+            populate: [
+              {
+                path: 'image'
+              }
+            ]
+          },
+          {
+            path: 'ratings.owner',
+            populate: [
+              {
+                path: 'image'
+              }
+            ]
+          },
+          {
+            path: 'likes.owner'
+          }
+        ]
       }
     ])
   })

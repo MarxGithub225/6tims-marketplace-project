@@ -12,10 +12,12 @@ const {populateUser} = require('./validators')
  */
 const updateUser = async (req, res) => {
   try {
+    const {firstName: name} = req.body
     req = matchedData(req)
     const id = await isIDGood(req.id)
     const doesEmailExists = await emailExistsExcludingMyself(id, req.email)
     if (!doesEmailExists) {
+      req = {...req, firstName: name, fullName: `${name} ${req.lastName}`}
       res.status(200).json(await updateItem(id, User, req, populateUser))
     }
   } catch (error) {

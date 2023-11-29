@@ -23,9 +23,11 @@ import { setProduct } from "../../redux/features/productSlice";
 import moment from "moment";
 import 'moment/locale/fr'  // without this line it didn't work
 import { AuthContext, AuthStatus } from "../../context/auth";
-import { notifyError } from "../../Components/CustomAlert";
+import { notifyError, notifySuccess } from "../../Components/CustomAlert";
 import { toast, Slide } from "react-toastify";
 import CustomSelect from "../../Components/CustomSelect";
+import { Star } from "react-feather";
+import RecentViews from "./screens/RecentViews";
 moment.locale('fr')
 function DetailsPage() {
   const [rating, setRating] = useState({
@@ -33,7 +35,8 @@ function DetailsPage() {
     comment: ''
   });
   let reviewRef: any = useRef(null);
-  const { signOut, sessionInfo, authStatus } = useContext(AuthContext)
+  let notesRef: any = useRef(null);
+  const { signOut, sessionInfo, authStatus, setUserInfo } = useContext(AuthContext)
   const dispatch = useAppDispatch()
   const [checkedTab, setCheckedTab] = useState<number>(0)
   const {slug} = useParams<any>()
@@ -145,8 +148,13 @@ function DetailsPage() {
           )
         }
     },
-    onSuccess: (response) => {
+    onSuccess: (response: any) => {
         setLiked(!liked)
+        const simpleUser = {
+          ...sessionInfo?.userInfo,
+          wishList: response.wishList
+      }
+      setUserInfo(simpleUser)
     },
     onError: (e: any) => {
         let error: string = "An error occured, please retry";
@@ -167,6 +175,17 @@ function DetailsPage() {
     },
     onSuccess: (response) => {
       setReload(!reload)
+      setRating({
+        star : 1, 
+        comment: ''
+      })
+      notifySuccess({ message: `Votre message a été enregistré !` })
+      setCheckedTab(data.principalFeatures ? 2 : 1)
+      if (notesRef) {
+        setTimeout(() => {
+          notesRef?.current?.scrollIntoView({ behavior: "smooth" })
+        }, 500);
+      }
     },
     onError: (e: any) => {
         let error: string = "An error occured, please retry";
@@ -242,7 +261,7 @@ const handleSelectChangeStar = (selectedOption: any) => {
                 dispatch(setProduct(data))
               }}
               data-toggle="modal" data-target="#popup_bid" className="sc-button loadmore style bag fl-button pri-3"><span>Mettre dans le panier</span></a>
-              <div className="flat-tabs themesflat-tabs">
+              <div className="flat-tabs themesflat-tabs" ref={notesRef}>
                 <ul className="menu-tab tab-title">
                  {data.principalFeatures && <li className={`item-title ${checkedTab === 0 ? 'active': ''}`}
                  onClick={() => setCheckedTab(0)}
@@ -252,7 +271,7 @@ const handleSelectChangeStar = (selectedOption: any) => {
                   <li className={`item-title ${checkedTab === (data.principalFeatures ? 1: 0) ? 'active': ''}`}
                   onClick={() => setCheckedTab(data.principalFeatures ? 1: 0)}
                   >
-                    <span className="inner">Historique de vente</span>
+                    <span className="inner">Historique du produit</span>
                   </li>
                   <li className={`item-title ${checkedTab === (data.principalFeatures ? 2 : 1) ? 'active': ''}`}
                   onClick={() => setCheckedTab(data.principalFeatures ? 2 : 1)}
@@ -264,150 +283,40 @@ const handleSelectChangeStar = (selectedOption: any) => {
                 <div className="content-tab">
                   {checkedTab ===  (data.principalFeatures ? 2: 0) && <div className="content-inner tab-content">
                     <ul className="bid-history-list">
-                      <li>
+                    {data?.ratings
+                      ?.sort((a: any, b: any) => b?.postedAt - a?.postedAt)
+                      ?.map((rating: any, key: number) => {
+                        return <li key={key} >
                         <div className="content">
                           <div className="client">
                             <div className="sc-author-box style-2">
                               <div className="author-avatar">
                                 <a href="#">
-                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
+                                <img src={rating?.owner?.image ? `${API_FILE_URL}/icons/${rating?.owner?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | rating`} />
                                 </a>
                                 <div className="badge" />
                               </div>
                               <div className="author-infor">
                                 <div className="name">
-                                  <h6><a href="author02.html">Mason Woodward </a></h6> <span> place a bid</span>
+                                  <h6><a href="author02.html">{rating?.owner?.fullName} </a></h6> <span> {moment(rating?.postedAt).fromNow()}</span>
                                 </div>
-                                <span className="time">8 hours ago</span>
+                                <span className="time">{rating?.comment}</span>
                               </div>
                             </div>
                           </div>
                           <div className="price">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
+                            <h5 className="flex items-center gap-x-3"> 
+                            {Array((Number(rating?.star))).fill(undefined).map((v, i) => i + 1).map((data: any, key: number) => {
+                              return <Star color="#F4A607"  size={15} />
+                            })}
+                            {Array((5 - Number(rating?.star))).fill(undefined).map((v, i) => i + 1).map((data: any, key: number) => {
+                              return <Star size={15} />
+                            })}</h5>
                           </div>
                         </div>
                       </li>
-                      <li>
-                        <div className="content">
-                          <div className="client">
-                            <div className="sc-author-box style-2">
-                              <div className="author-avatar">
-                                <a href="#">
-                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
-                                </a>
-                                <div className="badge" />
-                              </div>
-                              <div className="author-infor">
-                                <div className="name">
-                                  <h6> <a href="author02.html">Mason Woodward </a></h6> <span>bid accepted</span>
-                                </div>
-                                <span className="time">at 06/10/2021, 3:20 AM</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="price">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="content">
-                          <div className="client">
-                            <div className="sc-author-box style-2">
-                              <div className="author-avatar">
-                                <a href="#">
-                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
-                                </a>
-                                <div className="badge" />
-                              </div>
-                              <div className="author-infor">
-                                <div className="name">
-                                  <h6> <a href="author02.html">Mason Woodward </a></h6> <span> place a bid</span>
-                                </div>
-                                <span className="time">8 hours ago</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="price">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="content">
-                          <div className="client">
-                            <div className="sc-author-box style-2">
-                              <div className="author-avatar">
-                                <a href="#">
-                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
-                                </a>
-                                <div className="badge" />
-                              </div>
-                              <div className="author-infor">
-                                <div className="name">
-                                  <h6> <a href="author02.html">Mason Woodward </a></h6> <span> place a bid</span>
-                                </div>
-                                <span className="time">8 hours ago</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="price">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="content">
-                          <div className="client">
-                            <div className="sc-author-box style-2">
-                              <div className="author-avatar">
-                                <a href="#">
-                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
-                                </a>
-                                <div className="badge" />
-                              </div>
-                              <div className="author-infor">
-                                <div className="name">
-                                  <h6> <a href="author02.html">Mason Woodward </a></h6> <span> place a bid</span>
-                                </div>
-                                <span className="time">8 hours ago</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="price">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="content">
-                          <div className="client">
-                            <div className="sc-author-box style-2">
-                              <div className="author-avatar">
-                                <a href="#">
-                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
-                                </a>
-                                <div className="badge" />
-                              </div>
-                              <div className="author-infor">
-                                <div className="name">
-                                  <h6> <a href="author02.html">Mason Woodward </a></h6> <span> place a bid</span>
-                                </div>
-                                <span className="time">8 hours ago</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="price">
-                            <h5> 4.89 ETH</h5>
-                            <span>= $12.246</span>
-                          </div>
-                        </div>
-                      </li>
+                      })}
+                      
                     </ul>
                   </div>}
                   {checkedTab ===  (data.principalFeatures ? 1: 0) && <div className="content-inner tab-content">                                               
@@ -415,7 +324,7 @@ const handleSelectChangeStar = (selectedOption: any) => {
                       {data?.historical
                       ?.sort((a: any, b: any) => b?.actedAt - a?.actedAt)
                       ?.map((historic: any, key: number) => {
-                        return <li>
+                        return <li key={key} >
                         <div className="content">
                           <div className="client">
                             <div className="sc-author-box style-2">
@@ -511,6 +420,7 @@ const handleSelectChangeStar = (selectedOption: any) => {
                     <div className="btn-submit mg-t-36">
                     {authStatus === AuthStatus.SignedIn ? <CustumButton
                     label={"Envoyer"}
+                    disabled={!rating.comment || !rating.star}
                     onclick={() => !upsertMutationCommentProduct.isPending && upsertMutationCommentProduct.mutate()}
                     backgroundColor="#e73a5d"
                     isLoading={upsertMutationCommentProduct.isPending}
@@ -524,6 +434,9 @@ const handleSelectChangeStar = (selectedOption: any) => {
     </div>}
   </div>
   {/* /tf item details */};
+  {sessionInfo?.userInfo && <RecentViews
+    products={sessionInfo?.userInfo?.viewedList}
+  />}
   <Related
   products = {relativeProducts ?? []}
   />

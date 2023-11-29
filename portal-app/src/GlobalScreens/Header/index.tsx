@@ -9,16 +9,17 @@ import avatar  from '../../assets/images/avt-1.jpg'
 import { ShoppingBag, ShoppingCart, User, UserPlus } from "react-feather";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useOnClickOutSide from "../../utils/onClickOutSide";
 import { AuthContext, AuthStatus } from "../../context/auth";
 import { API_FILE_URL } from "../../utilities/constants";
+import { useMutation } from "@tanstack/react-query";
 function Header({headerRef}: any) {
-  const { authStatus, sessionInfo, setUserInfo } = useContext(AuthContext)
+  const { authStatus, sessionInfo, signOut } = useContext(AuthContext)
   const profileRef = useRef<any>(null)
   const cart = useSelector((state: RootState) => state.cart.cart)
   const [showProfileOptions, setShowProfileOptions] = useState<boolean>(false)
-
+  const navigate = useNavigate()
   const changeTheme = (theme: string) => {
       if(theme === 'dark') {
         $(".body").addClass("is_dark")
@@ -64,9 +65,15 @@ function Header({headerRef}: any) {
         }
       }
   }
-
   useOnClickOutSide(profileRef, () => setShowProfileOptions(false))
-
+  const mutationLogout: any = useMutation({
+    mutationFn: async () => {
+      return await signOut();
+    },
+    onSuccess: (response) => {
+      navigate('/')
+    },
+  });
   return <header id="header_main" ref={headerRef} className="header_1 header_2 style2 js-header">
   <div className="themesflat-container">
     <div className="row">
@@ -177,7 +184,12 @@ function Header({headerRef}: any) {
                           </svg>
                           <span>Mes commandes</span>
                         </Link>}
-                        {authStatus === AuthStatus.SignedIn && <a className="mt-10" href="/" id="logout">
+                        {authStatus === AuthStatus.SignedIn && <a 
+                        onClick={(e: any) => {
+                          e.preventDefault();
+                          !mutationLogout.isLoading && mutationLogout.mutate()
+                        }}
+                        className="mt-10" href="/" id="logout">
                           <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.9668 18.3057H2.49168C2.0332 18.3057 1.66113 17.9335 1.66113 17.4751V2.52492C1.66113 2.06644 2.03324 1.69437 2.49168 1.69437H9.9668C10.4261 1.69437 10.7973 1.32312 10.7973 0.863828C10.7973 0.404531 10.4261 0.0332031 9.9668 0.0332031H2.49168C1.11793 0.0332031 0 1.15117 0 2.52492V17.4751C0 18.8488 1.11793 19.9668 2.49168 19.9668H9.9668C10.4261 19.9668 10.7973 19.5955 10.7973 19.1362C10.7973 18.6769 10.4261 18.3057 9.9668 18.3057Z" fill="white" />
                             <path d="M19.7525 9.40904L14.7027 4.42564C14.3771 4.10337 13.8505 4.10755 13.5282 4.43396C13.206 4.76036 13.2093 5.28611 13.5366 5.60837L17.1454 9.16982H7.47508C7.01578 9.16982 6.64453 9.54107 6.64453 10.0004C6.64453 10.4597 7.01578 10.8309 7.47508 10.8309H17.1454L13.5366 14.3924C13.2093 14.7147 13.2068 15.2404 13.5282 15.5668C13.691 15.7313 13.9053 15.8143 14.1196 15.8143C14.3306 15.8143 14.5415 15.7346 14.7027 15.5751L19.7525 10.5917C19.9103 10.4356 20 10.2229 20 10.0003C20 9.77783 19.9111 9.56603 19.7525 9.40904Z" fill="white" />

@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import PageHeader from "../../GlobalScreens/PageHeader";
 import { Heart, Loader, LogOut, ShoppingBag, User } from "react-feather";
-import { AuthContext } from "../../context/auth";
+import { AuthContext, AuthStatus } from "../../context/auth";
 import { API_FILE_URL } from "../../utilities/constants";
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Profile from "./pages/Profile";
 import { useMutation } from "@tanstack/react-query";
+import { toast, Slide } from "react-toastify";
 function ProfilePage() {
-  const { signOut, sessionInfo } = useContext(AuthContext)
+  const { signOut, sessionInfo, authStatus } = useContext(AuthContext)
   const menu = [
     {icon: <User/>, title: "Mon profile", link: "/account/profile"},
     {icon: <ShoppingBag/>, title: "Mes commandes", link: "/account/orders"},
@@ -26,7 +27,16 @@ function ProfilePage() {
       navigate('/')
     },
   });
-
+  useEffect(() => {
+  if(authStatus === AuthStatus.SignedOut) {
+      navigate('/')
+      let errMessage = "Aucun compte connecté. Merci de vous connecter";
+      toast.error(
+      errMessage,
+        { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+      )
+  }
+  }, [authStatus])
   return <>
   <PageHeader/>
    <section className="tf-dashboard tf-tab2">

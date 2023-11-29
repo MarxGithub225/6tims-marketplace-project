@@ -117,7 +117,10 @@ export interface ISession {
             gender: user.gender,
             role: user.role,
             newsletterSubscribed: user.newsletterSubscribed,
-            deleted: user.deleted
+            deleted: user.deleted,
+            wishList: user.wishList,
+            blogList: user.blogList,
+            viewedList: user.viewedList,
           }
   
           setSessionInfo({

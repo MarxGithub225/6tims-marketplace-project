@@ -251,7 +251,7 @@ function CheckoutPage() {
                  placeholder="Numéro de téléphone" className="tb-my-input" name="phone" tabIndex={2}  aria-required="true" required />
               </fieldset>
               <fieldset className="message">
-                <textarea id="fullLocation" name="fullLocation" className="no-resize text-[15px]"
+                <textarea id="fullLocation" name="fullLocation" className="resize-none text-[15px]"
                 value={shippingAddress?.fullLocation} 
                 onChange={(e: any) => {
                   setShippingAddress({

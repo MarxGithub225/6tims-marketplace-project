@@ -141,4 +141,7 @@ export default class Service {
     async viewProduct(id: string) {
       return request('PUT', `products/view/${id}`, this.options)
     }
+    async viewProductAuth(id: string) {
+      return request('PUT', `products/view-auth/${id}`, this.options)
+    }
 }

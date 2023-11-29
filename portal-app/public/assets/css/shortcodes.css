@@ -990,6 +990,7 @@
     display: inline-block;
 }
 
+.wishlist-button.active.star::before,
 .wishlist-button.active.heart::before {
     color      : #ee3434;
     font-weight: 700;
@@ -1000,6 +1001,9 @@
     font-family : 'Font Awesome 5 Pro';
     font-weight : 300;
     margin-right: 6px;
+}
+.wishlist-button.heart-no-margin::before {
+    margin-right: 0px !important;
 }
 
 .sc-card-product .card-media .coming-soon {
@@ -3619,6 +3623,7 @@ section.today-picks {
 .tf-item-details .content-right .meta-item .eye::before,
 .tf-item-details .content-right .meta-item .heart::before,
 .tf-item-details .content-right .meta-item .share::before,
+.tf-item-details .content-right .meta-item .star::before,
 .tf-item-details .content-right .meta-item .option::before {
     font-family   : 'nfts';
     content       : '\e92a';
@@ -3627,9 +3632,15 @@ section.today-picks {
     vertical-align: bottom;
     font-size     : 16px;
 }
-
+.tf-item-details .content-right .meta-item .heart-no-margin::before {
+    padding-right: 0px !important;
+}
 .tf-item-details .content-right .meta-item .heart::before {
     content: '\e90b';
+}
+
+.tf-item-details .content-right .meta-item .star::before {
+    content: '\e93c';
 }
 
 .tf-item-details .content-right .meta-item .share::before {

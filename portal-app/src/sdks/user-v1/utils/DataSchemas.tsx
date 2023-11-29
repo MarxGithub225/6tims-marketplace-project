@@ -21,6 +21,9 @@ export interface UserProfile {
   role?: string
   deleted?: boolean
   newsletterSubscribed?: boolean
+  wishList?:  Array<any>
+  blogList?:  Array<any>
+  viewedList?:  Array<any>
 }
 
 export interface FullUserProfile {

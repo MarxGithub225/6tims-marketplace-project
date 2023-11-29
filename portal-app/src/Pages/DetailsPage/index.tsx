@@ -7,14 +7,14 @@ import TopSellers from "../../GlobalScreens/TopSellers";
 import PageHeader from "../../GlobalScreens/PageHeader";
 import CustumButton from "../../Components/CustumButton";
 
-import { useState } from "react";
-import { useQuery } from '@tanstack/react-query'
+import { useContext, useEffect, useRef, useState } from "react";
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { PaginationOptionProduct } from "../../sdks/product-v1/utils/DataSchemas";
 import { Pagination } from "../../sdks/GlobalDataSchemas";
 import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
 import useProduct from "../../hooks/useProduct";
 import { Product } from "../../sdks/product-v1/utils/DataSchemas";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import Countdown from "react-countdown";
 import CartModal from "../../GlobalScreens/CartModal";
@@ -22,17 +22,28 @@ import { useAppDispatch } from "../../redux/hooks";
 import { setProduct } from "../../redux/features/productSlice";
 import moment from "moment";
 import 'moment/locale/fr'  // without this line it didn't work
+import { AuthContext, AuthStatus } from "../../context/auth";
+import { notifyError } from "../../Components/CustomAlert";
+import { toast, Slide } from "react-toastify";
+import CustomSelect from "../../Components/CustomSelect";
 moment.locale('fr')
 function DetailsPage() {
+  const [rating, setRating] = useState({
+    star : 1, 
+    comment: ''
+  });
+  let reviewRef: any = useRef(null);
+  const { signOut, sessionInfo, authStatus } = useContext(AuthContext)
   const dispatch = useAppDispatch()
   const [checkedTab, setCheckedTab] = useState<number>(0)
   const {slug} = useParams<any>()
   const { client } = useProduct()
   const [liked, setLiked] = useState<boolean>(false)
+  const [likeLoading, setLikeLoading] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(10)
   const [relativeLimit, setRelativeLimit] = useState<number>(5)
-
+  let search = useLocation().search;
   const { data, isLoading, isFetching, isError }: any =
   useQuery({
       queryKey: ['productDetails', slug],
@@ -40,11 +51,27 @@ function DetailsPage() {
           if(slug) {
             const splitId = slug?.split('.html').join('').split('-')
             const _id = splitId[splitId?.length - 1]
-            const [result, _] = await Promise.all([
-              client.getProductById(_id),
-              client.viewProduct(_id)
-            ])
+            const result: Product = await client.getProductById(_id)
             return result
+          }else return null
+      }
+  })
+
+  const { data:dataView }: any =
+  useQuery({
+      queryKey: ['productView', slug],
+      queryFn: async () => {
+          if(slug) {
+            const splitId = slug?.split('.html').join('').split('-')
+            const _id = splitId[splitId?.length - 1]
+            if(authStatus === AuthStatus.SignedOut) {
+              await client.viewProduct(_id)
+              return null
+            }else {
+              await client.viewProductAuth(_id)
+              return null
+            }
+            
           }else return null
       }
   })
@@ -65,25 +92,74 @@ function DetailsPage() {
         }
     })
   
-    const getMessage = (type: string): string => {
-      switch (type) {
-        case 'view':
-          return 'a vu ce produit'
+  const getMessage = (type: string): string => {
+    switch (type) {
+      case 'view':
+        return 'a vu ce produit'
+        break;
+      case 'like':
+          return 'a aimé ce produit'
           break;
-        case 'like':
-            return 'a aimé ce produit'
+      case 'comment':
+            return 'a commenté ce produit'
             break;
-        case 'comment':
-              return 'a commenté ce produit'
+      case 'sell':
+              return 'a achété ce produit'
               break;
-        case 'sell':
-                return 'a achété ce produit'
-                break;
-        default:
-           return 'a vu ce produit'
-          break;
+      default:
+          return 'a vu ce produit'
+        break;
+    }
+  }
+
+  useEffect(() => {
+    if(authStatus === AuthStatus.SignedIn && slug) {
+      const splitId = slug?.split('.html').join('').split('-')
+      const _id = splitId[splitId?.length - 1]
+      const isLiked: boolean =  sessionInfo?.userInfo?.wishList?.filter((w: any) => w?._id === _id).length ?? false
+      setLiked(isLiked)
+    }
+
+    if(search) {
+      const tag = new URLSearchParams(search).get('tag');
+
+      if (tag && reviewRef) {
+        setTimeout(() => {
+          reviewRef?.current?.scrollIntoView({ behavior: "smooth" })
+        }, 500);
       }
     }
+  }, [slug])
+
+  const upsertMutationLikeProduct = useMutation({
+    mutationFn: async () => {
+        if(authStatus === AuthStatus.SignedIn && slug) {
+          const splitId = slug?.split('.html').join('').split('-')
+          const _id = splitId[splitId?.length - 1]
+          return await client?.likeProduct(_id)
+        }else {
+          let errMessage = "Veuillez vous connecter";
+          toast.error(
+          errMessage,
+            { transition: Slide, hideProgressBar: true, autoClose: 2000 }
+          )
+        }
+    },
+    onSuccess: (response) => {
+        setLiked(!liked)
+    },
+    onError: (e: any) => {
+        let error: string = "An error occured, please retry";
+        if(e?.errors?.msg?.includes('duplicate')) {
+            error = "DUPLICATED_DATA"
+        } else error = e?.errors?.msg
+        notifyError({ message: error })
+    }
+})
+
+const handleSelectChangeStar = (selectedOption: any) => {
+  setRating({ ...rating, star: selectedOption?.value})
+}
   return <>
   <PageHeader/>
   
@@ -105,7 +181,10 @@ function DetailsPage() {
               <div className="meta-item">
                 <div className="left">
                   <span className="viewed eye">{data?.viewsCount}</span>
-                  <span className="liked heart wishlist-button mg-l-8"><span className="number-like">{data?.totalrating}</span></span>
+                  <span className="liked star wishlist-button mg-l-8">{data?.totalrating === 0? 5: data?.totalrating}</span>
+                  {authStatus === AuthStatus.SignedIn && <span
+                  onClick={()=> upsertMutationLikeProduct.mutate()}
+                   className={`liked heart heart-no-margin wishlist-button ${liked ? 'active': ''} mg-l-8`}></span>}
                 </div>
               </div>
               <div className="client-infor sc-card-product">
@@ -375,28 +454,48 @@ function DetailsPage() {
                   </div>     */}
                 <div className="divider d2" />
                 <div className="w-[600px]">
-                <div id="comments">
+                <div id="comments" ref = {reviewRef} >
                 <h3 className="heading mg-bt-23">
                     Laisser un commentaire
                 </h3>
-                <form action="https://themesflat.co/html/axiesv/contact/contact-process.php" method="post" id="commentform" className="comment-form">
-                    <fieldset className="name">
-                    <input type="text" id="name" placeholder="Name" className="tb-my-input" name="name" tabIndex={2}  aria-required="true" required />
-                    </fieldset>
-                    <fieldset className="email">
-                    <input type="email" id="email" placeholder="Email *" className="tb-my-input" name="email" tabIndex={2}  aria-required="true" required />
-                    </fieldset>
+                <div id="commentform" className="comment-form">
+                    <CustomSelect
+                    rounded="rounded-[4px]"
+                     value={rating.star}
+                      options={[
+                        {
+                            name: '5 étoiles', value: '5'
+                        },
+                        {
+                            name: '4 étoiles', value: '4'
+                        },
+                        {
+                            name: '3 étoiles', value: '3'
+                        },
+                        {
+                            name: '2 étoiles', value: '2'
+                        },
+                        {
+                            name: '1 étoile', value: '1'
+                        }
+                      ]}
+                    onChange={handleSelectChangeStar}
+                    placeholder="Note"
+                    />
                     <fieldset className="message">
-                    <textarea id="message" name="message" rows={4} placeholder="Message" tabIndex={4} aria-required="true"  />
+                    <textarea id="message" 
+                    value={rating.comment}
+                    onChange={e => setRating({...rating, comment: e.target.value})}
+                    className="resize-none" name="message" rows={4} placeholder="Message" tabIndex={4} aria-required="true"  />
                     </fieldset>
                     <div className="btn-submit mg-t-36">
-                    <CustumButton
+                    {authStatus === AuthStatus.SignedIn ? <CustumButton
                     label={"Envoyer"}
                     onclick={() => {}}
                     backgroundColor="#e73a5d"
-                    />
+                    />: <span className="text-[#e73a5d]" >Veuillez <Link className="font-bold" to={`/login?redirect=true&urlRequest=/${slug}&tag=reviewform`}>vous connecter</Link> pour laisser votre impression sur ce produit</span> }
                     </div>
-                </form>
+                </div>
                 </div>       
                 </div>   
             </div>

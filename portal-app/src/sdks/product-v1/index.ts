@@ -96,6 +96,9 @@ export class Client {
   viewProduct = (
     id: string
   ): Promise<string> => this.service.viewProduct(id)
+  viewProductAuth = (
+    id: string
+  ): Promise<string> => this.service.viewProductAuth(id)
 }
 
 export * as types from './utils/DataSchemas'

@@ -63,6 +63,25 @@ function DetailsPage() {
         }
     })
   
+    const getMessage = (type: string): string => {
+      switch (type) {
+        case 'view':
+          return 'a vu ce produit'
+          break;
+        case 'like':
+            return 'a aimé ce produit'
+            break;
+        case 'comment':
+              return 'a commenté ce produit'
+              break;
+        case 'sell':
+                return 'a achété ce produit'
+                break;
+        default:
+           return 'a vu ce produit'
+          break;
+      }
+    }
   return <>
   <PageHeader/>
   
@@ -307,7 +326,8 @@ function DetailsPage() {
                               </div>
                               <div className="author-infor">
                                 <div className="name">
-                                  <h6> <a href="author02.html">Mason Woodward </a></h6> <span> place a bid</span>
+                                {historic?.owner && <><h6> <>{historic?.owner?.fullName} </></h6> <span> {getMessage(historic?.type)} </span></>}
+                                {!historic?.owner && <>Un utilisateur <span> {getMessage(historic?.type)} </span></>}
                                 </div>
                                 <span className="time">8 hours ago</span>
                               </div>

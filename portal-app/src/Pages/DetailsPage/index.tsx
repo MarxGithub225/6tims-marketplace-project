@@ -20,7 +20,9 @@ import Countdown from "react-countdown";
 import CartModal from "../../GlobalScreens/CartModal";
 import { useAppDispatch } from "../../redux/hooks";
 import { setProduct } from "../../redux/features/productSlice";
-
+import moment from "moment";
+import 'moment/locale/fr'  // without this line it didn't work
+moment.locale('fr')
 function DetailsPage() {
   const dispatch = useAppDispatch()
   const [checkedTab, setCheckedTab] = useState<number>(0)
@@ -329,7 +331,7 @@ function DetailsPage() {
                                 {historic?.owner && <><h6> <>{historic?.owner?.fullName} </></h6> <span> {getMessage(historic?.type)} </span></>}
                                 {!historic?.owner && <>Un utilisateur <span> {getMessage(historic?.type)} </span></>}
                                 </div>
-                                <span className="time">8 hours ago</span>
+                                <span className="time">{moment(historic?.actedAt).fromNow()}</span>
                               </div>
                             </div>
                           </div>

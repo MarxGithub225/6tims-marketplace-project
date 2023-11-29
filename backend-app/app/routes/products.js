@@ -59,6 +59,7 @@ router.get('/relative/:id', getRelativeProducts)
 router.get('/categories', getAllProductsGroupByCategories)
 router.put('/like/:productId', requireAdminAuth, likeProduct)
 router.put('/view/:productId', viewProduct)
+router.put('/view-auth/:productId', requireAdminAuth, viewProduct)
 router.put('/comment/:productId', requireAdminAuth, commentProduct)
 
 /*

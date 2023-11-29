@@ -38,7 +38,10 @@ function DetailsPage() {
           if(slug) {
             const splitId = slug?.split('.html').join('').split('-')
             const _id = splitId[splitId?.length - 1]
-            let result: Product = await client.getProductById(_id)
+            const [result, _] = await Promise.all([
+              client.getProductById(_id),
+              client.viewProduct(_id)
+            ])
             return result
           }else return null
       }

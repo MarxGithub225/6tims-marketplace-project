@@ -8,7 +8,7 @@ const {updateProductsViewsInDb} = require('./helpers/updateProductsViewsInDb')
  */
 const viewProduct = async (req, res) => {
   try {
-    const id = await isIDGood(req.user._id)
+    const id = req.user ? await isIDGood(req.user._id) : null
     const productId = await isIDGood(req.params.productId)
     req = matchedData(req)
     res.status(201).json(await updateProductsViewsInDb(id, productId))

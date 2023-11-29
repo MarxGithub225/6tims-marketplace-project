@@ -10,7 +10,7 @@ const updateProfileInDB = (req = {}, id = '') => {
   return new Promise((resolve, reject) => {
     User.findByIdAndUpdate(
       id,
-      req,
+      {...req, fullName: `${req.firstName} ${req.lastName}`},
       {
         new: true,
         runValidators: true,

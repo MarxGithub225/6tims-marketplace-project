@@ -28,7 +28,8 @@ const {
 const {
   validateCreateProduct,
   validateGetProduct,
-  validateUpdateProduct
+  validateUpdateProduct,
+  validateCommentProduct
 } = require('../controllers/products/validators')
 
 /*
@@ -60,7 +61,13 @@ router.get('/categories', getAllProductsGroupByCategories)
 router.put('/like/:productId', requireAdminAuth, likeProduct)
 router.put('/view/:productId', viewProduct)
 router.put('/view-auth/:productId', requireAdminAuth, viewProduct)
-router.patch('/comment/:productId', requireAdminAuth, commentProduct)
+router.patch(
+  '/comment/:productId',
+  requireAdminAuth,
+  trimRequest.all,
+  validateCommentProduct,
+  commentProduct
+)
 
 /*
  * Create new item route

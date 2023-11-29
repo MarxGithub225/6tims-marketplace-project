@@ -10,6 +10,7 @@ import useSeller from "../../hooks/useSeller";
 import { Seller } from "../../sdks/seller-v1/utils/DataSchemas";
 import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import { PaginationOptionCategory } from "../../sdks/category-v1/utils/DataSchemas";
+import { Link } from "react-router-dom";
 function SellersPage() {
 
     const [page, setPage] = useState<number>(1)
@@ -66,13 +67,13 @@ function SellersPage() {
                             </div>
                         </div>
                         <div className="content">
-                            <h4><a href={`seller/${seller._id}`}>{seller.companyInfo.companyName}</a></h4>
+                            <h4><Link to={`seller/${seller._id}`}>{seller.companyInfo.companyName}</Link></h4>
                             <div className="infor">
                             {seller.soldNumber > 0 && <span className="price">{seller.soldNumber} produits vendus</span>}
                             </div>
                         </div>
                         </div>
-                        <a href={`seller/${seller._id}`} className="sc-button fl-button pri-3"><span>Details</span></a>
+                        <Link to={`seller/${seller._id}`} className="sc-button fl-button pri-3"><span>Details</span></Link>
                     </div>
                     
                     </div>

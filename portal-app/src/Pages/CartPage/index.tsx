@@ -11,7 +11,7 @@ import { Product } from "../../sdks/product-v1/utils/DataSchemas";
 import { useAppDispatch } from "../../redux/hooks";
 import { setProduct } from "../../redux/features/productSlice";
 import CartModal from "../../GlobalScreens/CartModal";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext, AuthStatus } from "../../context/auth";
 
 function CartPage() {
@@ -49,11 +49,11 @@ function CartPage() {
         {cart.map((product: CartProductProps, key:number) => {
           return <div className="sc-card-activity style1" key={key} >
           <div className="content">
-          <a href={`/${product.slug}-${product?._id}.html`} className="media">
+          <Link to={`/${product.slug}-${product?._id}.html`} className="media">
             <img src={product.image} alt={`6tims | tims group - ${product.slug}`} />
-            </a>
+            </Link>
             <div className="infor">
-              <h3 className="line-clamp-1" > <a href={`/${product.slug}-${product?._id}.html`}>{product.title}</a></h3>
+              <h3 className="line-clamp-1" > <Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h3>
               <div className="status">started following <span className="author">Gayle Hicks</span></div>
               <div className="status flex items-center gap-x-3">
                 <span className="author">{product.price} DH</span>

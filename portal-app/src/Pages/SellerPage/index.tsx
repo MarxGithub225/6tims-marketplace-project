@@ -7,7 +7,7 @@ import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
 import useSeller from "../../hooks/useSeller";
 import { Seller } from "../../sdks/seller-v1/utils/DataSchemas";
 import { File } from "../../sdks/image-v1/utils/DataSchemas";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import moment from "moment";
 import useProduct from "../../hooks/useProduct";
 import { PaginationOptionProduct, Product } from "../../sdks/product-v1/utils/DataSchemas";
@@ -152,7 +152,7 @@ function SellerPage() {
                     return <div className="col-xl-3 col-lg-4 col-md-6 col-12">
                             <div className="sc-card-product explode ">
                                 <div className="card-media active">
-                                <a href={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></a>
+                                <Link to={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></Link>
                                 <div className="button-place-bid ">
                                     <a href="#" 
                                     onClick={() => {
@@ -163,7 +163,7 @@ function SellerPage() {
                                 {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
                                 </div>
                                 <div className="card-title mg-bt-16">
-                                <h5 className="sline-clamp-1"><a href={`/${product.slug}-${product?._id}.html`}>{product.title}</a></h5>
+                                <h5 className="sline-clamp-1"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h5>
                                 </div>
                                 <div className="meta-info">
                                 <div className="author">
@@ -172,7 +172,7 @@ function SellerPage() {
                                     </div>
                                     <div className="info">
                                     <span>Vendeur</span>
-                                    <h6> <a href={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</a>  </h6>
+                                    <h6> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</Link>  </h6>
                                     </div>
                                 </div>
                                 {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}

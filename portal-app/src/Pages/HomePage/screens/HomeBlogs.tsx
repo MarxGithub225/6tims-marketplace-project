@@ -7,6 +7,7 @@ import useBlog from "../../../hooks/useBlog";
 import HotProductCarousel from "../../../Components/HotProductCarousel/HotProductCarousel";
 import { removeUnnecessaryHTMLStuff } from "../../../utilities/helper";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 function HomeBlogs() {
   const [allCount, setCount] = useState<number>(0)
@@ -40,7 +41,7 @@ function HomeBlogs() {
         {data.map((blog: Blog, key: number) => {
             return <div key={key} className="sc-card-collection style-2 home2">
             <div className="card-media-h6">
-            <a href={`/blog/${blog._id}`}><img src={`${API_FILE_URL}/blogs/${blog?.image?.path}`} alt={`6tims - tims group | ${blog.slug}`} /></a>
+            <Link to={`/blog/${blog._id}`}><img src={`${API_FILE_URL}/blogs/${blog?.image?.path}`} alt={`6tims - tims group | ${blog.slug}`} /></Link>
             </div>
             <div className="card-bottom">
               <div className="author">
@@ -49,7 +50,7 @@ function HomeBlogs() {
                         <span>{moment(blog.createdAt).format('DD MMMM YYYY')}</span>
                         <span className="name"></span>
                     </div>
-                    <h4 className="ellips-txt"><a href={`/blog/${blog._id}`}>{removeUnnecessaryHTMLStuff(blog.title)}</a></h4>
+                    <h4 className="ellips-txt"><Link to={`/blog/${blog._id}`}>{removeUnnecessaryHTMLStuff(blog.title)}</Link></h4>
                 </div>
               </div>
               {blog.likes.length > 0 ? <button className="wishlist-button public heart mg-t-6"><span className="number-like"> {blog.likes.length}</span></button> : <></>}

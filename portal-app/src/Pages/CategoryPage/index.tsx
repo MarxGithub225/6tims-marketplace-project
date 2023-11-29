@@ -14,7 +14,7 @@ import useCategory from "../../hooks/useCategory";
 import { Product } from "../../sdks/product-v1/utils/DataSchemas";
 import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import { PaginationOptionCategory, Category2, Category1, Category3 } from "../../sdks/category-v1/utils/DataSchemas";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function CategoryPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
@@ -277,11 +277,11 @@ function CategoryPage() {
           {page.map((product: Product, key: number) => {
                 return <div className="sc-card-product explode style2 mg-bt">
               <div className="card-media">
-              <a href={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></a>
+              <Link to={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></Link>
             {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
               </div>
               <div className="card-title">
-                <h5 className="line-clamp-1 w-fit"><a href={`/${product.slug}-${product?._id}.html`}>{product.title}</a></h5>
+                <h5 className="line-clamp-1 w-fit"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h5>
               </div>
               <div className="meta-info">
                 <div className="author">
@@ -290,7 +290,7 @@ function CategoryPage() {
                   </div>
                   <div className="info">
                     <span>Vendeur</span>
-                    <h6> <a href={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</a> </h6>
+                    <h6> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</Link> </h6>
                   </div>
                 </div>
                 {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}

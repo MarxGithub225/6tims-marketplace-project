@@ -9,7 +9,7 @@ import { Pagination } from "../../sdks/GlobalDataSchemas";
 import { API_FILE_URL, calcReadingDuration, formatDuration } from "../../utilities/constants";
 import useBlog from "../../hooks/useBlog";
 import { Blog } from "../../sdks/blog-v1/utils/DataSchemas";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import moment from "moment";
 import ReactPlayer from "react-player";
 import { removeUnnecessaryHTMLStuff } from "../../utilities/helper";
@@ -145,9 +145,9 @@ function BlogDetailsPage() {
 
             {recetntsBlogs?.map((blog: Blog, key:number) => {
               return <li className="box-recent-post" key={key} >
-              <div className="box-feature"><a href={`/blog/${blog._id}`}><img src={`${API_FILE_URL}/blogs/${blog?.image?.path}`} alt={`6tims - tims group | ${blog.slug}`} /></a></div>
+              <div className="box-feature"><Link to={`/blog/${blog._id}`}><img src={`${API_FILE_URL}/blogs/${blog?.image?.path}`} alt={`6tims - tims group | ${blog.slug}`} /></Link></div>
               <div className="box-content">
-                <a href={`/blog/${blog._id}`} className="title-recent-post line-clamp-1">{blog.title}</a>
+                <Link to={`/blog/${blog._id}`} className="title-recent-post line-clamp-1">{blog.title}</Link>
                 <span><span className="sub-recent-post">{removeUnnecessaryHTMLStuff(blog.description).substring(0, 20).trimEnd() + '....'}</span><a href="blog.html" className="day-recent-post">{moment(blog.createdAt).format('DD MMMM YYYY')}</a></span>
               </div>
             </li>

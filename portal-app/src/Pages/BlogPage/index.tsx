@@ -12,6 +12,7 @@ import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import { PaginationOptionCategory } from "../../sdks/category-v1/utils/DataSchemas";
 import moment from "moment";
 import { removeUnnecessaryHTMLStuff } from "../../utilities/helper";
+import { Link } from "react-router-dom";
 function BlogPage() {
 
     const [page, setPage] = useState<number>(1)
@@ -56,7 +57,7 @@ function BlogPage() {
                 return  <div key={key} className="fl-blog fl-item2 col-lg-4 col-md-6">
                 <article className="sc-card-article">
                     <div className="card-media">
-                    <a href={`/blog/${blog._id}`}><img src={`${API_FILE_URL}/blogs/${blog?.image?.path}`} alt={`6tims - tims group | ${blog.slug}`} /></a>
+                    <Link to={`/blog/${blog._id}`}><img src={`${API_FILE_URL}/blogs/${blog?.image?.path}`} alt={`6tims - tims group | ${blog.slug}`} /></Link>
                     </div>
                     <div className="meta-info">
                     <div className="author">
@@ -68,10 +69,10 @@ function BlogPage() {
                     {blog.likes.length > 0 ? <button className="wishlist-button public heart mg-t-6"><span className="number-like"> {blog.likes.length}</span></button> : <></>}
                     </div>
                     <div className="text-article">
-                    <h3 className="ellips-txt"><a href={`/blog/${blog._id}`}>{removeUnnecessaryHTMLStuff(blog.title)}</a></h3>
+                    <h3 className="ellips-txt"><Link to={`/blog/${blog._id}`}>{removeUnnecessaryHTMLStuff(blog.title)}</Link></h3>
                     <p className="ellips-txt-3">{removeUnnecessaryHTMLStuff(blog.description)}</p>
                     </div>
-                    <a href={`/blog/${blog._id}`} className="sc-button fl-button pri-3"><span>Lire plus</span></a>
+                    <Link to={`/blog/${blog._id}`} className="sc-button fl-button pri-3"><span>Lire plus</span></Link>
                 </article>
                 </div>
             })

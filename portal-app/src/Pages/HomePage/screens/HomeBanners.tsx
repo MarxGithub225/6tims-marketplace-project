@@ -6,6 +6,7 @@ import { Pagination } from "../../../sdks/GlobalDataSchemas";
 import { API_FILE_URL } from "../../../utilities/constants";
 import useBanner from "../../../hooks/useBanner";
 import Carousel from "react-multi-carousel";
+import { Link } from "react-router-dom";
 function HomeBanners() {
 
   const responsive = {
@@ -50,7 +51,7 @@ function HomeBanners() {
   itemClass="px-[15px]"
 >
     {data?.map((data: Banner, key: number) => {
-        return <a href={`${data.link}`} className="slider-item" key={key}>	
+        return <Link to={`${data.link}`} className="slider-item" key={key}>	
               <div className="wrap-cart">
                 <div className="cart_item style2 style3">
                   <div className="inner-cart">
@@ -63,7 +64,7 @@ function HomeBanners() {
                   </div>
                 </div>
               </div> 	
-            </a>
+            </Link>
       })}
     </Carousel>: <></>}
 </div>;

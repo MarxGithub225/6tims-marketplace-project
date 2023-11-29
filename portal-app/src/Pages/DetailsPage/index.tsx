@@ -14,7 +14,7 @@ import { Pagination } from "../../sdks/GlobalDataSchemas";
 import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
 import useProduct from "../../hooks/useProduct";
 import { Product } from "../../sdks/product-v1/utils/DataSchemas";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import Countdown from "react-countdown";
 import CartModal from "../../GlobalScreens/CartModal";
@@ -95,7 +95,7 @@ function DetailsPage() {
                     </div>
                     <div className="info">
                       <span>Vendeur</span>
-                      <h6> <a href={`/seller/${data.seller._id}`}>{data.seller.companyInfo.companyName}</a> </h6>
+                      <h6> <Link to={`/seller/${data.seller._id}`}>{data.seller.companyInfo.companyName}</Link> </h6>
                     </div>
                   </div>
                 </div>

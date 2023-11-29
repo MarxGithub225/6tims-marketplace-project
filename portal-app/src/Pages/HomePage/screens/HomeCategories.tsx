@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { PaginationOptionCategory } from "../../../sdks/category-v1/utils/DataSchemas";
 import { Pagination } from "../../../sdks/GlobalDataSchemas";
 import { API_FILE_URL } from "../../../utilities/constants";
+import { Link } from "react-router-dom";
 
 function HomeCategories() {
 
@@ -71,7 +72,7 @@ function HomeCategories() {
         <div className="swiper-container seller">
           <CategoryCarousel>
           {selectedCategory?.data?.map((data: any, key: number) => {
-            return <a href={`/category?category2Id=${data?.category[0]?._id}`} className="slider-item" key={key}>										
+            return <Link to={`/category?category2Id=${data?.category[0]?._id}`} className="slider-item" key={key}>										
             <div className="sc-author-box style-2">
               <div className="author-avatar">
                 {data?.icon?.length ?
@@ -80,11 +81,11 @@ function HomeCategories() {
                 }
               </div>
               <div className="author-infor">
-                <h5 className="ellips-txt"><a href={`/category?category2Id=${data?.category[0]?._id}`}>{data?.category[0]?.label}</a></h5>
+                <h5 className="ellips-txt"><Link to={`/category?category2Id=${data?.category[0]?._id}`}>{data?.category[0]?.label}</Link></h5>
                 <span className="price">{data?.count} QTé(s)</span>
               </div>
             </div>    	
-          </a>
+          </Link>
           })}
           {selectedCategory?.data?.length < 9 ? 
           <>

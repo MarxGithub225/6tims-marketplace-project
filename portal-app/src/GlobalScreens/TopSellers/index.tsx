@@ -6,6 +6,7 @@ import { Pagination } from "../../sdks/GlobalDataSchemas";
 import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
 import CategoryCarousel from "../../Components/CategoryCarousel/CategoryCarousel";
 import useSeller from "../../hooks/useSeller";
+import { Link } from "react-router-dom";
 interface TopSellersProps {
   hideMoreButton?: boolean
 }
@@ -42,7 +43,7 @@ function TopSellers({hideMoreButton=false} : TopSellersProps) {
                                 <div className="badge" />
                             </div>
                             <div className="author-infor">
-                                <h5><a href={`seller/${seller._id}`}>{seller.companyInfo.companyName}</a></h5>
+                                <h5><Link to={`seller/${seller._id}`}>{seller.companyInfo.companyName}</Link></h5>
                                 {seller.soldNumber > 0 && <span className="price">{seller.soldNumber} PDTS</span>}
                             </div>
                             </div>    	
@@ -56,7 +57,7 @@ function TopSellers({hideMoreButton=false} : TopSellersProps) {
         </div> 
 
         {!hideMoreButton && (data.length > 9) && <div className="col-md-12 wrap-inner load-more text-center">
-          <a href="/sellers"  className="sc-button loadmore fl-button pri-3"><span>Tous nos vendeurs</span></a>
+          <Link to="/sellers"  className="sc-button loadmore fl-button pri-3"><span>Tous nos vendeurs</span></Link>
         </div>}
       </div>: <></>}
     </div>

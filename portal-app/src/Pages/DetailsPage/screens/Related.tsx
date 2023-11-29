@@ -28,7 +28,7 @@ function Related({products}: RelatedProps) {
                 return <div className="slider-item" key={key}>										
                 <div className="sc-card-product menu_card style2">
                 <div className="card-media style2">
-                    <a href={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}-${product?._id}`} /></a>
+                    <Link to={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}-${product?._id}`} /></Link>
                     {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
                     {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <div className="featured-countdown style2">
                     <span className="slogan" />
@@ -36,11 +36,11 @@ function Related({products}: RelatedProps) {
                     <Countdown className="js-countdown" date={calculatePrice(product).countdown} />
                     </div>}
                     <div className="button-place-bid">
-                    <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Mettre au panier</span></a>
+                    <Link to="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Mettre au panier</span></Link>
                     </div>
                 </div>
                 <div className="card-title">
-                    <h3 className="line-clamp-1 w-fit"><a href={`/${product.slug}-${product?._id}.html`}>{product.title}</a></h3>
+                    <h3 className="line-clamp-1 w-fit"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h3>
                     {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
                 </div>
                 <div className="meta-info style2">
@@ -50,8 +50,8 @@ function Related({products}: RelatedProps) {
                     </div>
                     <div className="info">
                         <span>Vendeur</span>
-                        <h4> <a href={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}
-                        </a> </h4>
+                        <h4> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}
+                        </Link> </h4>
                     </div>
                     </div>
                     <div className="price">

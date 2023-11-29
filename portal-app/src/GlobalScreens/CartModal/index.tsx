@@ -7,7 +7,7 @@ import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
 import useOnClickOutSide from "../../utils/onClickOutSide";
 import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import { setCart } from "../../redux/features/cartSlice";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 interface CartVariableProps {
   quantity: number
   sku: string
@@ -162,8 +162,8 @@ function CartModal() {
               {pathname === '/cart' && <h3 className="text-center">Quantité de produit modifié!</h3>}
               {pathname !== '/cart' && <p className="text-center">Tous vos articles ajoutés sont maintenant dans votre panier.</p>}
               {pathname === '/cart' && <p className="text-center">La quantité de votre produit a été modifié avec succès.</p>}
-              {pathname !== '/cart' && <a href="/cart" className="btn btn-primary"> Voir le panier</a>}
-              {pathname === '/cart' && <a href="/cart" className="btn btn-primary"> Payer maintenant</a>}
+              {pathname !== '/cart' && <Link to="/cart" className="btn btn-primary"> Voir le panier</Link>}
+              {pathname === '/cart' && <Link to="/cart" className="btn btn-primary"> Payer maintenant</Link>}
             </div>
           </div>
         </div>

@@ -12,6 +12,7 @@ import useProduct from "../../hooks/useProduct";
 import { Product } from "../../sdks/product-v1/utils/DataSchemas";
 import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import { PaginationOptionCategory } from "../../sdks/category-v1/utils/DataSchemas";
+import { Link } from "react-router-dom";
 function Exploration() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [filterPrice, setFilterPrice] = useState<string | null>(null)
@@ -112,11 +113,11 @@ function Exploration() {
                 return <div key={key} className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
         <div className="sc-card-product">
           <div className="card-media">
-            <a href={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></a>
+            <Link to={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></Link>
             {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
           </div>
           <div className="card-title">
-            <h5 className="style2 line-clamp-1 w-fit"><a href={`/${product.slug}-${product?._id}.html`}>{product.title}</a></h5>
+            <h5 className="style2 line-clamp-1 w-fit"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h5>
             {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
           </div>
           <div className="meta-info">
@@ -126,7 +127,7 @@ function Exploration() {
               </div>
               <div className="info">
                 <span>Vendeur</span>
-                <h6> <a href={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</a> </h6>
+                <h6> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</Link> </h6>
               </div>
             </div>
             <div className="price">

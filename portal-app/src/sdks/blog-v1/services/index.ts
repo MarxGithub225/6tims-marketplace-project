@@ -85,7 +85,7 @@ export default class Service {
         ...this.options,
         data: data
       }
-      return request('PUT', `blogs/comment/${id}`, requestOptions)
+      return request('PATCH', `blogs/comment/${id}`, requestOptions)
     }
 
     async viewBlog(id: string) {

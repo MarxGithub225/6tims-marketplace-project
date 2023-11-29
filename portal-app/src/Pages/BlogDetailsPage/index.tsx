@@ -232,7 +232,53 @@ function BlogDetailsPage() {
                 </div>
               </form>
             </div>          
-          </div>          
+          </div>      
+
+          <div className="divider d2" />
+          <div className="w-[600px]">
+          <div className="flat-tabs themesflat-tabs" >
+                <ul className="menu-tab tab-title">
+                <li className={`item-title`}
+                 >
+                    <span className="inner">Spécifications</span>
+                  </li>
+                </ul>
+                <div className="content-tab">
+                  
+                  <div className="content-inner tab-content">                                               
+                    <ul className="bid-history-list">
+                      {data?.comments
+                      ?.sort((a: any, b: any) => b?.postedAt - a?.postedAt)
+                      ?.map((historic: any, key: number) => {
+                        return <li key={key} >
+                        <div className="content">
+                          <div className="client">
+                            <div className="sc-author-box style-2">
+                              <div className="author-avatar">
+                                <a href="#">
+                                <img src={historic?.owner?.image ? `${API_FILE_URL}/icons/${historic?.owner?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | historic`} />
+                                </a>
+                                <div className="badge" />
+                              </div>
+                              <div className="author-infor">
+                                <div className="name">
+                                {historic?.owner && <><h6> <>{historic?.owner?.fullName} </></h6> <span> </span></>}
+                                </div>
+                                <span className="time">{moment(historic?.postedAt).fromNow()}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      })
+                      }
+                      
+                    </ul>
+                  </div>
+                  
+                </div>
+              </div>
+          </div>    
         </div>
       </div>
       <div className="side-bar details">

@@ -12,10 +12,20 @@ const populateBlog = [
     path: 'largeImage'
   },
   {
-    path: 'comments.owner'
+    path: 'comments.owner',
+    populate: [
+      {
+        path: 'image'
+      }
+    ]
   },
   {
-    path: 'likes.owner'
+    path: 'likes.owner',
+    populate: [
+      {
+        path: 'image'
+      }
+    ]
   }
 ]
 

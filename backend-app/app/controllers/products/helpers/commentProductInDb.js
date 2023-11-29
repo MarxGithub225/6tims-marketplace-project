@@ -47,8 +47,7 @@ const commentProductInDb = (
                 },
                 historical: {
                   type: 'comment',
-                  variable: '',
-                  sku: '',
+                  variables: [],
                   actedBy: id,
                   actedAt: new Date()
                 }

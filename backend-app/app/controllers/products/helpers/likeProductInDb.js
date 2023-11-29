@@ -40,8 +40,7 @@ const likeProductInDb = (id = '', productId = '') => {
               $push: {
                 historical: {
                   type: 'like',
-                  variable: '',
-                  sku: '',
+                  variables: [],
                   actedBy: id,
                   actedAt: new Date()
                 }

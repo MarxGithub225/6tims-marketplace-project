@@ -22,7 +22,9 @@
     --select-bg: #2A223E;
     font-family: 'Inter', sans-serif;
   }
-
+a {
+    cursor: pointer;
+}
 .order-resume {
     box-shadow: 0px 3px 16px rgba(47, 83, 109, 0.12);
     border-radius: 12px;

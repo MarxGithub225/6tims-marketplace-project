@@ -38,8 +38,7 @@ const updateProductsViewsInDb = (id = '', productId = '') => {
               $push: {
                 historical: {
                   type: 'view',
-                  variable: '',
-                  sku: '',
+                  variables: [],
                   actedBy: id,
                   actedAt: new Date()
                 }
@@ -67,6 +66,14 @@ const updateProductsViewsInDb = (id = '', productId = '') => {
         .findByIdAndUpdate(
           productId,
           {
+            $push: {
+              historical: {
+                type: 'view',
+                actedBy: null,
+                variables: [],
+                actedAt: new Date()
+              }
+            },
             $inc: {viewsCount: 1}
           },
           {

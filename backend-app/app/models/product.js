@@ -129,7 +129,8 @@ const ProductSchema = new mongoose.Schema(
         ],
         actedBy: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'User'
+          ref: 'User',
+          default: null
         },
         actedAt: {
           type: Date

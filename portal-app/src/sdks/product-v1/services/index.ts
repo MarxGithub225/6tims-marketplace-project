@@ -139,7 +139,7 @@ export default class Service {
         ...this.options,
         data: data
       }
-      return request('PUT', `products/comment/${id}`, requestOptions)
+      return request('PATCH', `products/comment/${id}`, requestOptions)
     }
 
     async viewProduct(id: string) {

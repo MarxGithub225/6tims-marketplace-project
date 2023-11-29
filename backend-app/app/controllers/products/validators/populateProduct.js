@@ -45,10 +45,20 @@ const populateProduct = [
     path: 'images'
   },
   {
-    path: 'historical.owner'
+    path: 'historical.owner',
+    populate: [
+      {
+        path: 'image'
+      }
+    ]
   },
   {
-    path: 'ratings.owner'
+    path: 'ratings.owner',
+    populate: [
+      {
+        path: 'image'
+      }
+    ]
   },
   {
     path: 'likes.owner'

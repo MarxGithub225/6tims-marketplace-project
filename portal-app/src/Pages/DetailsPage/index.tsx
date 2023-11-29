@@ -292,13 +292,16 @@ function DetailsPage() {
                   </div>}
                   {checkedTab ===  (data.principalFeatures ? 1: 0) && <div className="content-inner tab-content">                                               
                     <ul className="bid-history-list">
-                      <li>
+                      {data?.historical
+                      ?.sort((a: any, b: any) => b?.actedAt - a?.actedAt)
+                      ?.map((historic: any, key: number) => {
+                        return <li>
                         <div className="content">
                           <div className="client">
                             <div className="sc-author-box style-2">
                               <div className="author-avatar">
                                 <a href="#">
-                                  <img src="assets/images/avatar/avt-28.jpg" alt="" className="avatar" />
+                                <img src={historic?.owner?.image ? `${API_FILE_URL}/icons/${historic?.owner?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | historic`} />
                                 </a>
                                 <div className="badge" />
                               </div>
@@ -312,6 +315,9 @@ function DetailsPage() {
                           </div>
                         </div>
                       </li>
+                      })
+                      }
+                      
                     </ul>
                   </div>}
                   {checkedTab === 0 && data.principalFeatures && <div className="content-inner tab-content">

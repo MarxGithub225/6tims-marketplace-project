@@ -16,7 +16,7 @@ const commentProductInDb = (
       try {
         await itemNotFound(err, item, 'NOT_FOUND_PRODUCT')
         const alreadyRated = item.ratings.find(
-          (userId) => userId.postedby.toString() === id.toString()
+          (userId) => userId.postedBy.toString() === id.toString()
         )
         if (alreadyRated) {
           await product.updateOne(
@@ -42,7 +42,7 @@ const commentProductInDb = (
                 ratings: {
                   star,
                   comment,
-                  postedby: id,
+                  postedBy: id,
                   postedAt: new Date()
                 },
                 historical: {

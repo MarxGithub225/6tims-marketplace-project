@@ -1,7 +1,7 @@
 import request from '../../../api'
 import { Options } from '../../../api/DataSchemas'
 import { PaginationOption } from '../../GlobalDataSchemas'
-import { CreateRequest, PaginationOptionProduct } from '../utils/DataSchemas'
+import { CreateRequest, PaginationOptionProduct, commentRequest } from '../utils/DataSchemas'
 
 function getPaginationQuery(paginationOption: PaginationOptionProduct) {
     let query = `?page=${paginationOption.page}&limit=${paginationOption.limit}`
@@ -134,8 +134,12 @@ export default class Service {
       return request('PUT', `products/like/${id}`, this.options)
     }
 
-    async commentProduct(id: string) {
-      return request('PUT', `products/comment/${id}`, this.options)
+    async commentProduct(id: string, data: commentRequest) {
+      const requestOptions: Options = {
+        ...this.options,
+        data: data
+      }
+      return request('PUT', `products/comment/${id}`, requestOptions)
     }
 
     async viewProduct(id: string) {

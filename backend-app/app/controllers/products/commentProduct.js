@@ -11,6 +11,9 @@ const commentProduct = async (req, res) => {
     const id = await isIDGood(req.user._id)
     const productId = await isIDGood(req.params.productId)
     req = matchedData(req)
+
+    console.log('req', req)
+    console.log('id', id)
     res
       .status(201)
       .json(await commentProductInDb(id, productId, req.comment, req.star))

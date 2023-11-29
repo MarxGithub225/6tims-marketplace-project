@@ -8,7 +8,7 @@ import PageHeader from "../../GlobalScreens/PageHeader";
 import CustumButton from "../../Components/CustumButton";
 
 import { useContext, useEffect, useRef, useState } from "react";
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import { PaginationOptionProduct } from "../../sdks/product-v1/utils/DataSchemas";
 import { Pagination } from "../../sdks/GlobalDataSchemas";
 import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
@@ -39,14 +39,14 @@ function DetailsPage() {
   const {slug} = useParams<any>()
   const { client } = useProduct()
   const [liked, setLiked] = useState<boolean>(false)
-  const [likeLoading, setLikeLoading] = useState<boolean>(false)
+  const [reload, setReload] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(10)
   const [relativeLimit, setRelativeLimit] = useState<number>(5)
   let search = useLocation().search;
   const { data, isLoading, isFetching, isError }: any =
   useQuery({
-      queryKey: ['productDetails', slug],
+      queryKey: ['productDetails', slug, reload],
       queryFn: async () => {
           if(slug) {
             const splitId = slug?.split('.html').join('').split('-')
@@ -155,7 +155,27 @@ function DetailsPage() {
         } else error = e?.errors?.msg
         notifyError({ message: error })
     }
-})
+  })
+
+  const upsertMutationCommentProduct = useMutation({
+    mutationFn: async () => {
+      if(slug) {
+        const splitId = slug?.split('.html').join('').split('-')
+        const _id = splitId[splitId?.length - 1]
+        return await client?.commentProduct(_id, rating)
+      }
+    },
+    onSuccess: (response) => {
+      setReload(!reload)
+    },
+    onError: (e: any) => {
+        let error: string = "An error occured, please retry";
+        if(e?.errors?.msg?.includes('duplicate')) {
+            error = "DUPLICATED_DATA"
+        } else error = e?.errors?.msg
+        notifyError({ message: error })
+    }
+  })
 
 const handleSelectChangeStar = (selectedOption: any) => {
   setRating({ ...rating, star: selectedOption?.value})
@@ -491,8 +511,9 @@ const handleSelectChangeStar = (selectedOption: any) => {
                     <div className="btn-submit mg-t-36">
                     {authStatus === AuthStatus.SignedIn ? <CustumButton
                     label={"Envoyer"}
-                    onclick={() => {}}
+                    onclick={() => !upsertMutationCommentProduct.isPending && upsertMutationCommentProduct.mutate()}
                     backgroundColor="#e73a5d"
+                    isLoading={upsertMutationCommentProduct.isPending}
                     />: <span className="text-[#e73a5d]" >Veuillez <Link className="font-bold" to={`/login?redirect=true&urlRequest=/${slug}&tag=reviewform`}>vous connecter</Link> pour laisser votre impression sur ce produit</span> }
                     </div>
                 </div>

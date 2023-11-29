@@ -55,6 +55,11 @@ export interface Variable {
   isActivated: boolean
 }
 
+export interface commentRequest {
+  comment: string
+  star: number
+}
+
 export interface Product {
   _id: string
   categoryId: string

@@ -90,8 +90,9 @@ export class Client {
   ): Promise<string> => this.service.likeProduct(id)
 
   commentProduct = (
-    id: string
-  ): Promise<string> => this.service.commentProduct(id)
+    id: string,
+    data: dataSchemas.commentRequest
+  ): Promise<string> => this.service.commentProduct(id, data)
 
   viewProduct = (
     id: string

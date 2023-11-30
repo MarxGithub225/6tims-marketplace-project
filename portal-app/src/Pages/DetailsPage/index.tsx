@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -8,7 +9,7 @@ import PageHeader from "../../GlobalScreens/PageHeader";
 import CustumButton from "../../Components/CustumButton";
 
 import { useContext, useEffect, useRef, useState } from "react";
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { PaginationOptionProduct } from "../../sdks/product-v1/utils/DataSchemas";
 import { Pagination } from "../../sdks/GlobalDataSchemas";
 import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
@@ -28,12 +29,14 @@ import { toast, Slide } from "react-toastify";
 import CustomSelect from "../../Components/CustomSelect";
 import { Star } from "react-feather";
 import RecentViews from "./screens/RecentViews";
+import { config } from "../../utilities/helper";
 moment.locale('fr')
 function DetailsPage() {
   const [rating, setRating] = useState({
     star : 1, 
     comment: ''
   });
+  const queryClient = useQueryClient()
   let reviewRef: any = useRef(null);
   let notesRef: any = useRef(null);
   const { signOut, sessionInfo, authStatus, setUserInfo } = useContext(AuthContext)
@@ -42,14 +45,13 @@ function DetailsPage() {
   const {slug} = useParams<any>()
   const { client } = useProduct()
   const [liked, setLiked] = useState<boolean>(false)
-  const [reload, setReload] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(10)
   const [relativeLimit, setRelativeLimit] = useState<number>(5)
   let search = useLocation().search;
   const { data, isLoading, isFetching, isError }: any =
   useQuery({
-      queryKey: ['productDetails', slug, reload],
+      queryKey: ['productDetails', slug],
       queryFn: async () => {
           if(slug) {
             const splitId = slug?.split('.html').join('').split('-')
@@ -174,7 +176,6 @@ function DetailsPage() {
       }
     },
     onSuccess: (response) => {
-      setReload(!reload)
       setRating({
         star : 1, 
         comment: ''
@@ -186,6 +187,7 @@ function DetailsPage() {
           notesRef?.current?.scrollIntoView({ behavior: "smooth" })
         }, 500);
       }
+      queryClient.invalidateQueries({ queryKey: ["productDetails"] }).catch(e => console.log(e))
     },
     onError: (e: any) => {
         let error: string = "An error occured, please retry";
@@ -237,7 +239,7 @@ const getProductById = () => {
                 <div className="meta-info">
                   <div className="author">
                     <div className="avatar">
-                    <img src={data.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${data.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-288.jpg`} alt={`6tims - tims group | ${data.slug}`} />
+                    <img src={data.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${data.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${data.slug}`} />
                     </div>
                     <Link to={`/seller/${data.seller._id}`} className="info">
                       <span>Vendeur</span>
@@ -302,7 +304,7 @@ const getProductById = () => {
                     }}
                     >donner votre avis</strong> </span>: <>
                     {data?.ratings
-                      ?.sort((a: any, b: any) => b?.postedAt - a?.postedAt)
+                      ?.sort((a: any, b: any) => new Date(b?.postedAt).getTime() - new Date(a?.postedAt).getTime())
                       ?.map((rating: any, key: number) => {
                         return <li key={key} >
                         <div className="content">
@@ -310,7 +312,7 @@ const getProductById = () => {
                             <div className="sc-author-box style-2">
                               <div className="author-avatar">
                                 <a href="#">
-                                <img src={rating?.owner?.image ? `${API_FILE_URL}/icons/${rating?.owner?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | rating`} />
+                                <img src={rating?.owner?.image ? `${API_FILE_URL}/icons/${rating?.owner?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | rating`} />
                                 </a>
                                 <div className="badge" />
                               </div>
@@ -348,7 +350,7 @@ const getProductById = () => {
                             <div className="sc-author-box style-2">
                               <div className="author-avatar">
                                 <a href="#">
-                                <img src={historic?.owner?.image ? `${API_FILE_URL}/icons/${historic?.owner?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | historic`} />
+                                <img src={historic?.owner?.image ? `${API_FILE_URL}/icons/${historic?.owner?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | historic`} />
                                 </a>
                                 <div className="badge" />
                               </div>

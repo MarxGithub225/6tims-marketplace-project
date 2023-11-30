@@ -7,6 +7,7 @@ import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
 import CategoryCarousel from "../../Components/CategoryCarousel/CategoryCarousel";
 import useSeller from "../../hooks/useSeller";
 import { Link } from "react-router-dom";
+import { config } from "../../utilities/helper";
 interface TopSellersProps {
   hideMoreButton?: boolean
 }
@@ -39,7 +40,7 @@ function TopSellers({hideMoreButton=false} : TopSellersProps) {
                             return <div className="slider-item" key={key}>										
                             <div className="sc-author-box style-2">
                             <div className="author-avatar">
-                                <img className="rounded-lg" src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} />
+                                <img className="rounded-lg" src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} />
                                 <div className="badge" />
                             </div>
                             <div className="author-infor">

@@ -1,3 +1,4 @@
+const {emailExistsNewsletter} = require('./emailExistsNewsletter')
 const {emailExists} = require('./emailExists')
 const {emailExistsExcludingMyself} = require('./emailExistsExcludingMyself')
 const {prepareToSendEmail} = require('./prepareToSendEmail')
@@ -13,5 +14,6 @@ module.exports = {
   prepareToSendEmail,
   sendEmail,
   sendRegistrationEmailMessage,
-  sendResetPasswordEmailMessage
+  sendResetPasswordEmailMessage,
+  emailExistsNewsletter
 }

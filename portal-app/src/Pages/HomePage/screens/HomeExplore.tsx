@@ -15,6 +15,7 @@ import CartModal from "../../../GlobalScreens/CartModal";
 import { useAppDispatch } from "../../../redux/hooks";
 import { setProduct } from "../../../redux/features/productSlice";
 import { Link } from "react-router-dom";
+import { config } from "../../../utilities/helper";
 
 function HomeExplore() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
@@ -125,7 +126,7 @@ function HomeExplore() {
           <div className="meta-info">
             <div className="author">
               <div className="avatar">
-              <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${product.slug}`} />
+              <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${product.slug}`} />
               </div>
               <div className="info">
                 <span>Vendeur</span>

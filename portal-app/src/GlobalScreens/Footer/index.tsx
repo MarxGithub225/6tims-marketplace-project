@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import FooterAbout from "./screens/FooterAbout";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return <footer id="footer" className="footer-light-style clearfix">
@@ -9,21 +10,20 @@ function Footer() {
       <FooterAbout/>
       <div className="col-lg-2 col-md-4 col-sm-5 col-5">
         <div className="widget widget-menu style-1">
-          <h5 className="title-widget">Service Client</h5>
+          <h5 className="title-widget">Support</h5>
           <ul>
-            <li><a href="author01.html">Termes et confidentialités</a></li>
-            <li><a href="connect-wallet.html">Conditions de vente</a></li>
-            <li><a href="profile.html">Foire aux questions</a></li>
+            <li><Link to={'/terms-and-conditions'}>Termes et confidentialités</Link></li>
+            <li><Link to={'/terms-of-sale'}>Conditions de vente</Link></li>
+            <li><Link to={'/shipping-and-returns'}>Livraison et Retour</Link></li>
           </ul>
         </div>
       </div>
       <div className="col-lg-2 col-md-4 col-sm-7 col-7">
         <div className="widget widget-menu style-2">
-          <h5 className="title-widget">Support</h5>
+          <h5 className="title-widget">Service Client</h5>
           <ul>
-            <li><a href="auctions.html">Messagérie live</a></li>
-            <li><a href="help-center.html">Aide & FAQ</a></li>
-            <li><a href="item-details.html">Contactez-nous</a></li>
+            <li><Link to={'/faq'}>Aide & FAQ</Link></li>
+            <li><Link to={'/contact-us'}>Contactez-nous</Link></li>
           </ul>
         </div>
       </div>
@@ -31,10 +31,9 @@ function Footer() {
         <div className="widget widget-menu fl-st-3">
           <h5 className="title-widget">Liens utiles</h5>
           <ul>
-            <li><a href="explore-1.html">Devenir vendeur</a></li>
-            <li><a href="contact1.html">Suivre sa commande</a></li>
-            <li><a href="blog.html">Expédition et livraison</a></li>
-            <li><a href="faq.html">Politique de retour</a></li>
+            <li><a href="https://seller.6tims.com" rel="noreferrer" target="_blank">Devenir vendeur</a></li>
+            <li><Link to={'/profile/orders'}>Suivre sa commande</Link></li>
+            <li><Link to={'/cookies'}>Cookies</Link></li>
           </ul>
         </div>
       </div>
@@ -51,10 +50,8 @@ function Footer() {
             <ul>
               <li><a href="#"><i className="fab fa-twitter" /></a></li>
               <li><a href="#"><i className="fab fa-facebook" /></a></li>
-              <li className="style-2"><a href="#"><i className="fab fa-telegram-plane" /></a></li>
               <li><a href="#"><i className="fab fa-youtube" /></a></li>
               <li className="mgr-none"><a href="#"><i className="icon-fl-tik-tok-2" /></a></li>
-              <li className="mgr-none"><a href="#"><i className="icon-fl-vt" /></a></li>
             </ul>
           </div>
         </div>

@@ -3,7 +3,7 @@ import CustumButton from "../../Components/CustumButton";
 
 import { Clock, Eye, Heart, MessageCircle } from "react-feather";
 import { useContext, useEffect, useRef, useState } from "react";
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { PaginationOptionBlog } from "../../sdks/blog-v1/utils/DataSchemas";
 import { Pagination } from "../../sdks/GlobalDataSchemas";
 import { API_FILE_URL, calcReadingDuration, formatDuration } from "../../utilities/constants";
@@ -12,7 +12,7 @@ import { Blog } from "../../sdks/blog-v1/utils/DataSchemas";
 import { Link, useLocation, useParams } from "react-router-dom";
 import moment from "moment";
 import ReactPlayer from "react-player";
-import { removeUnnecessaryHTMLStuff } from "../../utilities/helper";
+import { config, removeUnnecessaryHTMLStuff } from "../../utilities/helper";
 import { AuthContext, AuthStatus } from "../../context/auth";
 import { toast, Slide } from "react-toastify";
 import { notifyError, notifySuccess } from "../../Components/CustomAlert";
@@ -21,17 +21,17 @@ function BlogDetailsPage() {
   const [rating, setRating] = useState({
     comment: ''
   });
-  const [reload, setReload] = useState<boolean>(false)
-  const { signOut, sessionInfo, authStatus, setUserInfo } = useContext(AuthContext)
+  const queryClient = useQueryClient()
+  const { sessionInfo, authStatus, setUserInfo } = useContext(AuthContext)
   const {id} = useParams<any>()
   const { client } = useBlog()
   const [liked, setLiked] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(10)
   let search = useLocation().search;
-  const { data, isLoading, isFetching, isError }: any =
+  const { data }: any =
   useQuery({
-      queryKey: ['blogDetails', id, reload],
+      queryKey: ['blogDetails', id],
       queryFn: async () => {
           if(id) {
             let result: Blog = await client.getblogById(id)
@@ -50,10 +50,10 @@ function BlogDetailsPage() {
       }
   })
 
-  const { data: recetntsBlogs, isLoading: recentLoading, isFetching: recentFetching, isError: recentError}: any =
+  const { data: recetntsBlogs}: any =
   useQuery({
         queryKey: ['recentsBlogsData', limit, id],
-        queryFn: async ({ pageParam}: any) => {
+        queryFn: async () => {
             if(id) {
               let filter: PaginationOptionBlog = {page, limit, published_only: 'true'}
               let result: Pagination<any> = await client.getRecentsBlogs(filter, id)
@@ -99,8 +99,8 @@ function BlogDetailsPage() {
           ...sessionInfo?.userInfo,
           blogList: response.blogList
       }
-      setReload(!reload)
       setUserInfo(simpleUser)
+      queryClient.invalidateQueries({ queryKey: ["blogDetails"] }).catch(e => console.log(e))
     },
     onError: (e: any) => {
         let error: string = "An error occured, please retry";
@@ -117,12 +117,12 @@ function BlogDetailsPage() {
         return await client?.commentBlog(id, rating)
       }
     },
-    onSuccess: (response) => {
-      setReload(!reload)
+    onSuccess: () => {
       setRating({
         comment: ''
       })
       notifySuccess({ message: `Votre message a été enregistré !` })
+      queryClient.invalidateQueries({ queryKey: ["blogDetails"] }).catch(e => console.log(e))
     },
     onError: (e: any) => {
         let error: string = "An error occured, please retry";
@@ -237,34 +237,27 @@ function BlogDetailsPage() {
           <div className="divider d2" />
           <div className="w-[600px]">
           <div className="flat-tabs themesflat-tabs" >
-                <ul className="menu-tab tab-title">
-                <li className={`item-title`}
-                 >
-                    <span className="inner">Spécifications</span>
-                  </li>
-                </ul>
                 <div className="content-tab">
-                  
+                  <h3>Tous les commentaires</h3>
                   <div className="content-inner tab-content">                                               
                     <ul className="bid-history-list">
                       {data?.comments
-                      ?.sort((a: any, b: any) => b?.postedAt - a?.postedAt)
-                      ?.map((historic: any, key: number) => {
+                      ?.sort((a: any, b: any) => new Date(b?.postedAt).getTime() - new Date(a?.postedAt).getTime())
+                      ?.map((comment: any, key: number) => {
                         return <li key={key} >
                         <div className="content">
                           <div className="client">
                             <div className="sc-author-box style-2">
-                              <div className="author-avatar">
+                              <div className="author-avatar flex gap-x-3">
                                 <a href="#">
-                                <img src={historic?.owner?.image ? `${API_FILE_URL}/icons/${historic?.owner?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | historic`} />
+                                  <img className="w-[44px] h-[44px] " src={comment?.owner?.image ? `${API_FILE_URL}/icons/${comment?.owner?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | comment`} />
                                 </a>
-                                <div className="badge" />
+                                <div className="author-infor flex flex-col items-start">
+                                  <div className="name flex gap-x-3 items-center">
+                                  {comment?.owner && <><h6> <>{comment?.owner?.fullName} </></h6> <span> {moment(comment?.postedAt).fromNow()}</span></>}
+                                  </div>
+                                  <span className="time">{comment?.comment}</span>
                               </div>
-                              <div className="author-infor">
-                                <div className="name">
-                                {historic?.owner && <><h6> <>{historic?.owner?.fullName} </></h6> <span> </span></>}
-                                </div>
-                                <span className="time">{moment(historic?.postedAt).fromNow()}</span>
                               </div>
                             </div>
                           </div>

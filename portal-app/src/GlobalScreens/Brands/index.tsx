@@ -3,14 +3,15 @@ import { useState } from "react";
 import { useQuery } from '@tanstack/react-query'
 import { PaginationOptionPartner, Partner } from "../../sdks/partner-v1/utils/DataSchemas";
 import { Pagination } from "../../sdks/GlobalDataSchemas";
-import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
+import { API_FILE_URL } from "../../utilities/constants";
 import FeaturesCarousel from "../../Components/FeaturesCarousel/FeaturesCarousel";
 import usePartner from "../../hooks/usePartner";
 import { Link } from "react-router-dom";
+import { config } from "../../utilities/helper";
 
 function Brands() {
-  const [page, setPage] = useState<number>(1)
-  const [limit, setLimit] = useState<number>(30)
+  const page = 1;
+  const limit = 30;
   const { client } = usePartner()
 
   const { data, isLoading, isFetching, isError }: any =
@@ -38,7 +39,7 @@ function Brands() {
           {data.map((partner: Partner, key: number) => {
             return <Link to={`/partner/${partner.seller._id}`} key={key} className="sc-box-icon">
             <div className="img flex justify-center">
-            <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
+            <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
             <h4 className="heading"><Link to={`/partner/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</Link></h4>
           </Link>
@@ -50,7 +51,7 @@ function Brands() {
         {data.map((partner: Partner, key: number) => {
             return <Link to={`/partner/${partner.seller._id}`} key={key} className="sc-box-icon">
             <div className="img flex justify-center">
-            <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
+            <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
             <h4 className="heading"><Link to={`/partner/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</Link></h4>
           </Link>

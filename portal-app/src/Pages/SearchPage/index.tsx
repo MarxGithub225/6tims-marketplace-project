@@ -15,6 +15,7 @@ import { Product } from "../../sdks/product-v1/utils/DataSchemas";
 import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import { PaginationOptionCategory, Category2, Category1, Category3 } from "../../sdks/category-v1/utils/DataSchemas";
 import { Link, useLocation } from "react-router-dom";
+import { config } from "../../utilities/helper";
 
 function SearchPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
@@ -268,7 +269,7 @@ function SearchPage() {
               <div className="meta-info">
                 <div className="author">
                   <div className="avatar">
-                  <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${product.slug}`} />
+                  <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${product.slug}`} />
                   </div>
                   <div className="info">
                     <span>Vendeur</span>

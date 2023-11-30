@@ -14,13 +14,13 @@ import { PaginationOptionProduct, Product } from "../../sdks/product-v1/utils/Da
 import { useAppDispatch } from "../../redux/hooks";
 import { setProduct } from "../../redux/features/productSlice";
 import CartModal from "../../GlobalScreens/CartModal";
+import { config } from "../../utilities/helper";
 function SellerPage() {
 
     const dispatch = useAppDispatch()
     const {id} = useParams<any>()
   const { client } = useSeller()
   const { client: clientProduct } = useProduct()
-  const [liked, setLiked] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(10)
   const [limitProducts, setLimitProducts] = useState<number>(20)
@@ -104,7 +104,7 @@ function SellerPage() {
             <div className="flat-tabs tab-authors">
             <div className="author-profile flex">
                 <div className="feature-profile">
-                <img className="rounded-3xl" src={data.personnalInfo?.image ? `${API_FILE_URL}/icons/${data?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${data.companyInfo.companyName}`} />
+                <img className="rounded-3xl" src={data.personnalInfo?.image ? `${API_FILE_URL}/icons/${data?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${data.companyInfo.companyName}`} />
                 </div>
                 <div className="infor-profile">
                 <span>Profile vendeur</span>
@@ -168,7 +168,7 @@ function SellerPage() {
                                 <div className="meta-info">
                                 <div className="author">
                                     <div className="avatar">
-                                    <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${product.slug}`} />
+                                    <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${product.slug}`} />
                                     </div>
                                     <div className="info">
                                     <span>Vendeur</span>

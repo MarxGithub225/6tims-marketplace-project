@@ -92,21 +92,21 @@ function Header({headerRef}: any) {
             <nav id="main-nav" className="main-nav">
               <ul id="menu-primary-menu" className="menu">
                 <li className="menu-item">
-                  <Link to="#">Suivi de commande</Link>
+                  <Link to="/profile/orders">Suivi de commande</Link>
                 </li>
                 <li className="menu-item">
-                  <Link to="#">Aide</Link>
+                  <Link to="/faq">Aide</Link>
                 </li>
                 <li className="menu-item">
-                  <Link to="#">Nos contacts</Link>
+                  <Link to="/contact-us">Nos contacts</Link>
                 </li>
-                <li className="menu-item menu-item-has-children">
+                {/* <li className="menu-item menu-item-has-children">
                   <Link to="#" className='flex items-center'><FrIcon width={19} className="mr-1"/> <span>Français</span></Link>
                   <ul className="sub-menu">
                     <li className="menu-item"><a href="#" className='flex items-center'><FrIcon width={19} className="mr-1"/> <span>Français</span></a></li>
                     <li className="menu-item"><a href="#" className='flex items-center'><EnIcon width={19} className="mr-1"/> <span>Français</span></a></li>
                   </ul>
-                </li>
+                </li> */}
               </ul>
             </nav>{/* /#main-nav */}   
             

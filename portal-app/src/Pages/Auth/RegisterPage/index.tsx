@@ -30,7 +30,7 @@ const defaultValue: CreateRequest = {
   },
   deleted: false,
   suspended: false,
-  newsletterSubscribed: false,
+  newsletterSubscribed: true,
   password: ""
 }
 function RegisterPage() {

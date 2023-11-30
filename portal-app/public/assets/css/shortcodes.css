@@ -4563,6 +4563,10 @@ section.today-picks {
     font-size: 15px;
 }
 
+.flat-accordion2 .flat-toggle2 .toggle-title-hide-icon::after {
+    display: none !important;
+}
+
 .flat-accordion2 .flat-toggle2 .toggle-title.active::after{
     content: '\f068';
 }
@@ -4592,7 +4596,6 @@ section.today-picks {
 }
 
 .flat-accordion2 .flat-toggle2 .toggle-content {
-    display: none;
     padding-bottom: 16px;
 }
 

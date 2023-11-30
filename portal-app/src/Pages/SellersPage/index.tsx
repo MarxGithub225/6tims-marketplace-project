@@ -1,16 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import PageHeader from "../../GlobalScreens/PageHeader";
-import TopSellers from "../../GlobalScreens/TopSellers";
 import { useState } from "react";
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { PaginationOptionSeller } from "../../sdks/seller-v1/utils/DataSchemas";
 import { Pagination } from "../../sdks/GlobalDataSchemas";
-import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
+import { API_FILE_URL } from "../../utilities/constants";
 import useSeller from "../../hooks/useSeller";
 import { Seller } from "../../sdks/seller-v1/utils/DataSchemas";
-import { File } from "../../sdks/image-v1/utils/DataSchemas";
-import { PaginationOptionCategory } from "../../sdks/category-v1/utils/DataSchemas";
 import { Link } from "react-router-dom";
+import { config } from "../../utilities/helper";
 function SellersPage() {
 
     const [page, setPage] = useState<number>(1)
@@ -62,7 +60,7 @@ function SellersPage() {
                         <div className="author">
                         <div className="sc-author-box style-2">
                             <div className="author-avatar">
-                            <img src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} className="avatar" />
+                            <img src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} className="avatar" />
                             <div className="badge" />
                             </div>
                         </div>

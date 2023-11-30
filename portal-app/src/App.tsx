@@ -22,6 +22,12 @@ import ProfilePage from './Pages/Account';
 import { useAppDispatch } from './redux/hooks';
 import { getCart } from './redux/features/cartSlice';
 import AuthProvider from "./context/auth";
+import TermsAndConditions from './GlobalScreens/Footer/pages/TermsAndConditions';
+import TermsOfSale from './GlobalScreens/Footer/pages/TermsOfSale';
+import Cookies from './GlobalScreens/Footer/pages/Cookies';
+import ShippingAndReturns from './GlobalScreens/Footer/pages/ShippingAndReturns';
+import Faq from './GlobalScreens/Footer/pages/Faq';
+import ContactUs from './GlobalScreens/Footer/pages/ContactUs';
 function App() {
   const dispatch = useAppDispatch()
   const {pathname} = useLocation()
@@ -57,6 +63,12 @@ function App() {
           < Route path={'/login'} element={ <LoginPage /> } />
           < Route path={'/registration'} element={ <RegisterPage /> } />
           < Route path={'/profile/*'} element={ <ProfilePage /> } />
+          < Route path={'/terms-and-conditions'} element={ <TermsAndConditions /> } />
+          < Route path={'/terms-of-sale'} element={ <TermsOfSale /> } />
+          < Route path={'/cookies'} element={ <Cookies /> } />
+          < Route path={'/shipping-and-returns'} element={ <ShippingAndReturns /> } />
+          < Route path={'/faq'} element={ <Faq /> } />
+          < Route path={'/contact-us'} element={ <ContactUs /> } />
         </Routes>
         
         <Footer/>

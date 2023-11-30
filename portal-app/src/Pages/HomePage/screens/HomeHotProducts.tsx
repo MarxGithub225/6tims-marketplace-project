@@ -13,6 +13,7 @@ import Countdown from 'react-countdown';
 import { setProduct } from "../../../redux/features/productSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 import { Link } from "react-router-dom";
+import { config } from "../../../utilities/helper";
 function HomeHotProducts () {
   const [allCount, setCount] = useState<number>(0)
   const [page, setPage] = useState<number>(1)
@@ -68,7 +69,7 @@ function HomeHotProducts () {
                 <div className="meta-info style2">
                     <div className="author">
                     <div className="avatar">
-                        <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : `assets/images/avatar/avt-28.jpg`} alt={`6tims - tims group | ${product.slug}-${product?._id}`} />
+                        <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${product.slug}-${product?._id}`} />
                     </div>
                     <div className="info">
                         <span>Vendeur</span>

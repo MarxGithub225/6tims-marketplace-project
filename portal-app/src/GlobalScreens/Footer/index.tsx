@@ -1,9 +1,34 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useState } from "react";
 import FooterAbout from "./screens/FooterAbout";
 import { Link } from "react-router-dom";
+import useNewsletter from "../../hooks/useNewsletter";
+import { useMutation } from "@tanstack/react-query";
+import { notifyError, notifySuccess } from "../../Components/CustomAlert";
+import { Loader } from "react-feather";
 
 function Footer() {
+  const { client } = useNewsletter()
+  const [email, setEmail] = useState<string>('')
+  const upsertMutation = useMutation({
+    mutationFn: async () => {
+        return await client?.createNewsletter({email, suspended: false})
+    },
+    onSuccess: () => {
+        notifySuccess({ message: `Souscription réussie !` })
+    },
+    onError: (e: any) => {
+        let error: string = "An error occured, please retry";
+        if(e?.errors?.msg?.includes('duplicate')) {
+            error = "DUPLICATED_DATA"
+        } else error = e?.errors?.msg
+        notifyError({ message: error })
+    }
+  })
+
+  const upSave = () => {
+    upsertMutation.mutate()
+  }
   return <footer id="footer" className="footer-light-style clearfix">
   <div className="themesflat-container">
     <div className="row">
@@ -42,8 +67,11 @@ function Footer() {
           <h5 className="title-widget">S'abonner</h5>
           <div className="form-subcribe">
             <form id="subscribe-form" action="#" method="GET" acceptCharset="utf-8" className="form-submit">
-              <input name="email"  className="email" type="email" placeholder="johndoe@gmail.com" required />
-              <button id="submit" name="submit" type="submit"><i className="icon-fl-send" /></button>
+              <input onChange={(e: any) => setEmail(e.target.value)} id="email" name="email" value={email}  className="email" type="email" placeholder="johndoe@gmail.com" required />
+              <button id="submit" name="submit" type="button"
+              disabled={email.trim() === ""}
+              onClick={() => upSave()}
+              >{upsertMutation.isPending ? <Loader className="animate-spin" /> : <i className="icon-fl-send" />}</button>
             </form>
           </div>
           <div className="widget-social style-1 mg-t32">

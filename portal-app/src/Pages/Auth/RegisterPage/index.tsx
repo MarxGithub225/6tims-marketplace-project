@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PageHeader from "../../../GlobalScreens/PageHeader";
 import CustumButton from "../../../Components/CustumButton";
 import CustomSelect from "../../../Components/CustomSelect";
@@ -15,6 +15,8 @@ import { CreateRequest, MorroccoCities } from "../../../sdks/user-v1/utils/DataS
 import useUser from "../../../hooks/userUser";
 import { notifyError, notifySuccess } from "../../../Components/CustomAlert";
 import useAuth from "../../../hooks/useAuth";
+import useNewsletter from "../../../hooks/useNewsletter";
+import { AuthContext, AuthStatus } from "../../../context/auth";
 const defaultValue: CreateRequest = {
   imageId:  null,
   role: "user",
@@ -34,7 +36,9 @@ const defaultValue: CreateRequest = {
   password: ""
 }
 function RegisterPage() {
+  const { signIn, authStatus } = useContext(AuthContext)
   const { client } = useAuth()
+  const { client: newsletterClient } = useNewsletter()
   const { client: iconClient} = useIcon()
   const [imageSrc, setImageSrc] =
         useState<any>(null)
@@ -86,7 +90,8 @@ const upsertMutation = useMutation({
   mutationFn: async () => {
       return currentSetting && await client?.register(currentSetting)
   },
-  onSuccess: () => {
+  onSuccess: async () => {
+      await newsletterClient?.createNewsletter({email: currentSetting.email, suspended: false})
       notifySuccess({ message: `Inscription réussie !` })
       setLoading(false)
       if(search) {
@@ -110,10 +115,26 @@ const upsertMutation = useMutation({
   }
 })
 
-const upSave = () => {
-  setLoading(true)
-  upsertMutation.mutate()
-}
+  const upSave = () => {
+    setLoading(true)
+    upsertMutation.mutate()
+  }
+
+  useEffect(() => {
+    if (authStatus === AuthStatus.SignedIn) {
+      if(search) {
+        const urlRequest = new URLSearchParams(search).get('urlRequest');
+        const tagData = new URLSearchParams(search).get('tag') ?? '';
+        let tag='';
+        if(tagData) {
+          tag= `?tag=${tagData}`
+        }
+        navigate(`${urlRequest}${tag}`)
+      }else {
+        navigate('/profile')
+      }
+    }
+  }, [authStatus])
   return <>
   <PageHeader/>
 
@@ -175,7 +196,7 @@ const upSave = () => {
                 <div className="flex items-center gap-4">
                 <input id="phone" name="phone" tabIndex={2} 
                 onChange={handleChangeAdress}
-                aria-required="true" type="email" placeholder={"Numéro de téléphone"} required />
+                aria-required="true" type="text" placeholder={"Numéro de téléphone"} required />
                   <CustomSelect
                  value={currentSetting?.address?.city}
                  options={MorroccoCities}

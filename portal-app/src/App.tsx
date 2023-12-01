@@ -28,6 +28,8 @@ import Cookies from './GlobalScreens/Footer/pages/Cookies';
 import ShippingAndReturns from './GlobalScreens/Footer/pages/ShippingAndReturns';
 import Faq from './GlobalScreens/Footer/pages/Faq';
 import ContactUs from './GlobalScreens/Footer/pages/ContactUs';
+import FavoritePage from './Pages/FavoritePage';
+import ForgotPassPage from './Pages/Auth/ForgotPass';
 function App() {
   const dispatch = useAppDispatch()
   const {pathname} = useLocation()
@@ -61,8 +63,10 @@ function App() {
           < Route path={'/checkout'} element={ <CheckoutPage /> } />
 
           < Route path={'/login'} element={ <LoginPage /> } />
+          < Route path={'/forgot-pass'} element={ <ForgotPassPage /> } />
           < Route path={'/registration'} element={ <RegisterPage /> } />
           < Route path={'/profile/*'} element={ <ProfilePage /> } />
+          < Route path={'/favorites/*'} element={ <FavoritePage /> } />
           < Route path={'/terms-and-conditions'} element={ <TermsAndConditions /> } />
           < Route path={'/terms-of-sale'} element={ <TermsOfSale /> } />
           < Route path={'/cookies'} element={ <Cookies /> } />

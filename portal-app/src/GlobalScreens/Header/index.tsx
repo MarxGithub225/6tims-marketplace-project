@@ -17,8 +17,10 @@ import { useMutation } from "@tanstack/react-query";
 function Header({headerRef}: any) {
   const { authStatus, sessionInfo, signOut } = useContext(AuthContext)
   const profileRef = useRef<any>(null)
+  const searchRef = useRef<any>(null)
   const cart = useSelector((state: RootState) => state.cart.cart)
   const [showProfileOptions, setShowProfileOptions] = useState<boolean>(false)
+  const [showSearchForm, setShowSearchForm] = useState<boolean>(false)
   const navigate = useNavigate()
   const changeTheme = (theme: string) => {
       if(theme === 'dark') {
@@ -66,6 +68,7 @@ function Header({headerRef}: any) {
       }
   }
   useOnClickOutSide(profileRef, () => setShowProfileOptions(false))
+  useOnClickOutSide(searchRef, () => setShowSearchForm(false))
   const mutationLogout: any = useMutation({
     mutationFn: async () => {
       return await signOut();
@@ -112,11 +115,16 @@ function Header({headerRef}: any) {
             
             <div className="flat-search-btn flex">
               <div className="sc-btn-top mr-5" id="site-header">
-                <a href="connect-wallet.html" id="connectbtn" className="sc-button header-slider style style-1 wallet fl-button pri-1"><span>Vendre sur 6tims
+                <a href="https://seller.6tims.com" rel="noreferrer" target="_blank" id="connectbtn" className="sc-button header-slider style style-1 wallet fl-button pri-1"><span>Vendre sur 6tims
                   </span></a>
               </div>
-              <div className="header-search flat-show-search" id="s1">
-                <a href="#" className="show-search header-search-trigger">
+              <div className="header-search flat-show-search" id="s1" ref={searchRef} >
+                <a href="#" className="show-search header-search-trigger"
+                onClick={(e: any) => {
+                  e.preventDefault()
+                  setShowSearchForm(!showSearchForm)
+                }}
+                >
                   <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <mask id="mask0_334_638" style={{maskType: 'alpha'}} maskUnits="userSpaceOnUse" x={1} y={1} width={18} height={17}>
                       <path fillRule="evenodd" clipRule="evenodd" d="M1.66699 1.66666H17.6862V17.3322H1.66699V1.66666Z" fill="white" stroke="white" />
@@ -134,14 +142,14 @@ function Header({headerRef}: any) {
                     </g>
                   </svg>
                 </a>
-                <div className="top-search">
+                {showSearchForm && <div className="top-search show">
                   <form action="/search" method="get" role="search" className="search-form">
                     <input type="search" id="q" className="search-field" placeholder="Recherche..." name="q" title="Recherche pour" required />
                     <button className="search search-submit" type="submit" title="Recherche">
                       <i className="icon-fl-search-filled" />
                     </button>
                   </form>
-                </div>
+                </div>}
               </div>
 
               {(cart && cart.length) ?<div className="header-search flat-show-search">

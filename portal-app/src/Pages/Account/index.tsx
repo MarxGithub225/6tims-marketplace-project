@@ -8,11 +8,12 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import Profile from "./pages/Profile";
 import { useMutation } from "@tanstack/react-query";
 import { toast, Slide } from "react-toastify";
+import Orders from "./pages/Orders";
 function ProfilePage() {
   const { signOut, sessionInfo, authStatus } = useContext(AuthContext)
   const menu = [
-    {icon: <User/>, title: "Mon profile", link: "/account/profile"},
-    {icon: <ShoppingBag/>, title: "Mes commandes", link: "/account/orders"},
+    {icon: <User/>, title: "Mon profile", link: "/profile"},
+    {icon: <ShoppingBag/>, title: "Mes commandes", link: "/profile/orders"},
     {icon: <Heart/>, title: "Mes favoris", link: "/favorites"},
     // {icon: <CreditCard/>, title: "Mes cartes", link: "/account/bank-cards"},
   ]
@@ -56,7 +57,9 @@ function ProfilePage() {
           </div>
           <div className="dashboard-filter">
             {menu.map((m: any, index: number) => {
-                    return <div key={index}  className="menu-item flex items-center gap-x-3">
+                    return <div key={index} 
+                    onClick={() => navigate(m.link)}
+                    className="menu-item flex items-center gap-x-3">
                     {m.icon}
                     <span>{m.title}</span>
                 </div>
@@ -76,11 +79,8 @@ function ProfilePage() {
         <div className="form-create-item">
             <Routes>
                 <Route path={''} element={ <Profile /> } />
-                {/* <Route path={'orders'} element={ <Orders /> } />
-                <Route path={'addresses'} element={ <Addresses /> } />
-                <Route path={'bank-cards'} element={ <BankCards /> } />
-                <Route path={'data/update'} element={ <UpdateData /> } />
-                <Route path={'password/update'} element={ <UpdatePass /> } /> */}
+                <Route path={'orders'} element={ <Orders /> } />
+                
             </Routes>
           
         </div>

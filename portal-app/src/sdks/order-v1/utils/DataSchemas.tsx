@@ -31,6 +31,8 @@ export interface Order {
     fullLocation: string
     zipCode: string
   }
+  createdAt: Date
+  updatedAt: Date
   orderStatus: string
   historical: Array<any>
 }

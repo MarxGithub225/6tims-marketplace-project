@@ -2156,8 +2156,6 @@ header{
     right             : -16px;
     top               : 130%;
     width             : 250px;
-    opacity           : 0;
-    visibility        : hidden;
 }
 
 .search-submit {

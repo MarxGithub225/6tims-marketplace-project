@@ -173,7 +173,7 @@ a {
 
 
 .dashboard-user {
-    background: var(--secondary-color);
+    background: var(--white);
     border: 1px solid transparent;
     border-radius: 18px;
     padding: 24px 24px 24px 24px;
@@ -203,14 +203,14 @@ a {
     font-weight: 700;
     font-size: 24px;
     text-transform: capitalize;
-    color: #fff;
+    color: #1E293B;
     margin-bottom: 8px;
 }
 
 .dashboard-user .dashboard-infor .pax {
     font-weight: 700;
     font-size: 14px;
-    color: #fff;
+    color: #1E293B;
     margin-bottom: 23px;
 }
 
@@ -224,7 +224,7 @@ a {
     font-size: 14px;
     line-height: 22px;
     text-transform: capitalize;
-    color: var(--white);
+    color: #1E293B;
     margin-bottom: 9px;
 }
 
@@ -252,7 +252,7 @@ a {
 }
 
 .menu-item {
-    color: #fff;
+    color: #1E293B;
     font-size: 16px;
     font-weight: 600;
 
@@ -267,7 +267,7 @@ a {
     svg {
         width: 16px;
         height: auto;
-        color: #fff;
+        color: #1E293B;
     }
 }
 
@@ -387,8 +387,8 @@ a {
     z-index: 1000;
     border: 0;
     background: rgba(0,0,0,0.5);
-    min-width: 37px;
-    min-height: 37px;
+    min-width: 30px;
+    min-height: 30px;
     opacity: 1;
     cursor: pointer;
 }

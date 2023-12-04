@@ -19,7 +19,7 @@ function Related({products}: RelatedProps) {
         <div className="col-md-12">
           <div className="heading-live-auctions">
             <h2 className="tf-title pb-23">
-              Vous pouriez aimer</h2>
+            Produits similaire</h2>
           </div>
         </div>
         <div className="col-md-12">

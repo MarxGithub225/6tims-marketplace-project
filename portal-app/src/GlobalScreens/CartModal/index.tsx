@@ -162,8 +162,22 @@ function CartModal() {
               {pathname === '/cart' && <h3 className="text-center">Quantité de produit modifié!</h3>}
               {pathname !== '/cart' && <p className="text-center">Tous vos articles ajoutés sont maintenant dans votre panier.</p>}
               {pathname === '/cart' && <p className="text-center">La quantité de votre produit a été modifié avec succès.</p>}
-              {pathname !== '/cart' && <Link to="/cart" className="btn btn-primary"> Voir le panier</Link>}
-              {pathname === '/cart' && <Link to="/cart" className="btn btn-primary"> Payer maintenant</Link>}
+              {pathname !== '/cart' && <Link to="/cart" 
+              onClick={() => {
+                const showSuccess = window.document.getElementById("popup_bid_success")
+                if(showSuccess) {
+                  showSuccess.click()
+                }
+              }}
+              className="btn btn-primary"> Voir le panier</Link>}
+              {pathname === '/cart' && <Link 
+              onClick={() => {
+                const showSuccess = window.document.getElementById("popup_bid_success")
+                if(showSuccess) {
+                  showSuccess.click()
+                }
+              }}
+              to="/cart" className="btn btn-primary"> Payer maintenant</Link>}
             </div>
           </div>
         </div>

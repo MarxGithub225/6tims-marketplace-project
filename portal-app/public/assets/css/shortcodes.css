@@ -297,8 +297,8 @@
 /* button style */
 /* style-1 */
 .sc-button.style-1 {
-    border    : 2px solid #fff;
-    color     : #fff;
+    border    : 2px solid #f7a700;
+    color     : #f7a700;
     background: transparent none repeat scroll 0 0;
 }
 
@@ -525,9 +525,9 @@
 }
 
 .style-2 .sc-box-icon {
-    width                : calc(25% - 30px);
+    width                : calc(15% - 30px);
     margin-left          : 30px;
-    padding              : 39px 20px 39px;
+    padding              : 20px;
     -webkit-border-radius: 16px;
     -ms-border-radius    : 16px;
     -o-border-radius     : 16px;
@@ -565,29 +565,6 @@
     line-height: 20px;
 }
 
-.style-2 .sc-box-icon:nth-child(1) {
-    padding-top: 43px;
-}
-
-.style-2 .sc-box-icon:nth-child(1) .img {
-    margin-bottom: 22px;
-}
-
-.style-2 .sc-box-icon:nth-child(3) {
-    padding-top: 48px;
-}
-
-.style-2 .sc-box-icon:nth-child(3) .img {
-    margin-bottom: 26px;
-}
-
-.style-2 .sc-box-icon:nth-child(4) {
-    padding-top: 51px;
-}
-
-.style-2 .sc-box-icon:nth-child(4) .img {
-    margin-bottom: 32px;
-}
 
 .style-2 .sc-box-icon:hover .img {
     transform: rotateY(360deg);
@@ -5151,7 +5128,7 @@ section.today-picks {
 }
 
 .header_2.style2 .flat-search-btn {
-    right: 132px;
+    /* right: 132px; dark margin */
     padding: 27px 0;
 }
 
@@ -5700,7 +5677,7 @@ section.today-picks {
 }
 
 .seller-tab .menu-tab li span{
-    font-size: 18px;
+    font-size: 16px;
     line-height: 26px;
     font-weight: 700;
     color: #1F1F2C;
@@ -6233,7 +6210,7 @@ section.today-picks {
 }
 
 .seller-tab.style3 .menu-tab{
-    left: 241px;
+    left: 57px;
     z-index: 10;
 }
 

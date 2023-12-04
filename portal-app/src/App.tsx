@@ -43,9 +43,9 @@ function App() {
   }, [pathname])
   
   return <AuthProvider>
-    <div id="wrapper">
+    <div id="wrapper" ref={headerRef} >
       <div id="page" className="clearfix">
-        <Header headerRef={headerRef} />
+        <Header />
         <Routes>
           < Route path={'/*'} element={ <HomePage /> } />
           < Route path={'/:slug'} element={ <DetailsPage /> } />

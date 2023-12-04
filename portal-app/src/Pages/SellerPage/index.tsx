@@ -158,7 +158,7 @@ function SellerPage() {
                                         onClick={() => {
                                             dispatch(setProduct(product))
                                         }}
-                                        data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Panier</span></a>
+                                        data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Ajouter au panier</span></a>
                                     </div>
                                     {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
                                     </div>

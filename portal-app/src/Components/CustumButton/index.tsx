@@ -11,7 +11,7 @@ interface CustumButtonProps {
     isLoading?:boolean
 }
 function CustumButton({label, isLoading, icon, backgroundColor="#e73a5d", color="#fff", onclick=()=>{}, borderColor, disabled=false}: CustumButtonProps) {
-  return <div className="custom-button gap-x-3 cursor-pointer"
+  return <div className="custom-button gap-x-3 cursor-pointer min-w-[200px] "
   style={{
     background: backgroundColor,
     color: color,

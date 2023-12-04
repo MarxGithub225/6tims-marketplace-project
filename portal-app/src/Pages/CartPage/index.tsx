@@ -54,26 +54,26 @@ function CartPage() {
             </Link>
             <div className="infor">
               <h3 className="line-clamp-1" > <Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h3>
-              <div className="status">started following <span className="author">Gayle Hicks</span></div>
               <div className="status flex items-center gap-x-3">
-                <span className="author">{product.price} DH</span>
+                <span className="author hidden bigTablet:block">{product.price} DH</span>
                 <div className="flex items-center gap-x-3 cursor-pointer" onClick={() => modifyQty(product.initialProduct)} >
                   <Minus/>
                   <span>{product.totalQty}</span>
                   <Plus/>
                 </div>
                 <span className="author">= {product.totalPrice} DH</span>
-                {product.variables.length > 1 ? <div className="flex items-center gap-x-1">
+                {product.variables.length > 1 ? <div className="hidden bigTablet:flex items-center gap-x-1">
                   <span>Variantes: </span>
                  {product.variables.map((variable: CartVariableProps, index: number) => {
-                  return <><span key={index} >({variable.label ?? ' - '} * {variable.quantity}) </span> {index < (product.variables.length - 1) && <span>,</span>}</>
+                  if(variable?.quantity > 0)
+                  return <><span key={index} >({variable?.label ?? ' - '} * {variable?.quantity}) </span> {index < (product.variables.length - 1) && <span>,</span>}</>
                  })}
                 </div>: <></>}
 
-                {product.variables.length === 1 && product.variables[0]?.label ? <div className="flex items-center gap-x-1">
+                {product.variables.length === 1 && product.variables[0]?.label ? <div className="hidden bigTablet:flex items-center gap-x-1">
                   <span>Variante: </span>
                  {product.variables.map((variable: CartVariableProps, index: number) => {
-                  return <><span key={index} >({variable.label ?? ' - '} * {variable.quantity}) </span> {index < (product.variables.length - 1) && <span>,</span>}</>
+                  return <><span key={index} >({variable?.label ?? ' - '} * {variable?.quantity}) </span> {index < (product.variables.length - 1) && <span>,</span>}</>
                  })}
                 </div>: <></>}
               </div>
@@ -116,7 +116,7 @@ function CartPage() {
           </div>
 
           <CustumButton
-          label={"Commander"}
+          label={"Acheter"}
           onclick={() => {
             if(authStatus === AuthStatus.SignedIn ) {
               navigate('/checkout')
@@ -128,7 +128,7 @@ function CartPage() {
           icon={<ShoppingCart size={15}/>}
           />
           <CustumButton
-          label="Faire mes achats"
+          label="Retour"
           onclick={() => navigate('/')}
           backgroundColor="#fff"
           color="#f7a700"

@@ -132,7 +132,7 @@ function Profile() {
         }
       }, [])
   return <>
-    <h4 className="title-create-item mb-[20px]">Changer d'icône</h4>
+    {/* <h4 className="title-create-item mb-[20px]">Changer d'icône</h4>
     <div className="icons-tab mb-[20px]">
     
         {iconData?.map((icon: Icon, key: number) => {
@@ -158,8 +158,8 @@ function Profile() {
             </label>
         </div>
         })}
-    </div>
-    <div className="flat-tabs tab-create-item">
+    </div> */}
+    <div className="flat-tabs tab-create-item mt-[30px] intermWidth:mt-[0px]">
     <div className="content-tab">
         <div className="content-inner">
             <h4 className="title-create-item mb-[20px]">Informations personnelles</h4>
@@ -238,7 +238,7 @@ function Profile() {
                 placeholder="Adresse complète"
                 />
                 <div className="inline-flex mt-[10px] ">
-                <div className="w-[300px]  ">
+                <div className="w-full intermWidth:w-[300px]  ">
                 <CustumButton
                 label="Modifier"
                 backgroundColor="#f7a700"
@@ -263,7 +263,7 @@ function Profile() {
                 <input type="password" className="mb-[24px]" id="confirmPass" name="confirmPass" placeholder="******" value={confirmPass}
                 onChange={(e: any) => setConfirmPass(e.target.value)} />
                 <div className="inline-flex mt-[10px] ">
-                <div className="w-[300px]  ">
+                <div className="w-full intermWidth:w-[300px]  ">
                 <CustumButton
                 label="Changer"
                 backgroundColor="#f7a700"

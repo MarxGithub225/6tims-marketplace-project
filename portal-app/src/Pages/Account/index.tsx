@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import { useMutation } from "@tanstack/react-query";
 import { toast, Slide } from "react-toastify";
 import Orders from "./pages/Orders";
+import avatar  from '../../assets/images/avt-1.jpg'
 function ProfilePage() {
   const { signOut, sessionInfo, authStatus } = useContext(AuthContext)
   const menu = [
@@ -44,10 +45,11 @@ function ProfilePage() {
   <div className="tf-container">
     <div className="row ">
       <div className="col-xl-3 col-lg-12 col-md-12">
-        <div className="dashboard-user">
+        <div className="dashboard-user shadow-lg " >
           <div className="dashboard-infor">
-            <div className="avatar">
-              <img src={`${API_FILE_URL}/icons/${sessionInfo?.userInfo?.image?.path}`} alt={`6tims | Tim's group - ${sessionInfo?.userInfo?.fullName}`} />
+            <div className="avatar shadow">
+            <img className="shadow-lg" src={avatar} alt={`6tims | Tim's group - ${sessionInfo?.userInfo?.fullName}`} />
+            {/* <img className="shadow-lg" src={`${API_FILE_URL}/icons/${sessionInfo?.userInfo?.image?.path}`} alt={`6tims | Tim's group - ${sessionInfo?.userInfo?.fullName}`} /> */}
             </div>
             <div className="name">{sessionInfo?.userInfo?.fullName}</div>
             <div className="pax">{sessionInfo?.userInfo?.email}</div>

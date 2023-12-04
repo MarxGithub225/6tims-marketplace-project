@@ -437,7 +437,7 @@ const getProductById = () => {
                     onChange={e => setRating({...rating, comment: e.target.value})}
                     className="resize-none" name="message" rows={4} placeholder="Message" tabIndex={4} aria-required="true"  />
                     </fieldset>
-                    <div className="btn-submit mg-t-36">
+                    <div className="btn-submit mg-t-36 inline-flex">
                     {authStatus === AuthStatus.SignedIn ? <CustumButton
                     label={"Envoyer"}
                     disabled={!rating.comment || !rating.star}

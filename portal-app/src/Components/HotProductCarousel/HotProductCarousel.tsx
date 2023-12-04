@@ -90,7 +90,7 @@ const HotProductCarousel = ({
   }, []);
 
   return (
-    <><div className='relative flex flex-row w-full carousel-side mb-20'>
+    <><div className='relative flex flex-row w-full carousel-side mb-[0px] intermWidth:mb-[20px]  '>
       <div className='carousel-wrapper'>
 
         <div

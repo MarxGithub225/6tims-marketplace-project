@@ -49,8 +49,8 @@ function HomeCategories() {
       }
     }
   return <div className="col-md-12">
-  <h2 className="tf-title style2 mb-25 text-left">Catégories</h2>
-  <div className="flat-tabs seller-tab style3 tablet-30">
+  {/* <h2 className="tf-title style2 mb-25 text-left">Catégories</h2> */}
+  <div className="flat-tabs seller-tab style3 mt-[40px] tablet-30">
     <ul className="menu-tab gap-x-4">
       {data ? 
       data.map((data: any, key: number) => {
@@ -98,9 +98,9 @@ function HomeCategories() {
         </div>
       </div>
     </div>: <></>}
-    <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-0 right-[15px] cursor-pointer scroll-category right-arrow" onClick={rightScroll} />
+    <button type="button" className="w-8 h-8 rounded-full shadow bg-black absolute top-[5px] right-[15px] cursor-pointer scroll-category right-arrow" onClick={rightScroll} />
 
-    <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-0 left-[200px] cursor-pointer scroll-category left-arrow" onClick={leftScroll} />
+    <button type="button" className="w-8 h-8 rounded-full shadow bg-black absolute top-[5px] left-[15px] cursor-pointer scroll-category left-arrow" onClick={leftScroll} />
   </div> 
 </div>;
 }

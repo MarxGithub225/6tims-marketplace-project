@@ -42,7 +42,7 @@ function Orders() {
   <div className="container-fluid">
     <div className="row">
     {data &&<div className="col-md-12">
-        <div className="table-ranking">
+        <div className="table-ranking mt-[30px] ">
           <div className="flex th-title">
             
             <div className="column">

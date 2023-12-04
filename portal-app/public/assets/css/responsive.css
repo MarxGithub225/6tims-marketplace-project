@@ -8,7 +8,7 @@
     left: 14% !important;
   }
   .flat-search-btn{
-    right: 11% !important;
+    /* right: 11% !important; dark margin */
   }
   .header_1.header_2 #main-nav{
     left: 32% !important;
@@ -448,7 +448,7 @@
     padding: 100px 0 40px;
   }
   .flat-cart_item.home6{
-    padding: 163px 0 25px;
+    padding: 100px 0px 0px 0px;
   }
 
   .flat-title-page.style3 {
@@ -463,7 +463,7 @@
   }
 
   .flat-search-btn{
-    right: 60px !important;
+    /* right: 60px !important; dark margin */
   }
 
   .live-auctions.style4.home5 .heading-live-auctions .exp{
@@ -607,7 +607,7 @@
   .explode.style2.mg-bt,
   .sc-card-product.explode.style2.mg-bt,
   .sc-card-product  {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
   }
 
   .widget-logo .logo-footer,
@@ -1225,7 +1225,7 @@
   }
 
   .flat-search-btn{
-    right: 55px !important;
+    /* right: 55px !important; dark margin */
   }
 
   .header-search {

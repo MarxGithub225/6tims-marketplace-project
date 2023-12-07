@@ -27,7 +27,9 @@ function FavoritePage() {
     }
     }, [authStatus])
   return <>
-  <PageHeader/>
+  <PageHeader
+  header="Mes meilleurs produits"
+  />
     <section className="tf-section authors">
         {sessionInfo?.userInfo && <div className="themesflat-container">
             <div className="flat-tabs tab-authors">
@@ -59,13 +61,7 @@ function FavoritePage() {
                                 <div className="sc-card-product explode ">
                                     <div className="card-media active">
                                     <Link to={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></Link>
-                                    <div className="button-place-bid ">
-                                        <a href="#" 
-                                        onClick={() => {
-                                            dispatch(setProduct(product))
-                                        }}
-                                        data-toggle="modal" data-target="#popup_bid" className="sc-button style-place-bid style bag fl-button pri-3"><span>Panier</span></a>
-                                    </div>
+                                   
                                     {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
                                     </div>
                                     <div className="card-title mg-bt-16">

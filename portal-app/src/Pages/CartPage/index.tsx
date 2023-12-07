@@ -40,7 +40,9 @@ function CartPage() {
     setFees(_fees)
   }, [cart])
   return <>
-  <PageHeader/>
+  <PageHeader
+  header="Mon panier"
+  />
 
   <section className="tf-activity s1 tf-section">
   <div className="themesflat-container">

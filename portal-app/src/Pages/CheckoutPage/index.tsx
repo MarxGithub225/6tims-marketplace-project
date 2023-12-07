@@ -158,7 +158,9 @@ function CheckoutPage() {
     setShippingAddress({ ...shippingAddress, city: selectedOption?.value})
 }
   return <>
-  <PageHeader/>
+  <PageHeader
+  header="Prêt pour l'achat"
+  />
 
   <section className="tf-activity s1 tf-section">
   <div className="themesflat-container">
@@ -368,7 +370,7 @@ function CheckoutPage() {
         <div className="modal-body space-y-5 pd-40">
           <h3 className="text-center">Votre commande a été ajoutée avec succès!</h3>
           <p className="text-center">Nous procédons à votre livraison dans de plus bref délais. Merci de votre confiance.</p>
-          <a href="/profile" className="btn btn-primary"> Voire ma commande </a>
+          <a href="/profile/orders" className="btn btn-primary"> Voire ma commande </a>
         </div>
       </div>
     </div>

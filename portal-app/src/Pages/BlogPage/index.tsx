@@ -46,7 +46,9 @@ function BlogPage() {
     })
   return <>
     
-    <PageHeader/>
+    <PageHeader
+    header="Nos blogs"
+    />
     <div className="tf-section sc-card-blog dark-style2">
         <div className="themesflat-container">
         {(data && data?.pages) ?  <div className="row">

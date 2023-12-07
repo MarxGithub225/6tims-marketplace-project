@@ -42,7 +42,9 @@ const faqData = [
     }
 ]
   return <>
-    <PageHeader/>
+    <PageHeader
+    header="Aide & Faq"
+    />
     <section className="tf-section wrap-accordion">
         <div className="container">
             <div className="row">

@@ -43,7 +43,9 @@ function SellersPage() {
     })
 
   return <>
-    <PageHeader/>
+    <PageHeader
+    header="Vendeurs 6tims"
+    />
     <section className="tf-section our-creater dark-style2">
         <div className="themesflat-container">
         {(data && data?.pages) ?  <div className="row">

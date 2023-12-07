@@ -50,7 +50,9 @@ function Cookies() {
     setNumPages(nextNumPages);
   }
   return <>
-    <PageHeader/>
+    <PageHeader
+    header="Nos cookies"
+    />
     <div className="w-full flex justify-center">
         <div className="Example__container__document" ref={setContainerRef}>
             <Document file={file} onLoadSuccess={onDocumentLoadSuccess} options={options}>

@@ -40,7 +40,9 @@ function ProfilePage() {
   }
   }, [authStatus])
   return <>
-  <PageHeader/>
+  <PageHeader
+    header={window.innerWidth > 1199 ? 'Mon espace': ''}
+    />
    <section className="tf-dashboard tf-tab2">
   <div className="tf-container">
     <div className="row ">

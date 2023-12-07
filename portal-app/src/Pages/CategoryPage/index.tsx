@@ -81,7 +81,9 @@ function CategoryPage() {
   })
   return <>
   
-  <PageHeader/>
+  <PageHeader
+  header="Les produits de la catégorie"
+  />
   <section className="tf-explore tf-section">
     <div className="themesflat-container">
         <div className="row">

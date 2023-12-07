@@ -2132,6 +2132,7 @@
 #comments input[type="email"],
 #comments input[type="text"]{
     border: 1px solid rgba(138, 138, 160, 0.3);
+    color: #1F1F2C;
 }
 
 /* Page Index
@@ -5761,9 +5762,9 @@ section.today-picks {
     display: -webkit-flex; 
     align-items: center;
     padding: 9px 16px 9px 15px;
-    background-color: #7A798A;
+    background-color: #f7a700;
     border-radius: 100px;
-    border: 1px solid #7A798A;
+    border: 1px solid #f7a700;
     margin-right: 19px;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;

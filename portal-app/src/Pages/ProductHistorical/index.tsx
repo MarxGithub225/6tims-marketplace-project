@@ -75,7 +75,9 @@ function ProductHistorical() {
     }
   }, [filterState])
   return <>
-  <PageHeader/>
+  <PageHeader
+  header="Historique du produit"
+  />
     <section className="tf-activity s1 tf-section">
   <div className="themesflat-container">
     <div className="row">

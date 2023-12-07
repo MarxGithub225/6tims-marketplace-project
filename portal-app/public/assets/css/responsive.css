@@ -448,7 +448,7 @@
     padding: 100px 0 40px;
   }
   .flat-cart_item.home6{
-    padding: 100px 0px 0px 0px;
+    padding: 123px 0px 0px 0px;
   }
 
   .flat-title-page.style3 {
@@ -607,7 +607,7 @@
   .explode.style2.mg-bt,
   .sc-card-product.explode.style2.mg-bt,
   .sc-card-product  {
-    margin-bottom: 0px;
+    margin-bottom: 14px;
   }
 
   .widget-logo .logo-footer,
@@ -1325,14 +1325,14 @@
 
   .flat-tabs.items .menu-tab li {
     padding: 20px 15px 29px 15px;
+  }
+
+  .top-search {
+    position: absolute;
+    right: -70px;
+  }
+
 }
-
-.top-search {
-  position: absolute;
-  right: -70px;
-}
-
-
 @media only screen and (max-width: 400px) {
 
   .sc-card-activity.style-2 .content .media,
@@ -1353,5 +1353,16 @@
     font-size: 12px;
     padding-left: 10px;
     padding-right: 10px;
+  }
+
+  .heading-live-auctions .exp {
+    font-size     : 12px;
+  }
+}
+
+@media only screen and (max-width: 511px) {
+  .tf-item-details .content-right .themesflat-tabs .tab-title li {
+    font-size: 12px !important;
+    margin-right: 20px;
   }
 }

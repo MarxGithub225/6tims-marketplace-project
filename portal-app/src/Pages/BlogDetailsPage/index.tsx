@@ -133,7 +133,9 @@ function BlogDetailsPage() {
     }
   })
   return <>
-  <PageHeader/>
+  <PageHeader
+  header="Détails du blog"
+  />
   <div className="tf-section post-details">
   <div className="themesflat-container">
     {data && <div className="wrap-flex-box style">
@@ -235,7 +237,7 @@ function BlogDetailsPage() {
           </div>      
 
           <div className="divider d2" />
-          <div className="w-[600px]">
+          <div className="w-[100%]  bigTablet:w-[600px]">
           <div className="flat-tabs themesflat-tabs" >
                 <div className="content-tab">
                   <h3>Tous les commentaires</h3>

@@ -81,15 +81,13 @@ function Exploration() {
 
   return <>
   
-  <PageHeader/>
+  <PageHeader
+  header="Nos produits chauds"
+  />
   <section className="tf-auction tf-section">
     <div className="themesflat-container">
     {(data && data?.pages) ?  <div className="row">
-        <div className="col-12">
-          <div className="top">
-            <h2 className="tf-title-heading style-1 ct">Live Auctions</h2>
-          </div>
-        </div>
+        
         <div className="col-md-12">
         <Filter 
         categories = {categoryData ?? []}

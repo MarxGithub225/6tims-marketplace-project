@@ -36,7 +36,9 @@ function LoginPage() {
     }
   });
   return <>
-  <PageHeader/>
+  <PageHeader
+  header="Connexion"
+  />
    <section className="tf-login tf-section">
   <div className="themesflat-container">
     <div className="row">

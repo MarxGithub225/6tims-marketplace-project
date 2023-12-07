@@ -50,7 +50,9 @@ function ShippingAndReturns() {
     setNumPages(nextNumPages);
   }
   return <>
-    <PageHeader/>
+    <PageHeader
+    header="Expéditions, Livraisons et Retours"
+    />
     <div className="w-full flex justify-center">
         <div className="Example__container__document" ref={setContainerRef}>
             <Document file={file} onLoadSuccess={onDocumentLoadSuccess} options={options}>

@@ -78,7 +78,9 @@ function SearchPage() {
   })
   return <>
   
-  <PageHeader/>
+  <PageHeader
+  header="Vos recherches"
+  />
   <section className="tf-explore tf-section">
     <div className="themesflat-container">
         {data && <div className="row">

@@ -58,7 +58,9 @@ function ForgotPassPage() {
   }
   });
   return <>
-  <PageHeader/>
+  <PageHeader
+  header="Récupération de compte"
+  />
    <section className="tf-login tf-section">
   <div className="themesflat-container">
     <div className="row">

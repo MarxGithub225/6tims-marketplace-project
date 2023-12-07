@@ -50,7 +50,9 @@ function TermsAndConditions() {
     setNumPages(nextNumPages);
   }
   return <>
-    <PageHeader/>
+    <PageHeader
+    header="Termes et Confidentialités"
+    />
     <div className="w-full flex justify-center">
         <div className="Example__container__document" ref={setContainerRef}>
             <Document file={file} onLoadSuccess={onDocumentLoadSuccess} options={options}>

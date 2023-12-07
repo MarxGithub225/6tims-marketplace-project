@@ -136,7 +136,9 @@ const upsertMutation = useMutation({
     }
   }, [authStatus])
   return <>
-  <PageHeader/>
+  <PageHeader
+  header="Inscription"
+  />
 
   <section className="tf-login tf-section">
     <div className="themesflat-container">

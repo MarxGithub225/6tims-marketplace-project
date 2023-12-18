@@ -23,7 +23,7 @@ const options = {
   type PDFFile = string | File | null;
 
 function TermsAndConditions() {
-    const [file, setFile] = useState<PDFFile>(config.terms_and_conditions);
+    const [file, setFile] = useState<PDFFile>('./docs/terms-and-conditions.pdf');
   const [numPages, setNumPages] = useState<number>();
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>();

@@ -233,10 +233,6 @@
   }
   
 
-  .table-ranking .item .column.td5 {
-    padding-right: 30px;
-  }
-
   #site-header .sc-button span{
     font-size: 0px;
     display: flex;
@@ -603,7 +599,7 @@
   .explode.style2.mg-bt,
   .sc-card-product.explode.style2.mg-bt,
   .sc-card-product  {
-    margin-bottom: 14px;
+    margin-bottom: 0px;
   }
 
   .widget-logo .logo-footer,
@@ -1160,6 +1156,10 @@
 
 }
 @media only screen and (max-width: 768px) {
+
+  .tf-section.live-auctions.home5{
+    padding-bottom: 20px !important;
+  }
   .flat-cart_item.home6{
     padding: 70px 0px 0px 0px;
   }

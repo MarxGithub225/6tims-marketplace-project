@@ -1022,13 +1022,13 @@
     white-space   : nowrap;
     overflow      : hidden;
     text-overflow : ellipsis;
-    max-width     : 70%;
+    /* max-width     : 70%; */
     text-transform: capitalize;
     line-height   : 26px;
 }
 
 .sc-card-product .card-title h5.style2 {
-    max-width: 75%;
+    /* max-width: 75%; */
 }
 
 .sc-card-product .card-title h5:hover {
@@ -1962,7 +1962,7 @@
     white-space  : nowrap;
     overflow     : hidden;
     text-overflow: ellipsis;
-    max-width    : 70%;
+    /* max-width    : 70%; */
 }
 
 .sc-card-product .card-title .tags {
@@ -5642,14 +5642,13 @@ section.today-picks {
     width: 0 !important;
 }
 .seller-tab .menu-sub-tab li {
-    padding: 7px 31px;
+    padding: 7px 11px;
     border-radius: 5px;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
     transition: all .3s ease;
-    background-color: #f7a700;
     cursor: pointer;
 }
 .seller-tab .menu-tab li{
@@ -5667,10 +5666,7 @@ section.today-picks {
     background-color: transparent;
 }
 
-.seller-tab .menu-sub-tab li:hover,
-.seller-tab .menu-sub-tab li.item-title.active {
-    background-color: #f8f8f8;
-}
+
 .seller-tab .menu-tab li:hover,
 .seller-tab .menu-tab li.item-title.active{
     background-color: #E73A5D;
@@ -5678,7 +5674,7 @@ section.today-picks {
 
 .seller-tab .menu-sub-tab li:hover span,
 .seller-tab .menu-sub-tab li.item-title.active span {
-    color: #1F1F2C;
+    color: #E73A5D;
 }
 .seller-tab .menu-tab li:hover span,
 .seller-tab .menu-tab li.item-title.active span{
@@ -5694,7 +5690,7 @@ section.today-picks {
     font-size: 16px;
     line-height: 26px;
     font-weight: 700;
-    color: #FFF;
+    color: #1F1F2C;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     -ms-transition: all .3s ease;

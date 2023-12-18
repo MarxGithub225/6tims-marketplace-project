@@ -23,7 +23,7 @@ const options = {
   type PDFFile = string | File | null;
 
 function ShippingAndReturns() {
-    const [file, setFile] = useState<PDFFile>(config.shipping_and_returns);
+    const [file, setFile] = useState<PDFFile>('./docs/shipping-and-retourns.pdf');
   const [numPages, setNumPages] = useState<number>();
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>();

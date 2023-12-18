@@ -116,7 +116,7 @@ function Exploration() {
             {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
           </div>
           <div className="card-title">
-            <h5 className="style2 line-clamp-1 w-fit"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h5>
+            <h5 className="style2 truncate w-fit"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h5>
             {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
           </div>
           <div className="meta-info">

@@ -23,7 +23,7 @@ const options = {
   type PDFFile = string | File | null;
 
 function TermsOfSale() {
-    const [file, setFile] = useState<PDFFile>(config.terms_of_sale);
+    const [file, setFile] = useState<PDFFile>('./docs/terms-of-sale.pdf');
   const [numPages, setNumPages] = useState<number>();
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>();

@@ -99,7 +99,7 @@ const HotProductCarousel = ({
           onTouchMove={handleTouchMove}
         >
           <div
-            className={`product-carousel-content show-${show} pb-6`}
+            className={`product-carousel-content show-${show} bigTablet:pb-6`}
             style={{
               transform: `translateX(-${currentIndex * intervalle}px)`
             }}

@@ -85,8 +85,8 @@ function HomeCategories() {
     </ul>
     {(selectedCategory?.data && selectedCategory?.data?.length) ?  <ul className="relative bigTablet:px-[50px] mt-[20px] bigTablet:mt-[60px] menu-sub-tab gap-x-4">
       
-          <button type="button" className="w-8 h-8 rounded-full shadow bg-[#E73A5D] absolute top-[5px] right-[15px] cursor-pointer scroll-category-sub shadow-lg right-arrow" onClick={rightScrollSub} />
-          <button type="button" className="w-8 h-8 rounded-full shadow bg-[#E73A5D] absolute top-[5px] left-[15px] cursor-pointer scroll-category-sub shadow-lg left-arrow" onClick={leftScrollSub} />
+          <button type="button" className="w-8 h-8 rounded-full shadow bg-[#E73A5D] absolute top-[0px] right-[15px] cursor-pointer scroll-category-sub shadow-lg right-arrow" onClick={rightScrollSub} />
+          <button type="button" className="w-8 h-8 rounded-full shadow bg-[#E73A5D] absolute top-[0px] left-[15px] cursor-pointer scroll-category-sub shadow-lg left-arrow" onClick={leftScrollSub} />
           {selectedCategory?.data?.map((data: any, key: number) => {
             return <li key={key} 
         onClick={() => {

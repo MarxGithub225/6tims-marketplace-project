@@ -8,6 +8,7 @@ import CategoryCarousel from "../../Components/CategoryCarousel/CategoryCarousel
 import useSeller from "../../hooks/useSeller";
 import { Link } from "react-router-dom";
 import { config } from "../../utilities/helper";
+import FeaturesCarousel from "../../Components/FeaturesCarousel/FeaturesCarousel";
 interface TopSellersProps {
   hideMoreButton?: boolean
 }
@@ -25,45 +26,45 @@ function TopSellers({hideMoreButton=false} : TopSellersProps) {
             return result?.docs
         }
     })
-  return <section className="tf-section top-seller home6 s2 mobie-style">
+  return <>
+
+<div className="tf-connect-wallet tf-section feature-style">
   <div className="themesflat-container">
     <div className="row">
-    {(data && data?.length) ? <div className="col-md-12">
-        <h2 className="tf-title style2 mb-25 text-left">Top Vendeurs</h2>
-        <div className="flat-tabs seller-tab style3 tablet-30">
-           
-            <div className="content-tab mg-t-24">
-                <div className="content-inner">
-                <div className="swiper-container seller">
-                        <CategoryCarousel>
-                        {data.map((seller: Seller, key: number) => {
-                            return <div className="slider-item" key={key}>										
-                            <div className="sc-author-box style-2">
-                            <div className="author-avatar">
-                                <img className="rounded-lg" src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} />
-                                <div className="badge" />
-                            </div>
-                            <div className="author-infor">
-                                <h5><Link to={`seller/${seller._id}`}>{seller.companyInfo.companyName}</Link></h5>
-                                {seller.soldNumber > 0 && <span className="price">{seller.soldNumber} PDTS</span>}
-                            </div>
-                            </div>    	
-                        </div>
-                        })}
-                        </CategoryCarousel>
-                    </div>
-                </div>
+      <div className="col-12">
+        <h2 className="tf-title-heading ct style-2 mg-bt-12">
+        Top Vendeurs
+        </h2>
+      </div>
+      {(data && data?.length) ?  <div className="col-md-12">
+        <div className="sc-box-icon-inner style-2 hidden bigTablet:flex">
+            {data.map((seller: Seller, key: number) => {
+            return <Link to={`/seller/${seller._id}`} key={key} className="sc-box-icon">
+            <div className="img flex justify-center">
+            <img className="rounded-lg w-[54px] h-[54px] " src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} />
             </div>
+            <h4 className="heading"><Link to={`/seller/${seller._id}`}>{seller.companyInfo.companyName}</Link></h4>
+          </Link>
+          })}
           
         </div> 
-
-        {!hideMoreButton && (data.length > 9) && <div className="col-md-12 wrap-inner load-more text-center">
-          <Link to="/sellers"  className="sc-button loadmore fl-button pri-3"><span>Tous nos vendeurs</span></Link>
-        </div>}
-      </div>: <></>}
-    </div>
-  </div>     
-</section>;
+        <div className="sc-box-icon-inner style-2 block bigTablet:hidden">
+        <FeaturesCarousel>
+        {data.map((seller: Seller, key: number) => {
+            return <Link to={`/seller/${seller._id}`} key={key} className="sc-box-icon">
+            <div className="img flex justify-center">
+            <img className="rounded-lg w-[54px] h-[54px] " src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} />
+            </div>
+            <h4 className="heading"><Link to={`/seller/${seller._id}`}>{seller.companyInfo.companyName}</Link></h4>
+          </Link>
+          })}
+          </FeaturesCarousel>
+        </div>  
+      </div> : <></>}
+    </div>              
+  </div>
+</div>
+</>;
 }
 
 export default TopSellers;

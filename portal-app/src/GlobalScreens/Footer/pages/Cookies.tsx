@@ -23,7 +23,7 @@ const options = {
   type PDFFile = string | File | null;
 
 function Cookies() {
-    const [file, setFile] = useState<PDFFile>(config.cookies);
+    const [file, setFile] = useState<PDFFile>('./docs/cookies.pdf');
   const [numPages, setNumPages] = useState<number>();
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>();

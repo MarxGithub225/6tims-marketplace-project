@@ -5687,10 +5687,10 @@ section.today-picks {
 }
 
 .seller-tab .menu-sub-tab li span {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 26px;
-    font-weight: 700;
-    color: #1F1F2C;
+    font-weight: 600;
+    color: #1f1f2ccb;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     -ms-transition: all .3s ease;

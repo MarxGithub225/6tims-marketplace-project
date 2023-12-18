@@ -406,9 +406,9 @@ const getProductById = () => {
                 <div className="divider d2" />
                 <div className="w-[100%]  bigTablet:w-[600px]">
                 <div id="comments" ref = {reviewRef} >
-                <h3 className="heading mg-bt-23">
+                <h2 className="heading mg-bt-23">
                     Laisser un commentaire
-                </h3>
+                </h2>
                 <div id="commentform" className="comment-form">
                     <CustomSelect
                     rounded="rounded-[4px]"

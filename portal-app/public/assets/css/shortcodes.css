@@ -4899,6 +4899,8 @@ section.today-picks {
     justify-content: space-between;
     border-bottom: 1px solid #EBEBEB;
     padding-bottom: 23px;
+    padding-left: 20px;
+    padding-right: 27px;
     margin-bottom: 28px;
 }
 
@@ -4977,41 +4979,21 @@ section.today-picks {
     width: 16.3%;
 }
 
-.table-ranking .item .column.td2{
-    padding-left: 33px;
-}
-
 .table-ranking .item .column.td2 span{
     color: #47A432;
 }
 
-.table-ranking .item .column.td3{
-    padding-left: 41px;
-}
 
 .table-ranking .item .column.td3 span{
     color: #DF4949;
 }
 
-.table-ranking .item .column.td4{
-    padding-left: 33px;
-}
-
-.table-ranking .item .column.td5{
-    padding-right: 40px;
-    text-align: right;
-}
-
-.table-ranking .item .column.td6{
-    padding-right: 11px;
-    text-align: right;
-}
 
 .content-collection{
     width: 73%;
 }
-.table-ranking .th-title .column1{
-    width: 22.5%;
+.table-ranking .th-title .column{
+    width: 16.3%;
 }
 
 /* Modal Popup  */
@@ -5642,11 +5624,34 @@ section.today-picks {
     scrollbar-width: none;
 }
 
-.seller-tab .menu-tab::-webkit-scrollbar{
+.seller-tab .menu-sub-tab{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.seller-tab .menu-tab::-webkit-scrollbar,
+.seller-tab .menu-sub-tab::-webkit-scrollbar{
     display: none;
     width: 0 !important;
-  }
-
+}
+.seller-tab .menu-sub-tab li {
+    padding: 7px 31px;
+    border-radius: 5px;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+    background-color: #f7a700;
+    cursor: pointer;
+}
 .seller-tab .menu-tab li{
     padding: 7px 31px;
     border-radius: 100px;
@@ -5662,11 +5667,19 @@ section.today-picks {
     background-color: transparent;
 }
 
+.seller-tab .menu-sub-tab li:hover,
+.seller-tab .menu-sub-tab li.item-title.active {
+    background-color: #f8f8f8;
+}
 .seller-tab .menu-tab li:hover,
 .seller-tab .menu-tab li.item-title.active{
     background-color: #E73A5D;
 }
 
+.seller-tab .menu-sub-tab li:hover span,
+.seller-tab .menu-sub-tab li.item-title.active span {
+    color: #1F1F2C;
+}
 .seller-tab .menu-tab li:hover span,
 .seller-tab .menu-tab li.item-title.active span{
     color: #fff;
@@ -5677,6 +5690,17 @@ section.today-picks {
     background-color: #343444;
 }
 
+.seller-tab .menu-sub-tab li span {
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 700;
+    color: #FFF;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
 .seller-tab .menu-tab li span{
     font-size: 16px;
     line-height: 26px;

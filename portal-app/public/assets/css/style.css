@@ -768,15 +768,15 @@ h6 {
     }
   
     h2 {
-        font-size: 16px !important;
+        font-size: 20px !important;
     }
   
     h3 {
-        font-size: 12px !important;
+        font-size: 16px !important;
     }
   
     h4 {
-        font-size: 10px !important;
+        font-size: 18px !important;
     }
   
     h5 {
@@ -784,7 +784,7 @@ h6 {
     }
   
     h6 {
-        font-size: 15px !important;
+        font-size: 14px !important;
     }
   }
 .fs-16 {
@@ -1834,7 +1834,7 @@ header{
     font-size    : 18px;
     line-height  : 26px;
     font-weight  : 700;
-    color        : #f7a700;
+    color        : #1F1F2C;
     padding-right: 15.5px;
 }
 
@@ -1935,7 +1935,7 @@ header{
     display: none;
 }
 #main-nav>ul>li>a:hover {
-    color: #fff;
+    color: #f7a700;
 }
 
 #main-nav>ul>li .sub-menu li {

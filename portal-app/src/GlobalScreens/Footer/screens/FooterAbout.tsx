@@ -11,7 +11,7 @@ function FooterAbout() {
     <p className="sub-widget-logo">
         <strong>Tim’s est une société technologique africaine.</strong>
         <br/>
-        Avec la Marketplace <strong><ul>6tims.com</ul></strong> nous envisageons de devenir la plateforme de référence en matière de commerce électronique sur le Contient, où les utilisateurs achètent en toute confiance..</p>
+        Avec la Marketplace <strong>6tims.com</strong> nous envisageons de devenir la plateforme de référence en matière de commerce électronique sur le Contient, où les utilisateurs achètent en toute confiance..</p>
   </div>
 </div>;
 }

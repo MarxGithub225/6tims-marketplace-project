@@ -162,7 +162,7 @@ function Profile() {
     <div className="flat-tabs tab-create-item mt-[30px] intermWidth:mt-[0px]">
     <div className="content-tab">
         <div className="content-inner">
-            <h4 className="title-create-item mb-[20px]">Informations personnelles</h4>
+            <h4 className="title-create-item mb-[20px] uppercase">Informations personnelles</h4>
             <div>
                 <div className="row-form style-3">
                     <div className="inner-row-form">
@@ -251,7 +251,7 @@ function Profile() {
             </div>
         </div>
         <div className="content-inner mt-[30px] ">
-            <h4 className="title-create-item mb-[20px]">Changer de mot de passe</h4>
+            <h4 className="title-create-item mb-[20px] uppercase">Changer de mot de passe</h4>
             <div>
                 <h4 className="title-create-item">Mot de passe actuel</h4>
                 <input type="password" className="mb-[24px]" id="oldPassword" name="oldPassword" placeholder="******" value={passData?.oldPassword}

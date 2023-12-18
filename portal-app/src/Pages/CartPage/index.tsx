@@ -90,26 +90,9 @@ function CartPage() {
       </div>
       <div className="col-lg-4 col-md-4 col-12">
         <div className="order-resume w-full">
-        <div className="price-item">
-            <div className="price-item-label">
-              Sous total
-            </div>
-            <div className="price-item-value">
-            {totalState?.toString()} DH
-            </div>
-          </div>
-          <div className="price-item">
-            <div className="price-item-label">
-              Côut de livraison
-            </div>
-            <div className="price-item-value">
-              {shipingFees?.toString()} DH
-            </div>
-          </div>
-
           <div className="total-amount">
-            <div className="total-amount-label">
-              Total
+            <div className="total-amount-label font-bold">
+              Côut total (livraison incluse)
             </div>
 
             <div className="total-amount-value">

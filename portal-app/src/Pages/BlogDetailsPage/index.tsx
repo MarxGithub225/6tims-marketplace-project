@@ -210,7 +210,7 @@ function BlogDetailsPage() {
             </div>
           </div>     */}
           <div className="divider d2" />
-          <div className="w-[600px]">
+          <div className="w-[100%]  bigTablet:w-[600px]">
             <div id="comments" ref = {reviewRef}>
               <h3 className="heading mg-bt-23">
                 Leave A Comment

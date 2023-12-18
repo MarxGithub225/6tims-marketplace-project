@@ -35,9 +35,9 @@ function HomeHotProducts () {
       <div className="row">
         <div className="col-md-12">
           <div className="heading-live-auctions">
-            <h2 className="tf-title pb-23">
+            <h2 className="tf-title pb-23 w-fit truncate">
               Les produits chauds du moment</h2>
-              {allCount > 5 && <Link to="/hot-exploration" className="exp style2">DECOUVRIR PUS</Link>}
+              {allCount > 5 && <Link to="/hot-exploration" className="exp style2">VOIR PUS</Link>}
           </div>
         </div>
         <div className="col-md-12">

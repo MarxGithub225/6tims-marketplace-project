@@ -312,26 +312,9 @@ function CheckoutPage() {
       </div>
       <div className="col-lg-4 col-md-4 col-12">
         <div className="order-resume w-full">
-          <div className="price-item">
-            <div className="price-item-label">
-              Sous total
-            </div>
-            <div className="price-item-value">
-            {totalState?.toString()} DH
-            </div>
-          </div>
-          <div className="price-item">
-            <div className="price-item-label">
-              Côut de livraison
-            </div>
-            <div className="price-item-value">
-              {shipingFees?.toString()} DH
-            </div>
-          </div>
-
           <div className="total-amount">
-            <div className="total-amount-label">
-              Total
+            <div className="total-amount-label font-bold">
+            Côut total (livraison incluse)
             </div>
 
             <div className="total-amount-value">
@@ -368,7 +351,7 @@ function CheckoutPage() {
           <span aria-hidden="true">×</span>
         </button>
         <div className="modal-body space-y-5 pd-40">
-          <h3 className="text-center">Votre commande a été ajoutée avec succès!</h3>
+          <h3 className="text-center uppercase text-bold text-[#5cb85c] ">Votre commande a été ajoutée avec succès!</h3>
           <p className="text-center">Nous procédons à votre livraison dans de plus bref délais. Merci de votre confiance.</p>
           <a href="/profile/orders" className="btn btn-primary"> Voire ma commande </a>
         </div>

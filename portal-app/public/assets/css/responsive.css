@@ -231,11 +231,7 @@
   .table-ranking .th-title .column1{
     width: 30%;
   }
-  .table-ranking .item .column.td2,
-  .table-ranking .item .column.td3,
-  .table-ranking .item .column.td4{
-    padding-left: 15px;
-  }
+  
 
   .table-ranking .item .column.td5 {
     padding-right: 30px;
@@ -1164,6 +1160,18 @@
 
 }
 @media only screen and (max-width: 768px) {
+  .flat-cart_item.home6{
+    padding: 70px 0px 0px 0px;
+  }
+
+  .header_2.style2 .flat-search-btn {
+    /* right: 132px; dark margin */
+    padding: 7px 0px;
+  }
+
+  .header_1.header_2.style2 #site-logo {
+    height: 60px !important;
+  }
   .seller-tab .menu-tab{
     position: relative;
     top: 0 !important;

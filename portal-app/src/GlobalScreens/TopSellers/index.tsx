@@ -32,18 +32,18 @@ function TopSellers({hideMoreButton=false} : TopSellersProps) {
   <div className="themesflat-container">
     <div className="row">
       <div className="col-12">
-        <h2 className="tf-title-heading ct style-2 mg-bt-12">
+        <h2 className="tf-title-heading style-2 mb-[20px]">
         Top Vendeurs
         </h2>
       </div>
       {(data && data?.length) ?  <div className="col-md-12">
         <div className="sc-box-icon-inner style-2 hidden bigTablet:flex">
             {data.map((seller: Seller, key: number) => {
-            return <Link to={`/seller/${seller._id}`} key={key} className="sc-box-icon">
+            return <Link to={`/seller/${seller._id}`} key={key} className="sc-box-icon h-fit">
             <div className="img flex justify-center">
             <img className="rounded-lg w-[54px] h-[54px] " src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} />
             </div>
-            <h4 className="heading"><Link to={`/seller/${seller._id}`}>{seller.companyInfo.companyName}</Link></h4>
+            <h6 className="heading truncate lowercase"><Link to={`/seller/${seller._id}`}>{seller.companyInfo.companyName}</Link></h6>
           </Link>
           })}
           
@@ -51,11 +51,11 @@ function TopSellers({hideMoreButton=false} : TopSellersProps) {
         <div className="sc-box-icon-inner style-2 block bigTablet:hidden">
         <FeaturesCarousel>
         {data.map((seller: Seller, key: number) => {
-            return <Link to={`/seller/${seller._id}`} key={key} className="sc-box-icon">
+            return <Link to={`/seller/${seller._id}`} key={key} className="sc-box-icon h-fit">
             <div className="img flex justify-center">
             <img className="rounded-lg w-[54px] h-[54px] " src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} />
             </div>
-            <h4 className="heading"><Link to={`/seller/${seller._id}`}>{seller.companyInfo.companyName}</Link></h4>
+            <h6 className="heading truncate lowercase"><Link to={`/seller/${seller._id}`}>{seller.companyInfo.companyName}</Link></h6>
           </Link>
           })}
           </FeaturesCarousel>

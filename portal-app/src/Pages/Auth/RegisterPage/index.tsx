@@ -147,7 +147,7 @@ const upsertMutation = useMutation({
           <h2 className="tf-title-heading ct style-1">
           Créer votre compte sur 6tims
           </h2>
-          <div className="flat-form box-login-social">
+          {/* <div className="flat-form box-login-social">
             <div className="box-title-login">
               <h5>Réseau social</h5>
             </div>
@@ -165,11 +165,11 @@ const upsertMutation = useMutation({
                 </a>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div className="flat-form box-login-email">
-            <div className="box-title-login">
+            {/* <div className="box-title-login">
               <h5>Ou</h5>
-            </div>
+            </div> */}
             <div className="form-inner">
               <form action="#" id="contactform">
                 <div className="flex items-center gap-4">
@@ -184,10 +184,10 @@ const upsertMutation = useMutation({
                   value={currentSetting.gender}
                  options={[
                   {
-                      name: 'man', value: 'man'
+                      name: 'Homme', value: 'man'
                   },
                   {
-                      name: 'woman', value: 'woman'
+                      name: 'Femme', value: 'woman'
                   }
                 ]}
                 onChange={handleSelectChangeGender}
@@ -230,7 +230,7 @@ const upsertMutation = useMutation({
                   placeholder="Confirmation" />
                 </div>
 
-                <div className="custom-input-group my-5">
+                {/* <div className="custom-input-group my-5">
                     <div className="custom-input-group-label text-[17px] ">Choisir une icône</div>
                     <div className="mt-4 w-full grid grid-cols-5 gap-4">
                     {iconData?.map((icon: Icon, key: number) => {
@@ -257,7 +257,7 @@ const upsertMutation = useMutation({
                     </div>
                     })}
                     </div>
-                </div>
+                </div> */}
                 
                 <CustumButton
                 label="Créer votre compte"
@@ -274,7 +274,6 @@ const upsertMutation = useMutation({
                   currentSetting.address.city.trim() === ""||
                   currentSetting.address.zipCode.trim() === ""||
                   currentSetting.password.trim() === ""||
-                  !currentSetting.imageId ||
                   currentSetting.password !== confirmation
                 }
                 />

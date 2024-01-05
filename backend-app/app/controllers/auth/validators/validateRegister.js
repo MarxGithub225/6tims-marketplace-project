@@ -53,12 +53,7 @@ const validateRegister = [
       min: 5
     })
     .withMessage('PASSWORD_TOO_SHORT_MIN_5'),
-  check('imageId')
-    .exists()
-    .withMessage('MISSING')
-    .not()
-    .isEmpty()
-    .withMessage('IS_EMPTY'),
+  check('imageId').exists().withMessage('MISSING').not(),
   check('address.phone')
     .exists()
     .withMessage('MISSING')

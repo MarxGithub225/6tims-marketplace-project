@@ -35,10 +35,13 @@ function HomeHotProducts () {
       <div className="row">
         <div className="col-md-12">
           <div className="heading-live-auctions">
-            <h2 className="tf-title pb-23 w-fit truncate">
+            <h2 className="tf-title pb-[0px] bigTablet:pb-[23px] w-fit truncate">
               Les produits chauds du moment</h2>
-              {allCount > 5 && <Link to="/hot-exploration" className="exp style2">VOIR PUS</Link>}
+              {allCount > 5 && <Link to="/hot-exploration" className="exp style2 hidden bigTablet:block">VOIR PUS</Link>}
           </div>
+          {allCount > 5 && <div className="heading-live-auctions flex bigTablet:hidden mt-3">
+             <Link to="/hot-exploration" className="exp style2">VOIR PUS</Link>
+          </div>}
         </div>
         <div className="col-md-12">
           {(data && data?.length) ? <div className="swiper-container carousel8 pt-4 auctions">

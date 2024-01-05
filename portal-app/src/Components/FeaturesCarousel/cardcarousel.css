@@ -67,6 +67,6 @@
 
 .category-carousel-content.show-2 > * {
   flex: 1 0 calc(50% - 30px);
-  --gap: 15px !important;
-  margin: var(--gap) 15px 0 var(--gap);
+  --gap: 8px !important;
+  margin: 0px 8px 0 var(--gap);
 }

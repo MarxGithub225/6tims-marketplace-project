@@ -106,7 +106,7 @@ function SellerPage() {
             <div className="flat-tabs tab-authors">
                 <div className="author-profile flex">
                     <div className="feature-profile">
-                    <img className="rounded-3xl" src={data.personnalInfo?.image ? `${API_FILE_URL}/icons/${data?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${data.companyInfo.companyName}`} />
+                    <img className="rounded-3xl w-full" src={data.personnalInfo?.image ? `${API_FILE_URL}/icons/${data?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${data.companyInfo.companyName}`} />
                     </div>
                     <div className="infor-profile">
                     <span>Profile vendeur</span>
@@ -127,7 +127,7 @@ function SellerPage() {
                             }}
                         >TOUS</li>
                         {dataCategories ? 
-                        dataCategories.map((data: any, key: number) => {
+                        dataCategories.slice(0, 3).map((data: any, key: number) => {
                             return <li key={key} 
                             onClick={() => {
                             setSelected({
@@ -142,7 +142,7 @@ function SellerPage() {
                     </ul>
                     <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-[20px] right-[15px] cursor-pointer scroll-category right-arrow" onClick={rightScroll} />
 
-                <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-[20px] left-[15px] cursor-pointer scroll-category left-arrow" onClick={leftScroll} />
+                    <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-[20px] left-[15px] cursor-pointer scroll-category left-arrow" onClick={leftScroll} />
                 </div>
             
                 <div className="content-tab">
@@ -152,7 +152,7 @@ function SellerPage() {
                         <>
                         {page.map((product: Product, key: number) => {
                         return <div key={key}  className="col-xl-3 col-lg-4 col-md-6 col-12">
-                                <div className="sc-card-product explode ">
+                                <div className="sc-card-product sc-card-product-margin-bottom explode ">
                                     <div className="card-media active">
                                     <Link to={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></Link>
                                     

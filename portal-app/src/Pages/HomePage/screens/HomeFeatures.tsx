@@ -91,7 +91,7 @@ function HomeFeatures() {
               </svg>                                      
             </div>
             <h3 className="heading"><a href="connect-wallet.html">Paiement sécurisé</a></h3>
-            <p className="content">Nous garantissions la sécurité de vos données.</p>
+            <p className="content">Vos données sont sécurisées.</p>
           </div>
       </FeaturesCarousel>  
     </div>         

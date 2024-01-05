@@ -43,12 +43,7 @@ const validateCreateUser = [
     .withMessage('IS_EMPTY')
     .isIn(['man', 'woman'])
     .withMessage('USER_NOT_IN_KNOWN_GENDER'),
-  check('imageId')
-    .exists()
-    .withMessage('MISSING')
-    .not()
-    .isEmpty()
-    .withMessage('IS_EMPTY'),
+  check('imageId').exists().withMessage('MISSING').not(),
   check('address.phone')
     .exists()
     .withMessage('MISSING')

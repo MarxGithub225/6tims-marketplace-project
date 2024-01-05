@@ -48,7 +48,7 @@ function HomeBanners() {
   containerClass="swiper-container carousel8 pt-4 auctions"
   removeArrowOnDeviceType={["tablet", "mobile"]}
   dotListClass="custom-dot-list-style"
-  itemClass="px-[15px]"
+  itemClass="px-[0px] bigTablet:px-[15px]"
 >
     {data?.map((data: Banner, key: number) => {
         return <Link to={`${data.link}`} className="slider-item" key={key}>	

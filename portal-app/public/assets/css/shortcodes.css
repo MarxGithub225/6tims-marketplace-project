@@ -540,6 +540,10 @@
     background: var(--primary-color);
 }
 
+.style-2 .sc-box-icon:first-child {
+    margin-left: 0px;
+}
+
 .style-3 .sc-box-icon.mgbt-0,
 .style-3 .sc-box-icon.mgbt-0,
 .style-2 .sc-box-icon.mgbt-0 {
@@ -3678,7 +3682,7 @@ section.today-picks {
 }
 
 .tf-item-details .content-right p {
-    font-size  : 14px;
+    font-size  : 15px;
     line-height: 22px;
 }
 
@@ -5245,7 +5249,7 @@ section.today-picks {
 
 .wrap-cart .cart_item .inner-cart{
     position: relative;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
     border-radius: 12px;
     overflow: hidden;
 }
@@ -5653,7 +5657,7 @@ section.today-picks {
 }
 .seller-tab .menu-tab li{
     padding: 7px 31px;
-    border-radius: 100px;
+    border-radius: 5px;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     -ms-transition: all .3s ease;

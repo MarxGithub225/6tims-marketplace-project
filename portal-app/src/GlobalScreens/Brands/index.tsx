@@ -27,21 +27,21 @@ function Brands() {
   <div className="themesflat-container">
     <div className="row">
       <div className="col-12">
-        <h2 className="tf-title-heading ct style-2 mg-bt-12">
+        <h2 className="tf-title-heading style-2 mg-bt-12">
           Nos partenaires
         </h2>
-        <h5 className="sub-title ct style-1 pad-400">
+        <h5 className="sub-title style-1">
           Les grandes marques nous font confiance.
         </h5>
       </div>
       {(data && data?.length) ?  <div className="col-md-12">
         <div className="sc-box-icon-inner style-2 hidden bigTablet:flex">
           {data.map((partner: Partner, key: number) => {
-            return <Link to={`/partner/${partner.seller._id}`} key={key} className="sc-box-icon">
+            return <Link to={`/partner/${partner.seller._id}`} key={key} className="sc-box-icon h-fit">
             <div className="img flex justify-center">
             <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
-            <h4 className="heading"><Link to={`/partner/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</Link></h4>
+            <h6 className="heading truncate lowercase"><Link to={`/partner/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</Link></h6>
           </Link>
           })}
           
@@ -49,11 +49,11 @@ function Brands() {
         <div className="sc-box-icon-inner style-2 block bigTablet:hidden">
         <FeaturesCarousel>
         {data.map((partner: Partner, key: number) => {
-            return <Link to={`/partner/${partner.seller._id}`} key={key} className="sc-box-icon">
+            return <Link to={`/partner/${partner.seller._id}`} key={key} className="sc-box-icon h-fit">
             <div className="img flex justify-center">
             <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
-            <h4 className="heading"><Link to={`/partner/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</Link></h4>
+            <h6 className="heading truncate lowercase"><Link to={`/partner/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</Link></h6>
           </Link>
           })}
           </FeaturesCarousel>

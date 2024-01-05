@@ -46,7 +46,7 @@ function LoginPage() {
         <h2 className="tf-title-heading ct style-1">
           Se connecter à 6tims
         </h2>
-        <div className="flat-form box-login-social">
+        {/* <div className="flat-form box-login-social">
           <div className="box-title-login">
             <h5>Réseau social</h5>
           </div>
@@ -64,11 +64,11 @@ function LoginPage() {
               </a>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div className="flat-form box-login-email">
-          <div className="box-title-login">
+          {/* <div className="box-title-login">
             <h5>Ou</h5>
-          </div>
+          </div> */}
           <div className="form-inner">
             <form action="#" id="contactform">
               <input id="email" name="name" tabIndex={1}  

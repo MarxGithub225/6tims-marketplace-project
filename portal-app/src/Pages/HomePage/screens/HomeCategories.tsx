@@ -67,7 +67,7 @@ function HomeCategories() {
     }
   return <div className="col-md-12">
   {/* <h2 className="tf-title style2 mb-25 text-left">Catégories</h2> */}
-  <div className="flat-tabs seller-tab style3 mt-[16px] bigTablet:mt-[40px] tablet-30">
+  <div className="flat-tabs seller-tab style3 mt-[16px] bigTablet:mt-[40px]">
     <ul className="menu-tab gap-x-4">
       {data ? 
       data.map((data: any, key: number) => {

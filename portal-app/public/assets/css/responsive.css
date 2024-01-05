@@ -601,6 +601,9 @@
   .sc-card-product  {
     margin-bottom: 0px;
   }
+  .sc-card-product-margin-bottom {
+    margin-bottom: 20px;
+  }
 
   .widget-logo .logo-footer,
   .widget-menu .title-widget,
@@ -912,8 +915,8 @@
   .header_1.header_2.style2 #site-logo #site-logo-inner{
     top: 50% !important;
   }
-  .flat-title-page{
-    padding-top: 95px;
+  .flat-title-page.inner{
+    padding: 75px 0 9px;
   }
 
   .flat-title-page.style-3{
@@ -1157,6 +1160,9 @@
 }
 @media only screen and (max-width: 768px) {
 
+  .style-2 .sc-box-icon:first-child {
+    margin-left: 10px;
+  }
   .tf-section.live-auctions.home5{
     padding-bottom: 20px !important;
   }

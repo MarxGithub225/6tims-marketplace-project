@@ -712,6 +712,11 @@
   }
   .tf-soft {
     flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .tab-authors .content-tab {
+    margin-top: 5px !important;
   }
   .flat-title-page.style3 .heading {
     font-size: 50px;
@@ -820,6 +825,10 @@
   .tf-section.top-seller.home3.s2,
   .tf-section.live-auctions.pad-b-74 {
     padding: 25px 0px;
+  }
+
+  .no-mobile-top-padding {
+    padding: 0px 0px 25px 0px !important;
   }
 
   .tf-section.tf-item-details,
@@ -1043,7 +1052,7 @@
   .wrap-box.explore-1 .dropdown,
   .meta-item-details .item.meta-price,
   .style-2 .sc-box-icon {
-    margin-bottom: 20px !important;
+    margin-bottom: 5px !important;
   }
 
   .today-pick-tab .menu-tab li,

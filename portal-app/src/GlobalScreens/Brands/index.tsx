@@ -39,7 +39,7 @@ function Brands() {
           {data.map((partner: Partner, key: number) => {
             return <Link to={`/partner/${partner.seller._id}`} key={key} className="sc-box-icon h-fit">
             <div className="img flex justify-center">
-            <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
+            <img className="rounded-lg w-full h-auto " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
             <h6 className="heading truncate lowercase"><Link to={`/partner/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</Link></h6>
           </Link>
@@ -51,7 +51,7 @@ function Brands() {
         {data.map((partner: Partner, key: number) => {
             return <Link to={`/partner/${partner.seller._id}`} key={key} className="sc-box-icon h-fit">
             <div className="img flex justify-center">
-            <img className="rounded-lg w-[54px] h-[54px] " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
+            <img className="rounded-lg w-full h-auto " src={partner.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${partner.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${partner.seller.companyInfo.companyName}`} />
             </div>
             <h6 className="heading truncate lowercase"><Link to={`/partner/${partner.seller._id}`}> {partner.seller.companyInfo.companyName}</Link></h6>
           </Link>

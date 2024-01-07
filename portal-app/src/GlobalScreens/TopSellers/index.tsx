@@ -28,11 +28,11 @@ function TopSellers({hideMoreButton=false} : TopSellersProps) {
     })
   return <>
 
-<div className="tf-connect-wallet tf-section feature-style">
+<div className="tf-connect-wallet tf-section feature-style no-mobile-top-padding">
   <div className="themesflat-container">
     <div className="row">
       <div className="col-12">
-        <h2 className="tf-title-heading style-2 mb-[20px]">
+        <h2 className="tf-title-heading style-2 mb-[12px] bigTablet:mb-[20px]">
         Top Vendeurs
         </h2>
       </div>
@@ -41,7 +41,7 @@ function TopSellers({hideMoreButton=false} : TopSellersProps) {
             {data.map((seller: Seller, key: number) => {
             return <Link to={`/seller/${seller._id}`} key={key} className="sc-box-icon h-fit">
             <div className="img flex justify-center">
-            <img className="rounded-lg w-[54px] h-[54px] " src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} />
+            <img className="rounded-lg w-full h-auto " src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} />
             </div>
             <h6 className="heading truncate lowercase"><Link to={`/seller/${seller._id}`}>{seller.companyInfo.companyName}</Link></h6>
           </Link>
@@ -53,7 +53,7 @@ function TopSellers({hideMoreButton=false} : TopSellersProps) {
         {data.map((seller: Seller, key: number) => {
             return <Link to={`/seller/${seller._id}`} key={key} className="sc-box-icon h-fit">
             <div className="img flex justify-center">
-            <img className="rounded-lg w-[54px] h-[54px] " src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} />
+            <img className="rounded-lg w-full h-auto " src={seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${seller.companyInfo.companyName}`} />
             </div>
             <h6 className="heading truncate lowercase"><Link to={`/seller/${seller._id}`}>{seller.companyInfo.companyName}</Link></h6>
           </Link>

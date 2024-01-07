@@ -2,45 +2,7 @@ import React, { useState } from "react";
 import PageHeader from "../../PageHeader";
 
 function ContactUs() {
-    const [activeFaq, setActiveFaq] = useState<number>(0)
-const faqData = [
-    {
-        header: "Quels sont les moyens de paiement  acceptés ?",
-        responses: [
-            "Paiement par carte bancaire (Visa, MasterCard, Paypal)",
-            "Prélèvement à l’expédition"
-        ],
-        list: true
-    },
-    {
-        header: "L'assistance à la clientèle est disponible ?",
-        responses: [
-            "Nous vous assitons tous les jours de la semaine 24h/24."
-        ],
-        list: false
-    },
-    {
-        header: "Comment retourner ma commande ?",
-        responses: [
-            "Pour toute erreur constatée sur l’un de nos produits, vous pouvez nous le faire savoir depuis notre adresse email."
-        ],
-        list: false
-    },
-    {
-        header: "Délai de remboursement ?",
-        responses: [
-            "Lorsqu’un article ne satisfait pas à votre commande soit pour défaut de fabrication ou erreur d’article, un autre article de la même catégorie vous est proposé."
-        ],
-        list: false
-    },
-    {
-        header: "En combien de temps s’effectue la livraison ?",
-        responses: [
-            "La livraison de votre article s'éffectue dans un intervale de 0 à 72h."
-        ],
-        list: false
-    }
-]
+
   return <>
     <PageHeader
     header="Contactez-nous"

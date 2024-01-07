@@ -83,11 +83,11 @@ function HomeExplore() {
             return result?.docs
         }
     })
-  return <section className="tf-section live-auctions style3 home5 mobie-pb-70 bg-style3">
+  return <section className="tf-section live-auctions style3 home5 mobie-pb-70 bg-style3 no-mobile-top-padding">
   <div className="themesflat-container">
   {(data && data?.pages) ?  <div className="row">
       <div className="col-md-12">
-        <div className="heading-live-auctions mg-bt-24">
+        <div className="heading-live-auctions mb-[0px] bigTablet:mb-[24px] ">
           <h2 className="tf-title">
             Tous nos produits</h2>
         </div>

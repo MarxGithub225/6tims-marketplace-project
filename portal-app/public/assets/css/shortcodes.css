@@ -3357,7 +3357,7 @@ section.today-picks {
     -ms-border-radius: 12px 12px 0 0;
     -o-border-radius: 12px 12px 0 0;
     -moz-border-radius: 12px 12px 0 0;
-     border-radius: 12px 12px 0 0;
+     border-radius: 12px;
      padding: 2.8% 2.8% 2.5% 2.8%;
     position: relative;
 }
@@ -5846,7 +5846,7 @@ section.today-picks {
 } 
 
 .live-auctions.style3.home5 .sc-card-product {
-    margin-bottom: 41px;
+    margin-bottom: 21px;
 }
 
 

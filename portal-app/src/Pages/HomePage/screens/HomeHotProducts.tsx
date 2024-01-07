@@ -30,7 +30,7 @@ function HomeHotProducts () {
             return result?.docs
         }
     })
-    return <section className="tf-section live-auctions home5 style2 bg-style3">
+    return <section className="tf-section no-mobile-top-padding live-auctions home5 style2 bg-style3">
     <div className="themesflat-container">
       <div className="row">
         <div className="col-md-12">
@@ -44,7 +44,7 @@ function HomeHotProducts () {
           </div>}
         </div>
         <div className="col-md-12">
-          {(data && data?.length) ? <div className="swiper-container carousel8 pt-4 auctions">
+          {(data && data?.length) ? <div className="swiper-container carousel8 pt-0 bigTablet:pt-4 auctions">
             <HotProductCarousel>
             {data.map((product: Product, key: number) => {
                 return <div className="slider-item" key={key}>										

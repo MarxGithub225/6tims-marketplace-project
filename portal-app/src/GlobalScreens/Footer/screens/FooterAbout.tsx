@@ -8,10 +8,12 @@ function FooterAbout() {
         <img id="logo_footer" src={logo} alt="nft-gaming" width={135} height={56} data-retina="assets/images/logo/logo_dark@2x.png" data-width={135} data-height={56} />
       </a>
     </div>
+    
+
     <p className="sub-widget-logo">
-        <strong>Tim’s est une société technologique africaine.</strong>
+        <strong>Tim’s Group est une Entreprise Technologique.</strong>
         <br/>
-        Avec la Marketplace <strong>6tims.com</strong> nous envisageons de devenir la plateforme de référence en matière de commerce électronique sur le Contient, où les utilisateurs achètent en toute confiance..</p>
+        Notre ambition est de créer une Entreprise durable et prospère axée sur l’Innovation et la Haute Technologie afin d’accélérer la Transition Numérique sur le Continent.</p>
   </div>
 </div>;
 }

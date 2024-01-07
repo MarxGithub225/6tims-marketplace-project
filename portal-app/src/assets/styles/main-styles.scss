@@ -645,115 +645,89 @@ a {
     align-items: center;
     margin: 10px 0;
     padding: 10px;
-  }
-  
-  .Example__container__load {
-    margin-top: 1em;
-    color: white;
-  }
-  
-  .Example__container__document {
-    width: 100%;
-    max-width: calc(100% - 2em);
-    margin: 1em 0;
-  }
-  
-  .Example__container__document .react-pdf__Document {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .Example__container__document .react-pdf__Page {
-    margin: 1em 0;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-  }
-  
-  .Example__container__document .react-pdf__message {
-    padding: 20px;
-    color: white;
-  }
+}
 
+.Example__container__load {
+margin-top: 1em;
+color: white;
+}
 
-  .cookies-page {
-    h1 { color: #365F91; font-family:Verdana, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 36pt !important; }
-    h2 { color: #365F91; font-family:Verdana, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 16pt !important; }
-    h3 { color: #365F91; font-family:Verdana, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 14pt !important; }
-    .p, p { color: black; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt !important; margin:0pt !important; }
-    .s1 { color: #365F91; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt !important; }
-    .s2 { color: #171717; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt !important; }
-    .s3 { color: #212121; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt !important; }
-    h4 { color: #365F91; font-family:Verdana, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt !important; }
-    .s4 { color: #365F91; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 14pt !important; }
-    .s5 { color: #365F91; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 14pt !important; }
-    li {display: block; }
-    #l1 {padding-left: 0pt;counter-reset: c1 1; }
-    #l1> li>*:first-child:before {counter-increment: c1; content: counter(c1, upper-roman)". "; color: #365F91; font-family:Verdana, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 16pt; }
-    #l1> li:first-child>*:first-child:before {counter-increment: c1 0;  }
-    li {display: block; }
-    #l2 {padding-left: 0pt;counter-reset: d1 1; }
-    #l2> li>*:first-child:before {counter-increment: d1; content: counter(d1, upper-roman)". "; color: #365F91; font-family:Verdana, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 14pt; }
-    #l2> li:first-child>*:first-child:before {counter-increment: d1 0;  }
-    #l3 {padding-left: 0pt;counter-reset: d2 1; }
-    #l3> li>*:first-child:before {counter-increment: d2; content: counter(d1, upper-roman)"."counter(d2, decimal)". "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-    #l3> li:first-child>*:first-child:before {counter-increment: d2 0;  }
-    #l4 {padding-left: 0pt; }
-    #l4> li>*:first-child:before {content: "● "; color: black; font-family:Symbol, serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l5 {padding-left: 0pt;counter-reset: d2 1; }
-    #l5> li>*:first-child:before {counter-increment: d2; content: counter(d1, upper-roman)"."counter(d2, decimal)". "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-    #l5> li:first-child>*:first-child:before {counter-increment: d2 0;  }
-    #l6 {padding-left: 0pt; }
-    #l6> li>*:first-child:before {content: "● "; color: #212121; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l7 {padding-left: 0pt;counter-reset: f1 3; }
-    #l7> li>*:first-child:before {counter-increment: f1; content: counter(f1, upper-roman)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-    #l7> li:first-child>*:first-child:before {counter-increment: f1 0;  }
-    #l8 {padding-left: 0pt;counter-reset: f2 1; }
-    #l8> li>*:first-child:before {counter-increment: f2; content: counter(f1, upper-roman)"."counter(f2, decimal)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-    #l8> li:first-child>*:first-child:before {counter-increment: f2 0;  }
-    #l9 {padding-left: 0pt;counter-reset: g1 4; }
-    #l9> li>*:first-child:before {counter-increment: g1; content: counter(g1, upper-roman)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-    #l9> li:first-child>*:first-child:before {counter-increment: g1 0;  }
-    #l10 {padding-left: 0pt;counter-reset: g2 1; }
-    #l10> li>*:first-child:before {counter-increment: g2; content: counter(g1, upper-roman)"."counter(g2, decimal)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-    #l10> li:first-child>*:first-child:before {counter-increment: g2 0;  }
-    #l11 {padding-left: 0pt; }
-    #l11> li>*:first-child:before {content: "● "; color: black; font-family:Symbol, serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l12 {padding-left: 0pt;counter-reset: i1 7; }
-    #l12> li>*:first-child:before {counter-increment: i1; content: counter(i1, upper-roman)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-    #l12> li:first-child>*:first-child:before {counter-increment: i1 0;  }
-    #l13 {padding-left: 0pt;counter-reset: i2 1; }
-    #l13> li>*:first-child:before {counter-increment: i2; content: counter(i1, upper-roman)"."counter(i2, decimal)" "; color: #171717; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l13> li:first-child>*:first-child:before {counter-increment: i2 0;  }
-    #l14 {padding-left: 0pt;counter-reset: d2 1; }
-    #l14> li>*:first-child:before {counter-increment: d2; content: counter(d1, upper-roman)"."counter(d2, decimal)". "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-    #l14> li:first-child>*:first-child:before {counter-increment: d2 0;  }
-    #l15 {padding-left: 0pt; }
-    #l15> li>*:first-child:before {content: "● "; color: black; font-family:Symbol, serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l16 {padding-left: 0pt;counter-reset: j1 8; }
-    #l16> li>*:first-child:before {counter-increment: j1; content: counter(j1, upper-roman)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-    #l16> li:first-child>*:first-child:before {counter-increment: j1 0;  }
-    #l17 {padding-left: 0pt;counter-reset: j2 3; }
-    #l17> li>*:first-child:before {counter-increment: j2; content: counter(j1, upper-roman)"."counter(j2, decimal)". "; color: #365F91; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l17> li:first-child>*:first-child:before {counter-increment: j2 0;  }
-    #l18 {padding-left: 0pt; }
-    #l18> li>*:first-child:before {content: "● "; color: #365F91; font-family:Symbol, serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l19 {padding-left: 0pt; }
-    #l19> li>*:first-child:before {content: "● "; color: black; font-family:Symbol, serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l20 {padding-left: 0pt;counter-reset: d2 1; }
-    #l20> li>*:first-child:before {counter-increment: d2; content: counter(d1, upper-roman)"."counter(d2, decimal)". "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-    #l20> li:first-child>*:first-child:before {counter-increment: d2 0;  }
-    #l21 {padding-left: 0pt; }
-    #l21> li>*:first-child:before {content: "• "; color: #212121; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l22 {padding-left: 0pt; }
-    #l22> li>*:first-child:before {content: "● "; color: #212121; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l23 {padding-left: 0pt; }
-    #l23> li>*:first-child:before {content: "● "; color: #212121; font-family:Verdana, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l24 {padding-left: 0pt; }
-    #l24> li>*:first-child:before {content: "● "; color: #212121; font-family:Symbol, serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-    #l25 {padding-left: 0pt;counter-reset: d2 1; }
-    #l25> li>*:first-child:before {counter-increment: d2; content: counter(d1, upper-roman)"."counter(d2, decimal)". "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-    #l25> li:first-child>*:first-child:before {counter-increment: d2 0;  }
-    li {display: block; }
-    #l26 {padding-left: 0pt; }
-    #l26> li>*:first-child:before {content: "● "; color: black; font-family:Symbol, serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-  }
+.Example__container__document {
+width: 100%;
+max-width: calc(100% - 2em);
+margin: 1em 0;
+}
+
+.Example__container__document .react-pdf__Document {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.Example__container__document .react-pdf__Page {
+margin: 1em 0;
+box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.Example__container__document .react-pdf__message {
+padding: 20px;
+color: white;
+}
+
+@media only screen and (max-width: 768px) {
+    .Example__container__document {
+        width: 100%;
+        max-width: 100%;
+        margin: 1em 0;
+    }
+}
+.cookies-page {
+    .awlist1 { list-style:none; counter-reset:awlistcounter2_0 14 }
+			.awlist1 > li:before { content:counter(awlistcounter2_0, lower-latin); counter-increment:awlistcounter2_0 }
+			.awlist2 { list-style:none; counter-reset:awlistcounter3_0 14 }
+			.awlist2 > li:before { content:counter(awlistcounter3_0, lower-latin); counter-increment:awlistcounter3_0 }
+			.awlist3 { list-style:none; counter-reset:awlistcounter4_0 14 }
+			.awlist3 > li:before { content:counter(awlistcounter4_0, lower-latin); counter-increment:awlistcounter4_0 }
+			.awlist4 { list-style:none; counter-reset:awlistcounter5_0 14 }
+			.awlist4 > li:before { content:counter(awlistcounter5_0, lower-latin); counter-increment:awlistcounter5_0 }
+			.awlist5 { list-style:none; counter-reset:awlistcounter6_0 14 }
+			.awlist5 > li:before { content:counter(awlistcounter6_0, lower-latin); counter-increment:awlistcounter6_0 }
+			.awlist6 { list-style:none; counter-reset:awlistcounter7_0 14 }
+			.awlist6 > li:before { content:counter(awlistcounter7_0, lower-latin); counter-increment:awlistcounter7_0 }
+			.awlist7 { list-style:none; counter-reset:awlistcounter8_0 14 }
+			.awlist7 > li:before { content:counter(awlistcounter8_0, lower-latin); counter-increment:awlistcounter8_0 }
+			.awlist8 { list-style:none; counter-reset:awlistcounter10_0 14 }
+			.awlist8 > li:before { content:counter(awlistcounter10_0, lower-latin); counter-increment:awlistcounter10_0 }
+			.awlist9 { list-style:none; counter-reset:awlistcounter11_0 14 }
+			.awlist9 > li:before { content:counter(awlistcounter11_0, lower-latin); counter-increment:awlistcounter11_0 }
+			.awlist10 { list-style:none; counter-reset:awlistcounter12_0 14 }
+			.awlist10 > li:before { content:counter(awlistcounter12_0, lower-latin); counter-increment:awlistcounter12_0 }
+			.awlist11 { list-style:none; counter-reset:awlistcounter13_0 14 }
+			.awlist11 > li:before { content:counter(awlistcounter13_0, lower-latin); counter-increment:awlistcounter13_0 }
+			.awlist12 { list-style:none; counter-reset:awlistcounter16_0 14 }
+			.awlist12 > li:before { content:counter(awlistcounter16_0, lower-latin); counter-increment:awlistcounter16_0 }
+			.awlist13 { list-style:none; counter-reset:awlistcounter17_0 14 }
+			.awlist13 > li:before { content:counter(awlistcounter17_0, lower-latin); counter-increment:awlistcounter17_0 }
+			.awlist14 { list-style:none; counter-reset:awlistcounter18_0 14 }
+			.awlist14 > li:before { content:counter(awlistcounter18_0, lower-latin); counter-increment:awlistcounter18_0 }
+			.awlist15 { list-style:none; counter-reset:awlistcounter21_0 }
+			.awlist15 > li:before { content:'11.' counter(awlistcounter21_0) '.'; counter-increment:awlistcounter21_0 }
+			.awlist16 { list-style:none; counter-reset:awlistcounter21_0 1 }
+			.awlist16 > li:before { content:'11.' counter(awlistcounter21_0) '.'; counter-increment:awlistcounter21_0 }
+			.awlist17 { list-style:none; counter-reset:awlistcounter22_0 }
+			.awlist17 > li:before { content:'11.2.' counter(awlistcounter22_0) '.'; counter-increment:awlistcounter22_0 }
+			.awlist18 { list-style:none; counter-reset:awlistcounter22_0 1 }
+			.awlist18 > li:before { content:'11.2.' counter(awlistcounter22_0) '.'; counter-increment:awlistcounter22_0 }
+			.awlist19 { list-style:none; counter-reset:awlistcounter23_0 14 }
+			.awlist19 > li:before { content:counter(awlistcounter23_0, lower-latin); counter-increment:awlistcounter23_0 }
+			.awlist20 { list-style:none; counter-reset:awlistcounter24_0 14 }
+			.awlist20 > li:before { content:counter(awlistcounter24_0, lower-latin); counter-increment:awlistcounter24_0 }
+			.awlist21 { list-style:none; counter-reset:awlistcounter25_0 14 }
+			.awlist21 > li:before { content:counter(awlistcounter25_0, lower-latin); counter-increment:awlistcounter25_0 }
+			.awlist22 { list-style:none; counter-reset:awlistcounter26_0 14 }
+			.awlist22 > li:before { content:counter(awlistcounter26_0, lower-latin); counter-increment:awlistcounter26_0 }
+			.awlist23 { list-style:none; counter-reset:awlistcounter27_0 14 }
+			.awlist23 > li:before { content:counter(awlistcounter27_0, lower-latin); counter-increment:awlistcounter27_0 }
+			.awlist24 { list-style:none; counter-reset:awlistcounter28_0 14 }
+			.awlist24 > li:before { content:counter(awlistcounter28_0, lower-latin); counter-increment:awlistcounter28_0 }
+}

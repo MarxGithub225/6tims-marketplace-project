@@ -117,7 +117,7 @@ function SellerPage() {
                     
                 </div>
                 <div className="relative">
-                    <ul className="relative menu-tab flex">
+                    <ul className="relative menu-tab hidden bigTablet:flex">
                         <li className={`tablinks ${selectedCategory?.index === -1 ? 'active': ''}`}
                         onClick={() => {
                             setSelected({

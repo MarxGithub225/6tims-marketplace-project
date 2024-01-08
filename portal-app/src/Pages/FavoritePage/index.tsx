@@ -55,17 +55,17 @@ function FavoritePage() {
             
                 <div className="content-tab">
                     {(sessionInfo?.userInfo?.wishList) ?  <div className="content-inner">
-                        <div className="row">
+                    <div className="grid grid-cols-2 limitTablet:grid-cols-3 desktop:grid-cols-4 gap-x-[15px] bigTablet:gap-x-[30px]">
                         {sessionInfo?.userInfo?.wishList.map((product: Product, key: number) => {
-                        return <div key={key} className="col-xl-3 col-lg-4 col-md-6 col-12">
-                                <div className="sc-card-product explode ">
+                        return <div key={key} className="w-full">
+                                <div className="sc-card-product sc-card-product-margin-bottom explode ">
                                     <div className="card-media active">
                                     <Link to={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></Link>
-                                   
+                                    
                                     {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
                                     </div>
                                     <div className="card-title mg-bt-16">
-                                    <h5 className="sline-clamp-1"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h5>
+                                    <h5 className="truncate w-fit"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h5>
                                     </div>
                                     <div className="meta-info">
                                     <div className="author">
@@ -74,19 +74,19 @@ function FavoritePage() {
                                         </div>
                                         <div className="info">
                                         <span>Vendeur</span>
-                                        <h6> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</Link>  </h6>
+                                        <h6 className="line-clamp-1"> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</Link>  </h6>
                                         </div>
                                     </div>
                                     {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
                                     </div>
                                     <div className="card-bottom style-explode">
-                                    <div className="price">
-                                        <div className="price-details">
-                                        <h5> {calculatePrice(product).price} DH</h5>
-                                        {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
+                                        <div className="price">
+                                            <div className="price-details">
+                                            <h5> {calculatePrice(product).price} DH</h5>
+                                            {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <Link to={`/product-activity/${product._id}`} className="view-history reload">Voir historique</Link>
+                                        <Link to={`/product-activity/${product._id}`} className="view-history reload">Voir historique</Link>
                                     </div>
                                 </div>
                                 </div>})}

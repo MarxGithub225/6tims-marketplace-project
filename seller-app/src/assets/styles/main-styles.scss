@@ -11367,6 +11367,9 @@ stroke: var(--dark-gray) !important;
 }
 
 @media only screen and (max-width: 768px) {
+  .auth-screen {
+    width: 100%;
+  }
   .step-resume {
     width: 100% !important;
   }

@@ -140,18 +140,18 @@ function SellerPage() {
                         })
                         : <></>}
                     </ul>
-                    <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-[20px] right-[15px] cursor-pointer scroll-category right-arrow" onClick={rightScroll} />
+                    {/* <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-[20px] right-[15px] cursor-pointer scroll-category right-arrow" onClick={rightScroll} />
 
-                    <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-[20px] left-[15px] cursor-pointer scroll-category left-arrow" onClick={leftScroll} />
+                    <button type="button" className="w-10 h-10 rounded-full shadow bg-black absolute top-[20px] left-[15px] cursor-pointer scroll-category left-arrow" onClick={leftScroll} /> */}
                 </div>
             
                 <div className="content-tab">
                     {(dataProducts && dataProducts?.pages) ?  <div className="content-inner">
                         <div className="row">
                         {dataProducts.pages.map((page: Array<Product>) => (
-                        <>
+                                  <div className="grid grid-cols-2 limitTablet:grid-cols-3 desktop:grid-cols-4 gap-x-[15px] bigTablet:gap-x-[30px] px-[15px]">
                         {page.map((product: Product, key: number) => {
-                        return <div key={key}  className="col-xl-3 col-lg-4 col-md-6 col-12">
+                        return <div key={key}  className="w-full">
                                 <div className="sc-card-product sc-card-product-margin-bottom explode ">
                                     <div className="card-media active">
                                     <Link to={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></Link>
@@ -159,7 +159,7 @@ function SellerPage() {
                                     {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
                                     </div>
                                     <div className="card-title mg-bt-16">
-                                    <h5 className="sline-clamp-1"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h5>
+                                    <h5 className="truncate w-fit"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h5>
                                     </div>
                                     <div className="meta-info">
                                     <div className="author">
@@ -168,23 +168,23 @@ function SellerPage() {
                                         </div>
                                         <div className="info">
                                         <span>Vendeur</span>
-                                        <h6> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</Link>  </h6>
+                                        <h6 className="line-clamp-1"> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</Link>  </h6>
                                         </div>
                                     </div>
                                     {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
                                     </div>
                                     <div className="card-bottom style-explode">
-                                    <div className="price">
-                                        <div className="price-details">
-                                        <h5> {calculatePrice(product).price} DH</h5>
-                                        {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
+                                        <div className="price">
+                                            <div className="price-details">
+                                            <h5> {calculatePrice(product).price} DH</h5>
+                                            {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <Link to={`/product-activity/${product._id}`} className="view-history reload">Voir historique</Link>
+                                        <Link to={`/product-activity/${product._id}`} className="view-history reload">Voir historique</Link>
                                     </div>
                                 </div>
                                 </div>})}
-                        </>))}
+                        </div>))}
                         {meta?.hasNextPage && <div className="col-md-12 wrap-inner load-more text-center">
                             <a href="" 
                             onClick={(e: any) => {

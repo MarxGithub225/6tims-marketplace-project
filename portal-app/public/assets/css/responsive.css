@@ -602,7 +602,7 @@
     margin-bottom: 0px;
   }
   .sc-card-product-margin-bottom {
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
   }
 
   .widget-logo .logo-footer,
@@ -1225,9 +1225,39 @@
 
 @media only screen and (max-width: 768px) {
   .main-logo img {
-    width: 80px;
+    width: 100px;
+  }
+
+  .sc-card-product:hover {
+    -webkit-transform: translateY(0px) !important;
+    -ms-transform    : translateY(0px) !important;
+    -o-transform     : translateY(0px) !important;
+    transform        : translateY(0px) !important;
+    -webkit-filter: grayscale(0%);
+    -ms-filter: grayscale(0%);
+    -moz-filter: grayscale(0%);
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+}
+@media only screen and (max-width: 499px) {
+  .sc-card-product .card-bottom,
+  .sc-card-product .meta-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .info-seller h4,
+  .sc-card-collection.style-2.home2 .card-bottom .author .content h4,
+  .sc-card-product .card-title h5 {
+    font-size: 15px !important;
   }
 }
+
 @media only screen and (max-width: 549px) {
   .flat-tabs.items .content-tab .content-inner .btn-sort-by {
     left: 0;

@@ -8,14 +8,12 @@ import { useState } from "react";
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
 import { PaginationOptionProduct } from "../../sdks/product-v1/utils/DataSchemas";
 import { Pagination } from "../../sdks/GlobalDataSchemas";
-import { API_FILE_URL, calculatePrice } from "../../utilities/constants";
 import useProduct from "../../hooks/useProduct";
 import useCategory from "../../hooks/useCategory";
 import { Product } from "../../sdks/product-v1/utils/DataSchemas";
-import { File } from "../../sdks/image-v1/utils/DataSchemas";
-import { PaginationOptionCategory, Category2, Category1, Category3 } from "../../sdks/category-v1/utils/DataSchemas";
-import { Link, useLocation } from "react-router-dom";
-import { config } from "../../utilities/helper";
+import { PaginationOptionCategory, Category1 } from "../../sdks/category-v1/utils/DataSchemas";
+import { useLocation } from "react-router-dom";
+import ExpendedProductCard from "../../Components/ExpendedProductCard";
 
 function SearchPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
@@ -256,41 +254,14 @@ function SearchPage() {
           </div>
         </div>
         {(data && data?.pages) ?  <div className="col-xl-9 col-lg-9 col-md-12">
-          <div className="box-epxlore gap-x-[28.575px]">
-            {data.pages.map((page: Array<Product>) => (
-          <>
-          {page.map((product: Product, key: number) => {
-                return <div className="sc-card-product explode style2 mg-bt">
-              <div className="card-media">
-              <Link to={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></Link>
-            {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
-              </div>
-              <div className="card-title">
-                <h5 className="line-clamp-1 w-fit"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h5>
-              </div>
-              <div className="meta-info">
-                <div className="author">
-                  <div className="avatar">
-                  <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${product.slug}`} />
-                  </div>
-                  <div className="info">
-                    <span>Vendeur</span>
-                    <h6> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</Link> </h6>
-                  </div>
-                </div>
-                {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
-              </div>
-              <div className="card-bottom style-explode">
-                <div className="price">
-                  <div className="price-details">
-                    <h5> {calculatePrice(product).price} DH</h5>
-                    {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
-                  </div>
-                </div>
-              </div>
-            </div>})}
-            </>))}
-          </div>
+        {data.pages.map((page: Array<Product>) => (
+              <div className="grid grid-cols-2 limitTablet:grid-cols-3 gap-x-[15px] bigTablet:gap-x-[30px]">
+              {page.map((product: Product, key: number) => {
+                    return <ExpendedProductCard
+                    key={key}
+                    product={product}
+                    />})}
+              </div>))}
           {meta?.hasNextPage && <div className="btn-auction center">
             <a href="#" 
             onClick={(e: any) => {

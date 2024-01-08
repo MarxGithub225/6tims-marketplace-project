@@ -1,6 +1,6 @@
 "use client"
 
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {ReactComponent as Close} from "../../assets/icons/Close.svg"
 
 import { Link, useLocation, useParams } from "react-router-dom";
@@ -12,27 +12,15 @@ import { LinksEnum } from "../../utilities/pagesLinksEnum";
 import useOnClickOutSide from "../../utilities/onClickOutSide";
 import { setMobileSidemenu } from "../../redux/features/headerSlice";
 import {ReactComponent as DashIcon} from "../../assets/icons/side-bar-icons/DashboardIcon.svg"
-import {ReactComponent as Saved} from "../../assets/icons/side-bar-icons/SavedIcon.svg"
-import {ReactComponent as Users} from "../../assets/icons/side-bar-icons/UserIcon.svg"
-import {ReactComponent as Gear} from "../../assets/icons/side-bar-icons/SettingsIcon.svg"
-import {ReactComponent as CategoryIcon} from "../../assets/icons/side-bar-icons/CategoryIcon.svg";
-import {ReactComponent as OrganisationIcon} from "../../assets/icons/side-bar-icons/OrganisationIcon.svg";
 import {ReactComponent as FrantIcon} from "../../assets/icons/FrantIcon.svg";
-import {ReactComponent as HorizontalTwiceArrow} from "../../assets/icons/HorizontalTwiceArrow.svg";
-import {ReactComponent as LeftArrow} from "../../assets/icons/LeftArrow.svg";
 import {ReactComponent as MenuStats} from "../../assets/icons/MenuStats.svg";
 import {ReactComponent as MoneyIcon} from "../../assets/icons/MoneyIcon.svg";
 import {ReactComponent as HelpCenter} from "../../assets/icons/Sidebar/HelpCenter.svg";
-import {ReactComponent as ZoomIcon} from "../../assets/icons/ZoomIcon.svg";
-import {ReactComponent as Theme} from "../../assets/icons/website/Theme.svg";
-import {ReactComponent as WarantyTermsIcon} from "../../assets/icons/WarantyTermsIcon.svg";
-import {ReactComponent as Listings} from "../../assets/icons/Sidebar/Listings.svg";
-import {ReactComponent as BookingIcon} from "../../assets/icons/side-bar-icons/BookingIcon.svg";
 import { MenuInterface, MenuItemInterface } from "../SideMenu";
+import { Circle } from "react-feather";
 
 import {ReactComponent as Arrow} from "../../assets/icons/Arrow.svg";
 import { config } from "../../utilities/helper";
-import { AuthContext } from "../../context/auth";
 function MobileSideMenu() {
     let menuRef: any = useRef()
     const dispatch = useDispatch();
@@ -89,86 +77,60 @@ function MobileSideMenu() {
             ]
         },
         {
-            header: t('general.title'),
-            menu: [
-                {
-                    link: LinksEnum.products,
-                    title: t('general.partners'),
-                    icon: <OrganisationIcon className="w-6 h-auto" />,
-                },
-                {
-                    link: LinksEnum.products,
-                    title: t('general.users'),
-                    icon: <Users className="w-6 h-auto" />,
-                },
-                // {
-                //     link: LinksEnum.user_groups,
-                //     title: t('general.user_access'),
-                //     icon: <UserRole />,
-                // }
-            ]
-
-        },
-
-        {
             header: t('manage.title'),
             menu: [
+                
                 {
-                    link: LinksEnum.orders,
                     title: t('manage.orders'),
-                    icon: <FrantIcon className="w-4 h-auto" />,
-                },
-                {
-                    link: LinksEnum.products,
-                    title: t('manage.products'),
-                    icon: <HelpCenter className="w-4 h-auto" />,
-                },
-                {
-                    link: LinksEnum.products,
-                    title: t('manage.product_cancelling'),
-                    icon: <ZoomIcon className="w-4 h-auto" />,
-                },
-                {
-                    link: LinksEnum.products,
-                    title: t('manage.returns'),
-                    icon: <LeftArrow className="w-4 h-auto" />,
-                },
-                {
-                    title: t('manage.settings'),
-                    icon: <Gear />,
+                    icon: <FrantIcon />,
                     subMenu: [
                         {
                             link: LinksEnum.products,
-                            title: t('manage.icons'),
-                            icon: <BookingIcon className="w-5 h-auto" />,
+                            title: t('manage.new_orders'),
+                            icon: <Circle size={12} className="minus-icon" />,
                         },
                         {
                             link: LinksEnum.products,
-                            title: t('manage.blogs'),
-                            icon: <Saved className="w-4 h-auto" />,
+                            title: t('manage.orders_transfered'),
+                            icon: <Circle size={12} className="minus-icon" />,
                         },
                         {
                             link: LinksEnum.products,
-                            title: t('manage.brands'),
-                            icon: <Listings className="w-4 h-auto" />,
+                            title: t('manage.orders_in_shipping'),
+                            icon: <Circle size={12} className="minus-icon" />,
                         },
                         {
                             link: LinksEnum.products,
-                            title: t('manage.banners'),
-                            icon: <WarantyTermsIcon className="w-4 h-auto" />,
-                        },
+                            title: t('manage.delivered_orders'),
+                            icon: <Circle size={12} className="minus-icon" />                        },
                         {
                             link: LinksEnum.products,
-                            title: t('manage.cartegories'),
-                            icon: <CategoryIcon className="w-5 h-auto" />,
-                        },
-                        {
-                            link: LinksEnum.products,
-                            title: t('manage.colors'),
-                            icon: <Theme className="w-5 h-auto" />,
+                            title: t('manage.cancelled_orders'),
+                            icon: <Circle size={12} className="minus-icon" />
                         }
                     ]
-                }
+                },
+                {
+                    title: t('manage.products'),
+                    icon: <HelpCenter />,
+                    subMenu: [
+                        {
+                            link: LinksEnum.products,
+                            title: t('manage.products_list'),
+                            icon: <Circle size={12} className="minus-icon" />,
+                        },
+                        {
+                            link: LinksEnum.product_cancelling,
+                            title: t('manage.refused_products'),
+                            icon: <Circle size={12} className="minus-icon" />,
+                        },
+                        {
+                            link: LinksEnum.product_cancelling,
+                            title: t('manage.archived_products'),
+                            icon: <Circle size={12} className="minus-icon" />,
+                        }
+                    ]
+                },
 
             ]
 
@@ -178,14 +140,9 @@ function MobileSideMenu() {
             header: t('accounting.title'),
             menu: [
                 {
-                    link: LinksEnum.products,
-                    title: t('accounting.clients_refunds'),
-                    icon: <HorizontalTwiceArrow className="w-6 h-auto" />,
-                },
-                {
-                    link: LinksEnum.products,
+                    link: LinksEnum.accounting,
                     title: t('accounting.sellers_accounting'),
-                    icon: <MoneyIcon className="w-5 h-auto" />,
+                    icon: <MoneyIcon className="w-5 h-auto" />
                 }
             ]
 
@@ -196,7 +153,7 @@ function MobileSideMenu() {
                 {
                     link: LinksEnum.statistics,
                     title: t('data.statistics'),
-                    icon: <MenuStats className="w-5 h-auto" />,
+                    icon: <MenuStats className="w-5 h-auto" />
                 },
             ]
         }

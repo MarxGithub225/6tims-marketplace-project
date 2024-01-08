@@ -14,6 +14,7 @@ import { File } from "../../sdks/image-v1/utils/DataSchemas";
 import { PaginationOptionCategory } from "../../sdks/category-v1/utils/DataSchemas";
 import { Link } from "react-router-dom";
 import { config } from "../../utilities/helper";
+import ExploreProductCard from "../../Components/ExploreProductCard";
 function Exploration() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [filterPrice, setFilterPrice] = useState<string | null>(null)
@@ -107,40 +108,13 @@ function Exploration() {
         </div>
         <>
         {data.pages.map((page: Array<Product>) => (
-          <>
+          <div className="grid grid-cols-2 limitTablet:grid-cols-3 desktop:grid-cols-4 gap-x-[15px] bigTablet:gap-x-[30px] px-[15px] bigTablet:px-[30px]">
           {page.map((product: Product, key: number) => {
-                return <div key={key} className="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
-        <div className="sc-card-product">
-          <div className="card-media">
-            <Link to={`/${product.slug}-${product?._id}.html`}><img src={`${API_FILE_URL}/products/${product?.images?.filter((img: File) => img._id === product.mainImage)[0].path}`} alt={`6tims - tims group | ${product.slug}`} /></Link>
-            {product.likes.length ?  <button className="wishlist-button heart"><span className="number-like"> {product.likes.length}</span></button>: <></>}
+                return <ExploreProductCard
+                product={product}
+                key={key}
+              />})}
           </div>
-          <div className="card-title">
-            <h5 className="style2 truncate w-fit"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h5>
-            {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
-          </div>
-          <div className="meta-info">
-            <div className="author">
-              <div className="avatar">
-              <img src={product.seller.personnalInfo?.image ? `${API_FILE_URL}/icons/${product.seller?.personnalInfo?.image?.path}` : config.default_auth_pic} alt={`6tims - tims group | ${product.slug}`} />
-              </div>
-              <div className="info">
-                <span>Vendeur</span>
-                <h6> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</Link> </h6>
-              </div>
-            </div>
-            <div className="price">
-              {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
-              <h5> {calculatePrice(product).price} DH</h5>
-            </div>
-          </div>product-activity/:id
-          <div className="card-bottom">
-            <a href="#" data-toggle="modal" data-target="#popup_bid" className="sc-button style bag fl-button pri-3"><span>Panier</span></a>
-            <Link to={`/product-activity/${product._id}`} className="view-history reload">Voir historique</Link>
-          </div>
-        </div>
-      </div>})}
-          </>
         ))}
         </>
         

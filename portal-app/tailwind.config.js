@@ -24,7 +24,9 @@ module.exports = {
       desktop: '1200px',
       // => @media (min-width: 1280px) { ... }
 
-      largeSize: '1440px'
+      largeSize: '1440px',
+      // => @media (min-width: 1280px) { ... }
+      size500: '500px'
       // => @media (min-width: 1280px) { ... }
     },
     extend: {},

@@ -19,8 +19,8 @@ const HotProductCarousel = ({
 }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [touchPosition, setTouchPosition] = useState(null)
-  const [intervalle, setIntervale] = useState(window.innerWidth > 1440 ? (1410/3): window.innerWidth > 1024 ? (((window.innerWidth - 30) / 3)) :  window.innerWidth > 768 ? (((window.innerWidth - 30) / 2)): window.innerWidth)
-  const [show, setShowItem] = useState(window.innerWidth > 1024 ? 3: window.innerWidth > 768 ? 2 :1)
+  const [intervalle, setIntervale] = useState(window.innerWidth > 1440 ? (1410/3): window.innerWidth > 1024 ? (((window.innerWidth - 30) / 3)) :  (((window.innerWidth - 30) / 2)))
+  const [show, setShowItem] = useState(window.innerWidth > 1024 ? 3: 2)
 
   const next = () => {
     if (currentIndex < children?.length - show) {
@@ -80,8 +80,8 @@ const HotProductCarousel = ({
         setIntervale((((window.innerWidth - 30) / 2)))
       }
       else {
-        setShowItem(1)
-        setIntervale(window.innerWidth - 15)
+        setShowItem(2)
+        setIntervale((((window.innerWidth - 30) / 2)))
       }
     }
     window.addEventListener('resize', updateSize);

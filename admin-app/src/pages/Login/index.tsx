@@ -50,6 +50,9 @@ export default function Login() {
     >
       <div className="max-width w-full h-full flex items-center justify-center">
         <div className="auth-screen bg-white">
+        <div className="flex flex-col w-full items-center justify-center mt-6 gap-4 welcome-sms">
+            <img src={config.tims_logo_oficiel} className="w-40 h-auto" alt="" />
+          </div>
           <div className="auth-title flex justify-center items-center relative">
             Se connecter
           </div>

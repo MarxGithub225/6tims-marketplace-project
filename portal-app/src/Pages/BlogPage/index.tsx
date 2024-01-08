@@ -54,9 +54,9 @@ function BlogPage() {
         {(data && data?.pages) ?  <div className="row">
         <>
         {data.pages.map((page: Array<Blog>) => (
-          <>
+          <div className="grid grid-cols-1 size500:grid-cols-2 limitTablet:grid-cols-3 desktop:grid-cols-4 gap-x-[15px] bigTablet:gap-x-[30px] px-[15px] bigTablet:px-[30px]">
            {page.map((blog: Blog, key: number) => {
-                return  <div key={key} className="fl-blog fl-item2 col-lg-4 col-md-6">
+                return  <div key={key} className="fl-blog fl-item2 w-full">
                 <article className="sc-card-article">
                     <div className="card-media">
                     <Link to={`/blog/${blog._id}`}><img src={`${API_FILE_URL}/blogs/${blog?.image?.path}`} alt={`6tims - tims group | ${blog.slug}`} /></Link>
@@ -68,7 +68,7 @@ function BlogPage() {
                             <span className="name"></span>
                         </div>
                     </div>
-                    {blog.likes.length > 0 ? <button className="wishlist-button public heart mg-t-6"><span className="number-like"> {blog.likes.length}</span></button> : <></>}
+                    {blog.likes.length > 0 ? <button className="wishlist-button public heart mg-t-6"><span className="number-like"> {blog.likes.length}</span></button> : <div className="w-[64px] h-[26px] mg-t-6" ></div>}
                     </div>
                     <div className="text-article">
                     <h3 className="ellips-txt"><Link to={`/blog/${blog._id}`}>{removeUnnecessaryHTMLStuff(blog.title)}</Link></h3>
@@ -79,7 +79,7 @@ function BlogPage() {
                 </div>
             })
            }
-           </>
+           </div>
            ))}
            </>
             

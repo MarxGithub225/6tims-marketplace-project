@@ -71,7 +71,7 @@
 } 
 
 .tf-section {
-    padding: 80px 0;
+    padding: 25px 0;
     background: var(--bg-section);
     margin-bottom: 0 !important;
     -webkit-transition: all 0.3s ease-in-out;
@@ -536,7 +536,6 @@
     -moz-box-shadow      : 0px 3px 16px 0px #2F536D1F;
     -webkit-box-shadow   : 0px 3px 16px 0px #2F536D1F;
     box-shadow           : 0px 3px 16px 0px #2F536D1F;
-    margin-bottom        : 30px;
     background: var(--primary-color);
 }
 
@@ -828,7 +827,7 @@
     background   : var(--primary-color);
     box-shadow   : 0px 3px 16px rgba(47, 83, 109, 0.12);
     border-radius: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     overflow: hidden;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition   : all 0.3s ease-in-out;
@@ -3480,7 +3479,7 @@ section.today-picks {
 
 /* title */
 .tab-authors .menu-tab {
-    padding: 0 2% 0 24.5%;
+    padding: 0 2% 0 2%;
     -webkit-border-radius: 0 0 12px 12px;
     -ms-border-radius: 0 0 12px 12px;
     -o-border-radius: 0 0 12px 12px;
@@ -3492,6 +3491,7 @@ section.today-picks {
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    overflow-y: hidden;
 }
 
 .tab-authors .menu-tab::-webkit-scrollbar{
@@ -5786,9 +5786,9 @@ section.today-picks {
     display: -webkit-flex; 
     align-items: center;
     padding: 9px 16px 9px 15px;
-    background-color: #f7a700;
+    background-color: #666664b5;
     border-radius: 100px;
-    border: 1px solid #f7a700;
+    border: 1px solid #66666400;
     margin-right: 19px;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;

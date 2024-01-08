@@ -52,10 +52,9 @@ export default function Login() {
         backgroundImage: `url(${config.authBack})`,
       }}
     >
-      <div className="max-width w-full h-full flex flex-col bigTablet:flex-row items-center gap-10">
+      <div className="max-width w-full h-full flex flex-col intermWidth:flex-row items-center gap-10">
         <div className="auth-screen bg-white">
-          <div className="flex w-full items-center justify-center mt-6 gap-4 welcome-sms">
-            <span>Content de vous revoir sur</span>
+          <div className="flex flex-col w-full items-center justify-center mt-6 gap-4 welcome-sms">
             <img src={config.tims_logo_oficiel} className="w-40 h-auto" alt="" />
           </div>
           <div className="auth-title flex justify-center items-center relative">
@@ -122,7 +121,7 @@ export default function Login() {
               isLoading={mutation?.isLoading}
             />
 
-            <div className="mt-4 login-reminber flex items-center justify-between">
+            <div className="mt-4 login-reminber flex flex-col miniWith:flex-row items-center justify-between ">
               <span>Vous venez d'arriver ? Super !</span>
 
               <Link 
@@ -135,7 +134,7 @@ export default function Login() {
           </div>
         </div>
 
-        <div className="bg-white rounded-md w-72 flex items-center justify-center p-6">
+        <div className="bg-white rounded-md w-72 hidden intermWidth:flex items-center justify-center p-6">
           <img src={config.authIllustr} className="w-60 h-auto" alt=""/>
         </div>
       </div>

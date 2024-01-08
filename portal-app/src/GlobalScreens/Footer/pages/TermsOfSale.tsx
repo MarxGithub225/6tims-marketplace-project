@@ -6,7 +6,7 @@ function TermsOfSale() {
     <PageHeader
     header="Conditions de vente"
     />
-   <div className="w-full flex justify-center px-5 bigTablet:px-10">
+   <div className="w-full flex justify-center px-5 bigTablet:px-10 cookies-page">
       <div className="mt-[100px] max-w-[100%] bigTablet:max-w-[800px] ">
       <div>
     <p style={{margin: '0pt 5pt 0pt 71pt', textAlign: 'center', lineHeight: '150%', fontSize: '20pt'}}>

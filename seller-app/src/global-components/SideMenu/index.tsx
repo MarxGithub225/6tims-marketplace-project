@@ -1,24 +1,12 @@
 "use client"
 
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {ReactComponent as DashIcon} from "../../assets/icons/side-bar-icons/DashboardIcon.svg"
-import {ReactComponent as Users} from "../../assets/icons/side-bar-icons/UserIcon.svg"
-import {ReactComponent as Gear} from "../../assets/icons/side-bar-icons/SettingsIcon.svg"
-import {ReactComponent as CategoryIcon} from "../../assets/icons/side-bar-icons/CategoryIcon.svg";
-import {ReactComponent as OrganisationIcon} from "../../assets/icons/side-bar-icons/OrganisationIcon.svg";
 import {ReactComponent as Arrow} from "../../assets/icons/Arrow.svg";
 import {ReactComponent as FrantIcon} from "../../assets/icons/FrantIcon.svg";
-import {ReactComponent as HorizontalTwiceArrow} from "../../assets/icons/HorizontalTwiceArrow.svg";
-import {ReactComponent as LeftArrow} from "../../assets/icons/LeftArrow.svg";
 import {ReactComponent as MenuStats} from "../../assets/icons/MenuStats.svg";
 import {ReactComponent as MoneyIcon} from "../../assets/icons/MoneyIcon.svg";
 import {ReactComponent as HelpCenter} from "../../assets/icons/Sidebar/HelpCenter.svg";
-import {ReactComponent as ZoomIcon} from "../../assets/icons/ZoomIcon.svg";
-import {ReactComponent as Theme} from "../../assets/icons/website/Theme.svg";
-import {ReactComponent as WarantyTermsIcon} from "../../assets/icons/WarantyTermsIcon.svg";
-import {ReactComponent as Listings} from "../../assets/icons/Sidebar/Listings.svg";
-import {ReactComponent as Saved} from "../../assets/icons/Sidebar/Saved.svg";
-import {ReactComponent as BookingIcon} from "../../assets/icons/side-bar-icons/BookingIcon.svg";
 
 import classnames from 'classnames';
 import { useTranslation } from '../../i18n/client'
@@ -29,7 +17,6 @@ import { Circle } from "react-feather";
 import useOnClickOutSide from "../../utilities/onClickOutSide";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { config } from "../../utilities/helper";
-import { AuthContext } from "../../context/auth";
 
 export interface MenuInterface {
     link?: string
@@ -133,12 +120,12 @@ function Sidebar() {
                             icon: <Circle size={12} className="minus-icon" />,
                         },
                         {
-                            link: LinksEnum.products,
+                            link: LinksEnum.product_cancelling,
                             title: t('manage.refused_products'),
                             icon: <Circle size={12} className="minus-icon" />,
                         },
                         {
-                            link: LinksEnum.products,
+                            link: LinksEnum.product_cancelling,
                             title: t('manage.archived_products'),
                             icon: <Circle size={12} className="minus-icon" />,
                         }
@@ -153,7 +140,7 @@ function Sidebar() {
             header: t('accounting.title'),
             menu: [
                 {
-                    link: LinksEnum.products,
+                    link: LinksEnum.accounting,
                     title: t('accounting.sellers_accounting'),
                     icon: <MoneyIcon className="w-5 h-auto" />
                 }

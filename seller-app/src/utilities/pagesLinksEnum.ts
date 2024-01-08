@@ -25,5 +25,6 @@ export enum LinksEnum {
     colors = "/colors",
     clients_refunds = "/clients-refunds",
     sellers_accounting = "/sellers-accounting",
-    statistics = "/statistics"
+    statistics = "/statistics",
+    accounting = "/accounting"
 }

@@ -611,7 +611,7 @@
   .tf-item-details.style-2 .content-right .meta-item-details .item-style-2,
   .tf-item-details.style-2 .content-right .meta-item-details .item,
   .tf-item-details.style-2 .meta-item .left {
-    margin-bottom: 15px;
+    margin-bottom: 15px !important;
   }
   
   #footer .widget.widget-subcribe,
@@ -666,7 +666,6 @@
     border: none;
   }
 
-
   .flat-tabs.items .sc-card-product.menu_card.style-h7 .meta-info.style {
     flex-wrap: wrap;
   }
@@ -698,6 +697,9 @@
 }
 
 @media only screen and (max-width: 767px) {
+  .widget-menu ul li {
+    margin-bottom: 10px !important;
+  }
   .form-infor-profile,
   .form-upload-profile .option-profile,
   .tab-authors .author-profile .widget-social ul,

@@ -156,7 +156,7 @@ function ShippingAndReturns() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '12.15pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '12pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '115%'}}>
+    <p style={{marginTop: '0pt', marginRight: '12pt', marginBottom: '0pt', lineHeight: '115%'}}>
       <span style={{fontFamily: 'Verdana'}}>La Plateforme offre aux Utilisateurs, la possibilité de se faire conseiller en ligne, par chat, téléphone, message Whatsapp, ou mails, par un Expert Conseil ou un conseiller client.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '10.25pt'}}>
@@ -216,7 +216,7 @@ function ShippingAndReturns() {
   </div>
   <br style={{pageBreakBefore: 'always', clear: 'both',}} />
   <div>
-    <p style={{marginTop: '0pt', marginRight: '29.2pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '115%'}}>
+    <p style={{marginTop: '0pt', marginRight: '29.2pt', marginBottom: '0pt', lineHeight: '115%'}}>
       <a/><span style={{fontFamily: 'Verdana'}}>L’Utilisateur est informé que le montant des frais de livraison pourra être un critère de sélection des Produits, afin d’éviter une éventuelle addition de ces frais.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '10.25pt'}}>
@@ -270,7 +270,7 @@ function ShippingAndReturns() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '10.25pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '18.2pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '115%'}}>
+    <p style={{marginTop: '0pt', marginRight: '18.2pt', marginBottom: '0pt', lineHeight: '115%'}}>
       <span style={{fontFamily: 'Verdana'}}>Toute Commande émanant d’un Acheteur qui n'aurait pas réglé totalement ou partiellement une Commande précédente ou avec lequel un litige de paiement serait en cours d'administration pourra être refusée.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '9.9pt'}}>
@@ -384,7 +384,7 @@ function ShippingAndReturns() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '10.05pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{margin: '0pt 12.2pt 0pt 0.2pt', textAlign: 'justify', lineHeight: '115%'}}>
+    <p style={{margin: '0pt 12.2pt 0pt 0.2pt', lineHeight: '115%'}}>
       <span style={{fontFamily: 'Verdana'}}>L’Acheteur pourra choisir entre les différents modes de livraisons proposés par l’Acheteur (par transporteur, par la Poste ou par un autre mode de livraison) et leur prix.</span>
     </p>
   </div>
@@ -420,7 +420,7 @@ function ShippingAndReturns() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '12.15pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{margin: '0pt 46pt 0pt 0.2pt', textAlign: 'justify', lineHeight: '115%'}}>
+    <p style={{margin: '0pt 46pt 0pt 0.2pt', lineHeight: '115%'}}>
       <span style={{fontFamily: 'Verdana'}}>En cas de retard, de non-réception totale ou partielle du (des) Produit(s) commandé(s), l’Acheteur est invité à prendre contact avec le Marchand à compter de la date de livraison convenue afin de traiter le problème.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '10.2pt'}}>
@@ -630,7 +630,7 @@ function ShippingAndReturns() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '12.15pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginLeft: '0.2pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '115%'}}>
+    <p style={{marginTop: '0pt', marginLeft: '0.2pt', marginBottom: '0pt', lineHeight: '115%'}}>
       <span style={{fontFamily: 'Verdana'}}>Tim’s a souhaité mettre en place une garantie commerciale, ci-après dénommée “la Garantie Tim’s”, afin de faciliter la résolution des incidents éventuels affectant les Commandes passées par le biais de la Plateforme par les Acheteurs et portant sur les motifs suivants :</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '10.2pt'}}>

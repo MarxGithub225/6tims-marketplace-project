@@ -132,7 +132,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.3pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '42pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '42pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>Tim’s s’engage à informer l’Utilisateur des modifications apportées aux Services et/ou aux CGU par email ou par le biais d’une mention special affichée au sein de la Plateforme.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.2pt'}}>
@@ -225,7 +225,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.25pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '26pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '26pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <strong><span style={{fontFamily: 'Verdana'}}>Prix:</span></strong><span style={{fontFamily: 'Verdana'}}> Désigne le prix total du Produit toutes taxes comprise, payable par l'Acheteur, ne comprenant pas les frais de port définis de façon forfaitaire selon le mode d’envoi.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.25pt'}}>
@@ -309,13 +309,13 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.2pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '2pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '2pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>Pour pouvoir acheter des Produits sur la Plateforme, l’Utilisateur doit être une personne physique, âgée de 18 ans révolus et, plus généralement dotée de la capacité à contracter.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.25pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '16pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '120%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '16pt', marginBottom: '0pt', lineHeight: '120%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>Les Acheteurs reconnaissent par conséquent qu’en passant une Commande sur la Plateforme, ils sont traités comme des “consommateurs” et se voient appliquer les dispositions du Code de la consommation.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.15pt'}}>
@@ -489,7 +489,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '4pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '9pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '9pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>L’Utilisateur peut créer un Compte Invité dans le cadre de la passation d’une Commande en renseignant une adresse électronique valide qui ne porte pas atteinte aux droits de tiers.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.2pt'}}>
@@ -513,7 +513,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.35pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '12pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '12pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: '"MS Gothic"'}}>●</span><span style={{width: '4.2pt', font: '7pt "Times New Roman"', display: 'inline-block'}}>&nbsp;&nbsp; </span><span style={{fontFamily: 'Verdana'}}>Fournir des informations authentiques, exactes et complètes quant à son identité, adresse et autres données nécessaires à l'accès à la Plateforme, de nature à ne pas induire Tim’s ou les Marchands ou tous tiers en erreur ;</span>
     </p>
     <p style={{marginTop: '0pt', marginLeft: '16pt', marginBottom: '0pt', textIndent: '-16pt', fontSize: '12pt'}}>
@@ -579,7 +579,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.15pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '43pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '43pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>L’Utilisateur déclare et reconnaît que toutes les informations, données, textes, messages ou tous les autres contenus qu’il publie au sein de la Plateforme (ci-après “Contributions”) le sont sous son entière et seule responsabilité.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.3pt'}}>
@@ -838,7 +838,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.4pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '12pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '12pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>L’Utilisateur est informé que le montant des frais de livraison pourra être un critère de sélection des Produits, afin d’éviter une éventuelle addition de ces frais.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.2pt'}}>
@@ -982,7 +982,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '2.3pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '19pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '120%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '19pt', marginBottom: '0pt', lineHeight: '120%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>Les frais de livraison définitifs dont devra s’acquitter l’Acheteur lui seront communiqués lors du processus de Commande à l’étape "Livraison de vos achats" ou directement inclus au prix du Produit.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.15pt'}}>
@@ -1081,7 +1081,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.55pt'}}>
       <a/><span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '29pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '29pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>En cas de retard, de non-réception totale ou partielle du (des) Produit(s) commandé(s), l’Acheteur est invité à prendre contact avec le Marchand à compter de la date de livraison convenue afin de traiter le problème.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.2pt'}}>
@@ -1093,7 +1093,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.25pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '11pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '120%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '11pt', marginBottom: '0pt', lineHeight: '120%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>Sans réponse ou en cas de réponse non satisfaisante du Marchand dans les délais permettant l’ouverture d’une Garantie prévus à l’Annexe 1, l’Acheteur peut demander à Tim’s l’ouverture d’une Garantie.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.15pt'}}>
@@ -1381,7 +1381,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '2.3pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '31pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '31pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>L’Acheteur peut à tout moment contacter le Marchand pour connaître la période pendant laquelle ou la date jusqu'à laquelle les pièces détachées indispensables à l'utilisation du Produit sont disponibles.</span>
     </p>
   </div>
@@ -1414,7 +1414,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '2.3pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '28pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '121%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '28pt', marginBottom: '0pt', lineHeight: '121%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>Tout Utilisateur qui ne possède pas de Compte Personnel et qui souhaite recevoir la newsletter de Tim’s doit s’inscrire en ligne. Pour s’inscrire à la newsletter, l’Utilisateur doit renseigner son adresse électronique dans le champ correspondant.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.2pt'}}>
@@ -1591,7 +1591,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '2.3pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '5pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '5pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>Lors de la navigation sur la Plateforme et l’utilisation des Services qui y sont proposés, des données à caractère personnel concernant les Utilisateurs sont collectées et traitées par Tim’s.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.2pt'}}>
@@ -1696,7 +1696,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '2.3pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '13pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '13pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>Les présentes CGU de la Plateforme sont régies par le droit marocain. Elles sont rédigées en langue française. Dans le cas où elles seraient traduites en une ou plusieurs langues, seul le texte français ferait foi en cas de litige.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.25pt'}}>
@@ -1936,7 +1936,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.25pt'}}>
       <span style={{fontFamily: '"MS Gothic"', fontSize: '12pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '28pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '120%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '28pt', marginBottom: '0pt', lineHeight: '120%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>Un service client est par ailleurs accessible du Lundi au Vendredi, de 8h à 20h, au numéro suivant du service client Tim’s disponible, permettant de répondre à toute question ou réclamation des Acheteurs.</span>
     </p>
   </div>
@@ -1975,7 +1975,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '2.3pt'}}>
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '8pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '8pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>L’Acheteur Pro demeure pleinement et personnellement responsable de son utilisation de la Plateforme Tim’s et des Services dans les conditions de droit commun.</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.2pt'}}>
@@ -2011,7 +2011,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '3.5pt'}}>
       <span style={{fontFamily: '"MS Gothic"', fontSize: '12pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '7pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '122%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '7pt', marginBottom: '0pt', lineHeight: '122%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>EN CAS DE FRAUDE, FAUX, DÉCLARATION MENSONGÈRE DE L’UTILISATEUR SUR SA QUALITÉ DE PROFESSIONNEL OU USURPATION D’IDENTITÉ PAR CE</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.1pt'}}>
@@ -2162,7 +2162,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.05pt'}}>
       <span style={{fontFamily: '"MS Gothic"', fontSize: '12pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '15pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '129%', fontSize: '11.5pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '15pt', marginBottom: '0pt', lineHeight: '129%', fontSize: '11.5pt'}}>
       <span style={{fontFamily: 'Verdana'}}>Lorsque le Marchand n’a pas mis en œuvre de solution satisfaisante dans le délai dans lequel il doit agir (cf. “II- Incidents couverts par la Garantie”), la</span>
     </p>
     <p style={{marginTop: '0pt', marginRight: '2pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
@@ -2804,7 +2804,7 @@ function TermsAndConditions() {
       <span style={{fontSize: '10pt'}}>&nbsp;</span>
     </p>
     <ol start={2} style={{margin: '0pt', paddingLeft: '0pt'}}>
-      <li style={{marginRight: '14pt', textAlign: 'justify', lineHeight: '129%', fontFamily: 'Verdana', fontSize: '11.5pt', listStylePosition: 'inside'}}>
+      <li style={{marginRight: '14pt', lineHeight: '129%', fontFamily: 'Verdana', fontSize: '11.5pt', listStylePosition: 'inside'}}>
         L’Acheteur en a informé le Marchand dès que le défaut a été constaté en lui envoyant un message via son Compte Utilisateur et en joignant une/des photographie(s) et/ou une vidéo(s) démontrant l’existence du défaut du
       </li>
     </ol>
@@ -2909,7 +2909,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.6pt'}}>
       <span style={{fontFamily: '"MS Gothic"', fontSize: '12pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '15pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '123%', fontSize: '12pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '15pt', marginBottom: '0pt', lineHeight: '123%', fontSize: '12pt'}}>
       <span style={{fontFamily: 'Verdana'}}>Si aucune de ces solutions n’a été mise en oeuvre par le Marchand à l’issue du délai de sept (7) jours ouvrés, Tim’s clôture la Garantie Béton en faveur de l’Acheteur:</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.05pt'}}>
@@ -3019,7 +3019,7 @@ function TermsAndConditions() {
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '0.1pt'}}>
       <span style={{fontFamily: 'Verdana', fontSize: '12pt'}}>&nbsp;</span>
     </p>
-    <p style={{marginTop: '0pt', marginRight: '10pt', marginBottom: '0pt', textAlign: 'justify', lineHeight: '17.4pt'}}>
+    <p style={{marginTop: '0pt', marginRight: '10pt', marginBottom: '0pt', lineHeight: '17.4pt'}}>
       <span style={{fontFamily: '"MS Gothic"', fontSize: '12pt'}}>●</span><span style={{fontFamily: 'Verdana', fontSize: '12pt'}}> confirmer à l’Acheteur sa demande de rétractation et lui communiquer les instructions pour effectuer le retour du Produit (exemples : fourniture d’une adresse de retour, etc.) ou organiser l’enlèvement et le retour du Produit s’il ne peut être renvoyé normalement par l’Acheteur par voie postale en raison de sa nature ; ou</span>
     </p>
     <p style={{marginTop: '0pt', marginBottom: '0pt', lineHeight: '3pt'}}>

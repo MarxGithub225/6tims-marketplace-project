@@ -33,7 +33,7 @@ function Footer() {
   <div className="themesflat-container">
     <div className="row">
       <FooterAbout/>
-      <div className="col-lg-2 col-md-4 col-sm-5 col-5">
+      <div className="col-lg-2 mb-5 col-md-4 col-sm-5 col-5">
         <div className="widget widget-menu style-1">
           <h5 className="title-widget">Support</h5>
           <ul>
@@ -43,7 +43,7 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="col-lg-2 col-md-4 col-sm-7 col-7">
+      <div className="col-lg-2 mb-5 col-md-4 col-sm-7 col-7">
         <div className="widget widget-menu style-2">
           <h5 className="title-widget">Service Client</h5>
           <ul>
@@ -52,7 +52,7 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="col-lg-2 col-md-4 col-sm-5 col-5">
+      <div className="col-lg-2 mb-5 col-md-4 col-sm-5 col-5">
         <div className="widget widget-menu fl-st-3">
           <h5 className="title-widget">Liens utiles</h5>
           <ul>

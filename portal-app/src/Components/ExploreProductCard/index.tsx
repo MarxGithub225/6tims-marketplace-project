@@ -28,9 +28,12 @@ function ExploreProductCard({product}: CardProps) {
           <h6 className="line-clamp-1"> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</Link> </h6>
         </div>
       </div>
-      <div className="price w-[auto] size500:w-[75px] ">
+      <div className="price w-full flex flex-col items-end size500:w-[75px]">
+      <div className="block size500:hidden"></div>
+        <div className="">
         {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
         <h5> {calculatePrice(product).price} DH</h5>
+        </div>
       </div>
     </div>
   </div>

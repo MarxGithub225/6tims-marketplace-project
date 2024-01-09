@@ -15,6 +15,7 @@ import { useAppDispatch } from "../../../redux/hooks";
 import { Link } from "react-router-dom";
 import { config } from "../../../utilities/helper";
 import Carousel from "react-multi-carousel";
+import { ShoppingCart } from "react-feather";
 
 const responsive = {
   desktop: {
@@ -138,7 +139,7 @@ function HomeHotProducts () {
                 </div>
                 <div className="card-title">
                     <h3 className="line-clamp-1 w-fit"><Link to={`/${product.slug}-${product?._id}.html`}>{product.title}</Link></h3>
-                    {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
+                    {calculatePrice(product).percentage > 0 && <div className="hidden size500:block tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
                 </div>
                 <div className="meta-info style2">
                     <div className="author">
@@ -151,9 +152,13 @@ function HomeHotProducts () {
                         </Link> </h4>
                     </div>
                     </div>
-                    <div className="price w-[auto] size500:w-[75px]">
-                    {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}
-                    <h5> {calculatePrice(product).price} DH</h5>
+                    <div className="price w-full flex flex-col items-end size500:w-[75px]">
+                      <div className="block size500:hidden">
+                      </div>
+                      <div className="">
+                        {(calculatePrice(product).promo && !calculatePrice(product).isBonus) ? <span className="line-through">{calculatePrice(product).oldPrice } DH</span> : <div className="block size500:hidden w-[10px] h-[21px] "></div> }
+                        <h5> {calculatePrice(product).price} DH</h5>
+                      </div>
                     </div>
                 </div>
                 </div>    	

@@ -3350,7 +3350,7 @@ section.today-picks {
 
 /* author-tab -----------------------------------------*/
 .tab-authors .author-profile {
-    background: url("../images/item-background/bg-authors.jpg") no-repeat center;
+    /* background: url("../images/item-background/bg-authors.jpg") no-repeat center; */
     background-size: cover;
     -webkit-border-radius: 12px 12px 0 0;
     -ms-border-radius: 12px 12px 0 0;
@@ -3393,7 +3393,7 @@ section.today-picks {
 }
 
 .tab-authors .author-profile .infor-profile .title {
-    color : #fff;
+    color : #0b1b27;
     margin: 6px 0 12px 0;
 }
 
@@ -3421,13 +3421,13 @@ section.today-picks {
 }
 
 .tab-authors .author-profile .infor-profile span {
-    color      : #EBEBEB;
+    color      : #0b1b27;
     font-size  : 18px;
     line-height: 28px;
 }
 
 .tab-authors .author-profile .infor-profile .content {
-    color        : #f8f8f8;
+    color        : #0b1b27;
     font-size    : 14px;
     line-height  : 22px;
     padding-right: 21%;

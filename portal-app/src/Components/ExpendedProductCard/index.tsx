@@ -29,7 +29,7 @@ function ExpendedProductCard({product}: CardProps) {
     {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
   </div>
   <div className="card-bottom style-explode">
-    <div className="price">
+    <div className="price w-full flex flex-col items-end">
       <div className="price-details">
         <h5> {calculatePrice(product).price} DH</h5>
         {(calculatePrice(product).promo && !calculatePrice(product).isBonus) && <span className="line-through">{calculatePrice(product).oldPrice } DH</span>}

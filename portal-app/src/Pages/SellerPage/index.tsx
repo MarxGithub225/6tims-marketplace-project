@@ -171,7 +171,7 @@ function SellerPage() {
                                         <h6 className="line-clamp-1"> <Link to={`/seller/${product.seller._id}`}>{product.seller.companyInfo.companyName}</Link>  </h6>
                                         </div>
                                     </div>
-                                    {calculatePrice(product).percentage > 0 && <div className="tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
+                                    {calculatePrice(product).percentage > 0 && <div className="hidden size500:block tags w-[49px] ">-{calculatePrice(product).percentage}%</div>}
                                     </div>
                                     <div className="card-bottom style-explode">
                                         <div className="price">
